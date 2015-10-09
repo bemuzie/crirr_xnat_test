@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:j="jelly:core"
+  xmlns:maven="jelly:maven"
+  xmlns:doc="doc"
+  xmlns:ant="jelly:ant">
+
+  <goal name="maven-jdiff-plugin:register">
+    <j:if test="${context.getVariable('maven.mode.online') == null}">
+      <j:set var="maven.mode.online" value="true" />
+    </j:if>
+    <j:if test="${maven.mode.online}">
+      <doc:registerReport 
+        name="JDiff" 
+        pluginName="maven-jdiff-plugin"
+        link="jdiff/changes"
+        target="_blank"
+        description="Report on the api difference report between versions."/>
+    </j:if>
+  </goal>
+  
+  <goal name="maven-jdiff-plugin:deregister">
+    <doc:deregisterReport name="JDiff"/>
+  </goal>
+
+  <!-- ================================================================== -->
+  <!-- P R O J E C T  D O C U M E N T A T I O N                           -->
+  <!-- ================================================================== -->
+      
+  <goal name="maven-jdiff-plugin:report"
+        prereqs="jdiff"
+        description="Generate an api difference report between versions">
+  </goal>
+
+  <goal name="jdiff" prereqs="xdoc:init"
+    description="Generate an api difference report between versions">
+
+    <ant:property name="maven.jdiff.dir" value="${maven.build.dir}/jdiff"/>
+    <ant:mkdir dir="${maven.jdiff.dir}"/>
+
+    <j:set var="docsDest" value="${maven.docs.dest}"/>
+    <j:set var="javadocDestdir"
+      value="${pom.getPluginContext('maven-javadoc-plugin').getVariable('maven.javadoc.destdir')}"/>
+      
+    <ant:property name="maven.jdiff.changes.dir" value="${docsDest}/jdiff"/>    
+    <ant:mkdir dir="${maven.jdiff.changes.dir}"/>
+            
+    <ant:condition property="maven.jdiff.new.current" value="true">
+      <ant:equals arg1="${maven.jdiff.new.tag}" arg2="CURRENT"/>
+    </ant:condition>
+            
+    <ant:condition property="maven.jdiff.old.current" value="true">
+      <ant:equals arg1="${maven.jdiff.old.tag}" arg2="CURRENT"/>
+    </ant:condition>
+
+    <maven:makeRelativePath var="relativeSrcDir" basedir="${basedir}" path="${pom.build.sourceDirectory}" />
+    <j:choose>
+  
+      <j:when test="${maven.jdiff.new.current}">  
+        <ant:property name="maven.jdiff.new.src" value="${relativeSrcDir}"/>
+      </j:when>
+      
+      <j:otherwise>
+        <ant:property name="maven.jdiff.new.dir" value="${maven.jdiff.dir}/${maven.jdiff.new.tag}"/>  
+        <ant:mkdir dir="${maven.jdiff.new.dir}"/>
+
+        <ant:cvs
+          cvsRoot="${pom.repository.cvsRoot}"
+          package="${pom.repository.cvsModule}"
+          dest="${maven.jdiff.new.dir}"
+          tag="${maven.jdiff.new.tag}"
+        />    
+        <ant:property name="maven.jdiff.new.src" 
+          value="${maven.jdiff.new.dir}/${pom.repository.cvsModule}/${relativeSrcDir}"/>
+    
+      </j:otherwise>
+    </j:choose>
+
+    <j:choose>
+  
+      <j:when test="${maven.jdiff.old.current}">
+        <ant:property name="maven.jdiff.old.src" value="${relativeSrcDir}"/>
+      </j:when>
+    
+      <j:otherwise>
+        <ant:property name="maven.jdiff.old.dir" 
+          value="${maven.jdiff.dir}/${maven.jdiff.old.tag}"/>  
+        <ant:mkdir dir="${maven.jdiff.old.dir}"/>
+
+        <ant:cvs
+          cvsRoot="${pom.repository.cvsRoot}"
+          package="${pom.repository.cvsModule}"
+          dest="${maven.jdiff.old.dir}"
+          tag="${maven.jdiff.old.tag}"
+        />
+    
+        <ant:property name="maven.jdiff.old.src" 
+          value="${maven.jdiff.old.dir}/${pom.repository.cvsModule}/${relativeSrcDir}"/>
+      </j:otherwise>
+    </j:choose>
+    
+    <ant:property name="maven.cp.sub" refid="maven-classpath"/>
+    <ant:property name="jdiff.jar" value="${plugin.getDependencyPath('jdiff')}"/>
+    <ant:property name="maven.cp" value="${maven.cp.sub};${jdiff.jar};${java.class.path}"/>
+
+    <ant:property name="baseuri" value="${plugin.dir}"/>
+    
+    <ant:javadoc 
+      sourcepath="${maven.jdiff.old.src}"
+      packagenames="${pom.package}.*">
+      <ant:doclet name="jdiff.JDiff" path="${maven.cp}">
+        <ant:param name="-apiname" value="${maven.jdiff.old.tag}"/>
+        <ant:param name="-baseURI" value="${baseuri}"/>
+      </ant:doclet>
+    </ant:javadoc>    
+
+    <ant:javadoc 
+      packagenames="${pom.package}.*"
+      sourcepath="${maven.jdiff.new.src}">
+      
+      <ant:doclet name="jdiff.JDiff" path="${maven.cp}">
+        <ant:param name="-apiname" value="${maven.jdiff.new.tag}"/>
+        <ant:param name="-baseURI" value="${baseuri}"/>
+      </ant:doclet>
+    </ant:javadoc>    
+    
+    <ant:javadoc 
+      private="yes"
+      destdir="${maven.jdiff.changes.dir}"
+      packagenames="${pom.package}.*"
+      sourcepath="${maven.jdiff.new.src}">
+
+      <ant:doclet name="jdiff.JDiff" path="${maven.cp}">
+        <ant:param name="-stats"/>
+        <ant:param name="-oldapi" value="${maven.jdiff.old.tag}"/>
+        <ant:param name="-newapi" value="${maven.jdiff.new.tag}"/>
+        <ant:param name="-javadocnew" value="${javadocDestdir}/"/>
+      </ant:doclet>      
+
+    </ant:javadoc> 
+    
+   <ant:copy todir="${maven.jdiff.changes.dir}">
+      <ant:fileset dir="${plugin.resources}">
+        <ant:include name="*.gif"/>
+      </ant:fileset>
+    </ant:copy>
+    
+  </goal>
+
+</project>

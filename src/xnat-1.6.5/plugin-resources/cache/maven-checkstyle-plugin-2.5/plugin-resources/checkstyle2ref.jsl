@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<jsl:stylesheet
+  select="$doc"
+  xmlns:j="jelly:core"
+  xmlns:jsl="jelly:jsl"
+  xmlns:util="jelly:util"
+  xmlns:x="jelly:xml"
+  xmlns:doc="doc"
+  xmlns="dummy" trim="true">
+
+  <!-- This needs to be instantiated here to be available in the template matches -->
+  <j:useBean var="mavenTool" class="org.apache.maven.util.MavenTool"/>
+  <j:useBean var="htmlescape" class="org.apache.velocity.anakia.Escape"/>
+  <j:useBean var="fileutil" class="org.apache.velocity.texen.util.FileUtil"/>
+  <j:useBean var="pathtool" class="org.apache.maven.util.DVSLPathTool"/>
+
+  <jsl:template match="checkstyle">
+
+    <rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:admin="http://webns.net/mvcb/">
+
+      <channel rdf:about="${pom.url}">
+      <title>Checkstyle report for ${pom.name}</title>
+      <link>${pom.url}/checkstyle-report.html</link>
+      <description>Checkstyle report for ${pom.name}</description>
+      <dc:language>en-us</dc:language>
+      <dc:creator></dc:creator>
+      <dc:date>2004-03-19T00:00:00+00:00</dc:date>
+      <admin:generatorAgent rdf:resource="${pom.url}"/>
+      <image>
+        <title>Checkstyle report for ${pom.name}</title>
+        <url>${pom.logo}</url>
+        <link>${pom.url}</link>
+        <description>Checkstyle report for ${pom.name}</description>
+      </image>
+
+      <items>
+        <rdf:Seq>
+
+problem: idealement il faudrait uniquement une entree par report checkstyle
+et pas une entree par erreur de report.
+
+      <j:set var="fileCount"><x:expr select="count(file)"/></j:set>
+      <j:set var="infoCount"><x:expr select="count(file/error[@severity='info'])"/></j:set>
+      <j:set var="warningCount"><x:expr select="count(file/error[@severity='warning'])"/></j:set>
+      <j:set var="errorCount"><x:expr select="count(file/error[@severity='error'])"/></j:set>        
+      <description>[${fileCount}] file [${errorCount}] errors [${warningCount}] warnings [${infoCount} infos</description>
+
+
+        <section name="Summary">
+          <j:set var="fileCount"><x:expr select="count(file)"/></j:set>
+          <j:set var="infoCount"><x:expr select="count(file/error[@severity='info'])"/></j:set>
+          <j:set var="warningCount"><x:expr select="count(file/error[@severity='warning'])"/></j:set>
+          <j:set var="errorCount"><x:expr select="count(file/error[@severity='error'])"/></j:set>        
+          <table summary="Report summary">
+            <thead>
+              <tr>
+                <th>Files</th>
+                <th style="width:75px">Infos</th>
+                <th style="width:75px">Warnings</th>
+                <th style="width:75px">Errors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><doc:formatAsNumber string="${fileCount}" pattern="0"/></td>
+                <td><doc:formatAsNumber string="${infoCount}" pattern="0"/></td>
+                <td><doc:formatAsNumber string="${warningCount}" pattern="0"/></td>
+                <td><doc:formatAsNumber string="${errorCount}" pattern="0"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section name="Files">
+          <table summary="Files">
+            <thead>
+              <tr>
+                <th>Files</th>
+                <th style="width:30px">I</th>
+                <th style="width:30px">W</th>
+                <th style="width:30px">E</th>
+              </tr>
+            </thead>
+            <tbody>
+              <j:set var="fullSrcDir" value="${pom.build.sourceDirectory}"/>
+              <j:set var="srcDir" value="${fileutil.file(fullSrcDir).getCanonicalPath()}"/>
+              <j:set var="srcDirLength" value="${srcDir.length() + 1}"/>
+              <x:set var="files" select="file" sort="@name"/>
+              <!-- x:forEach is busted -->
+              <j:forEach var="file" items="${files}">
+                <!-- Type coercion doesn't work worth a fuck in jexl. -->
+                <j:set var="name" value="${file.attribute('name').getValue()}"/>
+                <j:set var="name" value="${name.substring(mavenTool.toInteger(srcDirLength.toString()))}"/>
+                <util:replace var="name" value="${name}" oldChar="\\" newChar="/"/>
+                <!--- +1 is for the trailing slash above -->
+                <j:set var="infoCount"><x:expr select="count($file/error[@severity='info'])"/></j:set>
+                <j:set var="warningCount"><x:expr select="count($file/error[@severity='warning'])"/></j:set>
+                <j:set var="errorCount"><x:expr select="count($file/error[@severity='error'])"/></j:set>
+                
+                <j:if test="${errorCount + warningCount + infoCount != 0}">
+                  <tr>
+                    <td>
+                      <a href="#${name}">${name}</a>
+                    </td>
+                    <td><doc:formatAsNumber string="${infoCount}" pattern="0"/></td>
+                    <td><doc:formatAsNumber string="${warningCount}" pattern="0"/></td>
+                    <td><doc:formatAsNumber string="${errorCount}" pattern="0"/></td>
+                  </tr>
+                </j:if>
+              </j:forEach>
+            </tbody>
+          </table>
+
+          <j:forEach var="file" items="${files}">
+            <x:set var="errorCount" select="count($file/error)"/>
+            <j:if test="${errorCount != 0}">
+              <j:set var="name" value="${file.attribute('name').getValue()}"/>
+              <j:set var="name" value="${name.substring(mavenTool.toInteger(srcDirLength.toString()))}"/>
+              <util:replace var="name" value="${name}" oldChar="\\" newChar="/"/>
+              
+              <subsection name="${name}">
+                <table summary="Error details for ${name}">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Error</th>                   
+                      <th style="width:20px">Line</th>
+                    </tr>
+                  </thead>
+                  <x:set var="errors" select="$file/error"/>
+                  <j:forEach var="error" items="${errors}">
+                    <tbody>
+                      <tr>
+                        <td style="width:20px">
+                          <j:set var="severity" value="${error.attribute('severity').getValue()}"/>
+                          <j:choose>
+                            <j:when test="${severity == 'error'}">
+                              <img src="images/icon_error_sml.gif" width="15" height="15" alt="Error" />
+                            </j:when>
+                            <j:when test="${severity == 'warning'}">
+                              <img src="images/icon_warning_sml.gif" width="15" height="15" alt="Warning" />
+                            </j:when>
+                            <j:when test="${severity == 'info'}">
+                              <img src="images/icon_info_sml.gif" width="15" height="15" alt="Info" />
+                            </j:when>
+                          </j:choose>
+                        </td>  
+                        <td>
+                          <j:set var="errorMessage" value="${error.attribute('message').getValue()}"/>
+                          ${htmlescape.getText(errorMessage)}
+                        </td>                    
+                        <td>
+                          <j:set var="line" value="${error.attribute('line').getValue()}"/>
+                          <j:set var="lastIndex" value="${name.lastIndexOf('.java')}"/>
+                          <j:choose>
+                            <j:when test="${lastIndex > 0}">
+                              <j:set var="index" value="${mavenTool.toInteger(lastIndex.toString())}"/>
+                              <j:set var="nameWithoutJavaExtension" value="${name.substring(0, index)}"/>
+                              <util:replace var="nameWithoutJavaExtension" value="${nameWithoutJavaExtension}" oldChar="\\" newChar="/"/>
+                              <a href="xref/${nameWithoutJavaExtension}.html#${line}">${line}</a>
+                            </j:when>
+                            <j:otherwise>
+                              ${line}
+                            </j:otherwise>
+                          </j:choose>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </j:forEach>
+                </table>
+              </subsection>
+            </j:if>
+          </j:forEach>
+        </section>
+      </body>
+    </document>
+  </jsl:template>
+</jsl:stylesheet>

@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+    
+<jsl:stylesheet
+    select="$doc"
+    xmlns:j="jelly:core"
+    xmlns:jsl="jelly:jsl"
+    xmlns:x="jelly:xml"
+    xmlns:doc="doc"
+    xmlns="dummy" trim="false">
+    
+    <jsl:template match="document">
+        <document>
+            <jsl:applyTemplates select="*"/>  
+        </document>
+    </jsl:template>
+    
+    <jsl:template match="body" trim="false">
+        <body>
+            <!-- Index of releases -->
+            <section name="Release History">
+                <table>
+                    <tr><th style='width:50px'>Version</th><th>Date</th><th>Description</th></tr>
+                    <x:forEach select="release">
+                        <tr>
+                            <j:set var="version"><x:expr select="@version"/></j:set>
+                            <j:set var="date"><x:expr select="@date"/></j:set>
+                            <j:set var="description"><x:expr select="@description"/></j:set>
+                            <j:set var="anchorName"><doc:escapeNameToken value="${version}"/></j:set>
+                            <td><a href="#${anchorName}">${version}</a></td>
+                            <td>${date}</td>
+                            <td>${description}</td>
+                        </tr>
+                    </x:forEach>
+                </table>
+                <p>Get the RSS feed of the last changes <a href="changes.rss"><img src="images/rss.png"/></a></p>
+            </section>
+            <!-- Release information -->
+            <jsl:applyTemplates select="*"/>
+        </body>
+    </jsl:template>
+
+    <jsl:template match="release">
+      <j:set var="sectionName">Release <x:expr select="@version"/> - <x:expr select="@date"/></j:set>
+      <j:set var="version"><x:expr select="@version"/></j:set>
+      <section name="${sectionName}">
+        <j:set var="anchorName"><doc:escapeNameToken value="${version}"/></j:set>
+        <a name="${anchorName}"/>
+        <table>
+          <tr><th style='width:50px'>Type</th><th>Changes</th><th style='width:70px'>By</th></tr>             
+          <jsl:applyTemplates select="*"/>
+        </table>
+      </section>
+    </jsl:template>
+
+    <jsl:template match="action">
+      <j:set var="type"><x:expr select="@type"/></j:set>
+      <j:set var="dev"><x:expr select="@dev"/></j:set>
+      <j:set var="issue"><x:expr select="@issue"/></j:set>
+      <j:set var="dueto"><x:expr select="@due-to"/></j:set>
+      <j:set var="duetoemail"><x:expr select="@due-to-email"/></j:set>
+      <tr>
+        <td><img src="images/${type}.gif" alt="${type}" title="${type}"/></td>
+        <td>
+          <jsl:applyTemplates trim="false"/>
+
+          <j:if test="${issue != ''}">
+            <j:useBean var="finder" class="org.apache.maven.changes.IssueFinder"/>
+            <j:set var="template" value="${maven.changes.issue.template}"/>
+            <j:set var="trackerURL" value="${pom.issueTrackingUrl}"/>
+            Fixes <a href="${finder.getIssueURL(trackerURL,issue,template)}">${issue}</a>.
+          </j:if>
+
+          <j:if test="${dueto != ''}">
+            <j:choose>
+              <j:when test="${duetoemail != ''}">
+                Thanks to <a href="mailto:${duetoemail}">${dueto}</a>.
+              </j:when>
+              <j:otherwise>
+                Thanks to ${dueto}.
+              </j:otherwise>
+            </j:choose>
+          </j:if>
+
+        </td>
+        <td><a href="team-list.html#${dev}">${dev}</a></td>
+      </tr>               
+    </jsl:template>
+
+    <jsl:template match="*">
+      <jsl:copy trim="false">
+        <jsl:applyTemplates trim="false"/>
+      </jsl:copy>
+    </jsl:template>
+
+   <!-- element values don't pass through as text -->
+   <jsl:template match="@*"/>
+
+   <!-- CDATA and text nodes pass-thru -->
+   <jsl:template match="text()">
+     <x:expr select="."/>
+   </jsl:template>
+
+</jsl:stylesheet>

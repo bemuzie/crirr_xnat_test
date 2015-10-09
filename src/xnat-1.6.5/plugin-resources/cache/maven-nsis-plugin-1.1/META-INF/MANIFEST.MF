@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.5.3 
+Created-By: Apache Maven
+Built-By: Dion Gillard
+Package: org.apache.maven
+Build-Jdk: 1.3.1_07
+Extension-Name: maven-nsis-plugin
+Specification-Title: NSIS Plugin for Maven
+Specification-Vendor: 
+Implementation-Title: org.apache.maven
+Implementation-Vendor: 
+Implementation-Version: 1.1
+

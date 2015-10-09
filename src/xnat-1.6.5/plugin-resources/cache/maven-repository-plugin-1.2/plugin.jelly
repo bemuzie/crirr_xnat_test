@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:ant="jelly:ant"
+  xmlns:define="jelly:define"
+  xmlns:dummy="dummy"
+  xmlns:j="jelly:core"
+  xmlns:maven="jelly:maven"
+  xmlns:repository="repository"
+  xmlns:u="jelly:util"
+  xmlns:x="jelly:xml">
+
+  <define:taglib uri="repository">
+  
+    <!--
+     ! tag for executing a command on the remote repo
+     ! @param command the command to execute
+     !-->
+    <define:tag name="exec">
+       <!-- allow either command attribute or use body of exec tag -->
+       <j:if test="${empty(command)}">
+         <j:set var="command" trim="yes"><define:invokeBody/></j:set>
+       </j:if>
+       <echo>Executing '${command}' remotely</echo>
+       <exec dir="." executable="${maven.ssh.executable}">
+         <arg line='${maven.repo.central} -l ${maven.username} "${command}"'/>
+       </exec>
+    </define:tag>
+    
+    <!--
+     ! parse the locally available repository audit file
+     ! and make it available to the caller via a variable 
+     ! @param var the name of the variable
+     !-->
+    <define:tag name="parseAudit">
+      <u:file name="${plugin.resources}/repository-audit.xml" var="auditFile" />
+      <x:parse xml="${auditFile}" var="audit" />
+      <!-- make available to caller -->
+      <j:set var="${var}" scope="parent" value="${audit}"/>
+    </define:tag>
+
+    <!--
+     ! copy a local file to the remote repository
+     ! @param from the local file to copy
+     ! @param toFileOrDir the remote directory or file to copy to
+     !-->
+    <define:tag name="copy">
+      <u:file name="${from}" var="fromFile"/>
+      <echo>Copying '${fromFile.canonicalFile.name}' in '${fromFile.canonicalFile.parent}' to directory '${toFileOrDir}'</echo>
+      <exec dir="${fromFile.canonicalFile.parent}" executable="${maven.scp.executable}">
+        <arg value="${fromFile.canonicalFile.name}"/>
+        <arg value="${maven.username}@${maven.repo.central}:${toFileOrDir}/"/>
+      </exec>
+    </define:tag>
+
+    <!--
+     ! copy a license file from a URL the remote repository
+     ! @param url the license file to copy
+     ! @param groupId the groupId the license is for
+     !-->
+    <define:tag name="copyLicense">
+      <repository:urlFileName var="fileName" url="${url}" />
+                    
+      <j:set var="localFileName">${systemScope['java.io.tmpdir']}${fileName}</j:set>
+         
+      <delete file="${localFileName}"/>
+      <get src="${url}" dest="${localFileName}"/>
+     
+      <!-- copy the license --> 
+      <j:set var="directory" value="${maven.repo.central.directory}/${groupId}/licenses/" />
+      <repository:copy from="${localFileName}" toFileOrDir="${directory}" />
+
+      <repository:setGroup var="group" />
+         
+      <!-- set permissions -->
+      <echo>Setting permissions and group ownership in ${directory}'</echo>
+      <repository:exec>
+        cd ${directory};
+        rm ${groupId}.license;
+        ln -s ${fileName} ${groupId}.license;
+        chmod -R g+w,a+r ${fileName};
+        chgrp -R ${group} *;
+      </repository:exec>
+    </define:tag>
+
+    <!--
+     ! Get the remote group into a variable from a property.
+     ! This can be removed and inlined once maven.repository.group is removed.
+     ! @param var the variable to place the filename into
+     !-->
+    <define:tag name="setGroup">
+      <j:set var="${var}" value="${maven.remote.group}" scope="parent" />
+      <j:if test="${context.getVariable('maven.repository.group') != null}">
+        <ant:echo>DEPRECATED: please use maven.remote.group instead of maven.repository.group</ant:echo>
+        <j:set var="${var}" value="${maven.repository.group}" scope="parent" />
+      </j:if>
+    </define:tag>
+
+    <!--
+     ! place the file name portion of a url into a variable
+     ! @param url the URL to process
+     ! @param var the variable to place the filename into
+     !-->
+    <define:tag name="urlFileName">
+      <u:tokenize var="preQuery" delim="?">${url}</u:tokenize>
+      <u:tokenize var="preHash" delim="#">${preQuery[0]}</u:tokenize>
+      <u:tokenize var="slashes" delim="/">${preHash[0]}</u:tokenize>
+      <j:set var="${var}" scope="parent" value="${slashes[size(slashes)-1]}" />
+    </define:tag>
+
+    <!--
+     ! set a variable called ${var} with the snapshot version
+     ! of the given file
+     ! @file  the file to extract the snapshot version from
+     ! @var   the variable name to store the result in
+     !-->
+    <define:tag name="snapshotVersion">
+      <!-- artifact is format blah-blah-blah-yyyymmdd.hhmmss.jar -->
+      <u:tokenize var="jarDotBits" delim="-">${file}</u:tokenize>
+      <u:tokenize var="snapAndJar" delim=".">${jarDotBits[size(jarDotBits)-1]}</u:tokenize>
+      <j:set var="${var}" value="${snapAndJar[0]}.${snapAndJar[1]}" scope="parent"/>
+    </define:tag>
+
+  </define:taglib>
+
+  <goal name="create-upload-bundle">
+    <!-- Create the artifact in question. -->
+    <attainGoal name="jar:jar"/>
+    
+    <!-- Delete/create the bundle holding tank -->
+    <ant:delete dir="${maven.build.dir}/bundle"/>
+    <ant:mkdir dir="${maven.build.dir}/bundle"/>
+    
+    <!-- Copy in the artifact -->
+    <ant:copy file="${maven.build.dir}/${maven.final.name}.jar" todir="${maven.build.dir}/bundle"/>
+    
+    <!-- Copy in the POM -->
+    <ant:copy file="${basedir}/project.xml" todir="${maven.build.dir}/bundle"/>
+    
+    <!-- Copy in the license, if there is no license this will fail. -->
+    <ant:copy file="${basedir}/LICENSE.txt" todir="${maven.build.dir}/bundle"/>
+    
+    <ant:jar 
+      jarfile="${maven.build.dir}/${maven.final.name}-bundle.jar"
+      basedir="${maven.build.dir}/bundle"/>
+    
+  </goal>
+
+  <goal name="repository:audit-create-licenses"
+    description="create the license directories, for all groups in the audit file, in the repository">
+    
+    <j:set var="directoryName" value="licenses"/>
+    <attainGoal name="repository:audit-create-directory" />    
+  </goal>
+
+  <goal name="repository:audit-create-directory"
+    description="create the directory, specified by directoryName, for all groups in the audit file">
+    <!--
+     ! parse audit file
+     ! run ssh to create each <groupId>/licenses directory.
+     !-->
+    <maven:param-check value="${directoryName}" fail="true" message="'directoryName' must be specified"/>
+    <repository:parseAudit var="audit"/>
+    <!-- see if the user specified a starting project -->
+    <j:set var="processing" value="true" />
+    <j:if test="${!empty(startProject)}">
+      <j:set var="processing" value="false"/>
+    </j:if>
+    
+    <x:forEach var="group" select="$audit/licenses/project/groupId">
+      <echo>Processing project ${group.text}</echo>
+      <j:if test="${!processing and group.text.equals(startProject)}">
+        <j:set var="processing" value="true"/>
+      </j:if>
+
+      <j:if test="${processing}">
+        <j:set var="directory" 
+          value="${maven.repo.central.directory}/${group.text}/${directoryName}" />
+        <echo>Ensuring directory '${directory}' exists</echo>
+        <repository:setGroup var="group" />
+        <repository:exec 
+          command="mkdir -p ${directory};chmod g+ws ${directory};chgrp ${group} ${directory};" />
+      </j:if>
+    </x:forEach>
+  </goal>
+  
+  <goal name="repository:audit-copy-licenses"
+      description="copy all licenses in the audit file to the repository">
+    <!--
+     ! parse audit file
+     ! get the file (using http) and copy to <groupId>/licenses directory.
+     !-->
+     <repository:parseAudit var="audit"/>
+
+     <!-- see if the user specified a starting project -->
+     <j:set var="processing" value="true" />
+     <j:if test="${!empty(startProject)}">
+       <j:set var="processing" value="false"/>
+     </j:if>
+    
+     <x:forEach var="project" select="$audit/licenses/project">
+       <j:set var="group"><x:expr select="$project/groupId"/></j:set>
+       <echo>Processing project ${group}</echo>
+       <j:if test="${!processing and group.equals(startProject)}">
+         <j:set var="processing" value="true"/>
+       </j:if>
+       <!-- get file and don't let the &amp; get reescaped -->
+       <x:set var="xfile" select="string($project/file)" />
+       <j:set var="file" value="${xfile}"/>
+       
+       <j:if test="${file != '' and processing}">
+           <repository:copyLicense url="${file}" groupId="${group}" />
+       </j:if>
+     </x:forEach>
+  </goal>
+
+  <goal name="repository:audit-rename-licenses"
+      description="rename/link all licenses from their original name to ${groupId}.license">
+
+     <repository:parseAudit var="audit"/>
+
+     <!-- see if the user specified a starting project -->
+     <j:set var="processing" value="true" />
+     <j:if test="${!empty(startProject)}">
+       <j:set var="processing" value="false"/>
+     </j:if>
+    
+     <x:forEach var="project" select="$audit/licenses/project">
+       <j:set var="group"><x:expr select="$project/groupId"/></j:set>
+       <echo>Processing project ${group}</echo>
+       <j:if test="${!processing and group.equals(startProject)}">
+         <j:set var="processing" value="true"/>
+       </j:if>
+       <j:set var="directory" value="${maven.repo.central.directory}/${group}/licenses/" />
+       <!-- get file and don't let the &amp; get reescaped -->
+       <x:set var="xfile" select="string($project/file)" />
+       <j:set var="file" value="${xfile}"/>
+       
+       <j:if test="${file != '' and processing}">
+         <repository:urlFileName url="${file}" var="fileName"/>
+         <repository:exec>
+           cd ${directory};
+           ln -s ${fileName} ${group}.license;
+         </repository:exec>
+       </j:if>
+     </x:forEach>
+  </goal>
+
+  <!-- expects groupId to be set -->
+  <goal name="repository:audit-copy-license"
+    description="copy the license for the specified groupId to the repository">
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+
+    <!--
+     ! parse audit file
+     ! get the file (using http) and copy to <groupId>/licenses directory.
+     !-->
+     <repository:parseAudit var="audit"/>
+     
+     <x:forEach var="project" select="$audit/licenses/project">
+       <j:set var="group"><x:expr select="$project/groupId"/></j:set>
+       <j:if test="${group.equals(groupId)}">
+       
+         <echo>Copying license for ${group}</echo>
+         <!-- get file and don't let the &amp; get reescaped -->
+         <x:set var="xfile" select="string($project/file)" />
+         <j:set var="file" value="${xfile}"/>
+       
+         <j:if test="${file != ''}">
+           <repository:copyLicense url="${file}" groupId="${group}" />
+         </j:if>
+
+       </j:if>
+     </x:forEach>
+  </goal>
+
+  <goal name="repository:audit-generate-pom"
+    description="generate a pom for the groupId provided, based on the audit file">
+
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+
+    <repository:parseAudit var="audit"/>
+     <x:forEach var="project" select="$audit/licenses/project">
+       <j:set var="group"><x:expr select="$project/groupId"/></j:set>
+       <j:if test="${group.equals(groupId)}">
+       
+         <ant:echo>Creating pom for ${group}</ant:echo>
+         <x:set var="url" select="string($project/url)"/>
+         <x:set var="comments" select="string($project/comments)"/>
+         <!-- get file and don't let the &amp; get reescaped -->
+         <x:set var="xfile" select="string($project/file)" />
+         <j:file name="${maven.build.dir}/${group}.pom" prettyPrint="yes">
+           <j:import file="${plugin.resources}/pom-template.jelly" inherit="true"/>
+         </j:file>
+       </j:if>
+     </x:forEach>
+  </goal>
+
+  <goal name="repository:audit-generate-poms"
+    description="generate a pom for all the groupId's in the audit file">
+
+    <repository:parseAudit var="audit"/>
+     <x:forEach var="project" select="$audit/licenses/project">
+       <j:set var="group"><x:expr select="$project/groupId"/></j:set>
+       <j:set var="groupId" value="${group}"/>
+       <ant:echo>Creating pom for ${group}</ant:echo>
+       <x:set var="url" select="string($project/url)"/>
+       <x:set var="comments" select="string($project/comments)"/>
+         <!-- get file and don't let the &amp; get reescaped -->
+       <x:set var="xfile" select="string($project/file)" />
+       <j:file name="${maven.build.dir}/${group}.pom" prettyPrint="yes">
+         <j:import file="${plugin.resources}/pom-template.jelly" inherit="true"/>
+       </j:file>
+     </x:forEach>
+  </goal>
+
+  <!-- expects groupId to be set -->
+  <goal name="repository:create-project"
+    description="create a project, specified by groupId, in the repository">
+
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+
+    <repository:setGroup var="group" />
+    <repository:exec>
+      cd ${maven.repo.central.directory};
+      mkdir ${groupId};
+      chgrp ${group} ${groupId};
+      chmod g+s ${groupId};
+      mkdir ${groupId}/distributions;
+      mkdir ${groupId}/jars;
+      mkdir ${groupId}/licenses;
+      mkdir ${groupId}/poms;
+      chmod g+ws ${groupId};
+      chmod -R g+w,a+r ${groupId};
+    </repository:exec>
+  </goal>
+
+  <!-- expects groupId to be set -->
+  <goal name="repository:delete-project"
+    description="delete a project, specified by groupId, in the repository">
+    
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+
+    <repository:exec>
+      cd ${maven.repo.central.directory};
+      rm -rf ${groupId};
+    </repository:exec>
+  </goal>
+  
+  <!-- 
+   ! this is pretty much a copy of whats in jar:deploy-snapshot, except
+   ! this uses any old file for copying, not just the output of the project
+   !-->
+  <goal name="repository:copy-snapshot-jar"
+    description="copy a snapshot jar, specified by groupId and artifact, to the repository">
+    
+    <maven:param-check value="${artifact}" fail="true" message="'artifact' must be specified"/>
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+
+    <j:if test="${empty(artifactId)}">
+      <j:set var="artifactId">${groupId}</j:set>
+    </j:if>
+
+    <repository:snapshotVersion var="snapshotVersion" file="${artifact}" />
+    <echo>snapshotVersion = '${snapshotVersion}'</echo>
+
+    <attainGoal name="repository:copy-jar" />
+    
+    <j:set var="directory" value="${maven.repo.central.directory}/${groupId}/jars/" />
+
+    <u:file name="${artifact}" var="artifactFile"/>
+    <j:set var="artifactName">${artifactFile.canonicalFile.name}</j:set>
+
+    <echo>Setting up SNAPSHOT entries</echo>
+    <repository:setGroup var="group" />
+    <repository:exec>
+      cd ${directory};
+      ln -sf ${artifactName} ${artifactId}-SNAPSHOT.jar;
+      ln -sf ${artifactName}.md5 ${artifactId}-SNAPSHOT.jar.md5;
+      echo ${snapshotVersion} | tee ${artifactId}-snapshot-version;
+      chgrp ${group} ${artifactId}-SNAPSHOT.jar*;
+      chmod g+w,a+r ${artifactId}-SNAPSHOT.jar*;
+    </repository:exec>
+  </goal>
+
+  <!-- 
+   ! this uses any old file for copying
+   !-->
+  <goal name="repository:copy-jar"
+    description="copy a jar, specified by groupId and artifact, to the repository">
+
+    <maven:param-check value="${artifact}" fail="true" message="'artifact' must be specified"/>
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+
+    <j:set var="type" value="jar" />
+    
+    <attainGoal name="repository:copy-artifact" />
+  </goal>
+
+  <!-- 
+   ! this uses any old file for copying
+   !-->
+  <goal name="repository:copy-artifact"
+    description="copy an artifact, specified by groupId, artifact and type, to the repository">
+
+    <maven:param-check value="${artifact}" fail="true" message="'artifact' must be specified"/>
+    <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+    <maven:param-check value="${type}" fail="true" message="'type' must be specified" />
+
+    <j:set var="directory" value="${maven.repo.central.directory}/${groupId}/${type}s/" />
+    <repository:setGroup var="group" />
+    <repository:exec command="mkdir -p ${directory}; chmod g+ws ${directory}; chgrp ${group} ${directory}"/>
+    <repository:copy from="${artifact}" toFileOrDir="${directory}" />
+
+    <u:file name="${artifact}" var="artifactFile"/>
+    <j:set var="artifactName">${artifactFile.canonicalFile.name}</j:set>
+
+    <repository:exec>
+      cd ${directory};
+      md5sum ${artifactName} | sed 's/ .*$//' | tee ${artifactName}.md5;
+      chgrp ${group} *;
+      chmod g+w,a+r *;
+    </repository:exec>
+  </goal>
+  
+</project>

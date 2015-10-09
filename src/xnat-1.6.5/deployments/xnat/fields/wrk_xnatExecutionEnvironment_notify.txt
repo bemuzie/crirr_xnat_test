@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_wrk_xnatExecutionEnvironment_notify_r
+(ACTIVE - MULTIPLE - ROOT)
+
+wrk:xnatExecutionEnvironment_notify/notify                                                          wrk_xnatExecutionEnvironment_notify0		wrk_xnatExecutionEnvironment_notify.notify
+wrk:xnatExecutionEnvironment_notify/xnatexecutionenvironment_notify_info                            wrk_xnatExecutionEnvironment_notify1		wrk_xnatExecutionEnvironment_notify.xnatexecutionenvironment_notify_info
+wrk:xnatExecutionEnvironment_notify/wrk_xnatExecutionEnvironment_notify_id                          wrk_xnatExecutionEnvironment_notify2		wrk_xnatExecutionEnvironment_notify.wrk_xnatexecutionenvironment_notify_id
+wrk:xnatExecutionEnvironment_notify/wrk_xnatexecutionenvironment_wrk_abstractexecutionenvironmen    wrk_xnatExecutionEnvironment_notify3		wrk_xnatExecutionEnvironment_notify.wrk_xnatexecutionenvironment_wrk_abstractexecutionenvironmen
+wrk:xnatExecutionEnvironment_notify/meta/xft_version                                                wrk_xnatExecutionEnvironment_notify_meta_data4		wrk_xnatExecutionEnvironment_notify_meta_data.xft_version
+wrk:xnatExecutionEnvironment_notify/meta/last_modified                                              wrk_xnatExecutionEnvironment_notify_meta_data5		wrk_xnatExecutionEnvironment_notify_meta_data.last_modified
+wrk:xnatExecutionEnvironment_notify/meta/status                                                     wrk_xnatExecutionEnvironment_notify_meta_data6		wrk_xnatExecutionEnvironment_notify_meta_data.status
+wrk:xnatExecutionEnvironment_notify/meta/activation_date                                            wrk_xnatExecutionEnvironment_notify_meta_data7		wrk_xnatExecutionEnvironment_notify_meta_data.activation_date
+wrk:xnatExecutionEnvironment_notify/meta/row_last_modified                                          wrk_xnatExecutionEnvironment_notify_meta_data8		wrk_xnatExecutionEnvironment_notify_meta_data.row_last_modified
+wrk:xnatExecutionEnvironment_notify/meta/insert_date                                                wrk_xnatExecutionEnvironment_notify_meta_data9		wrk_xnatExecutionEnvironment_notify_meta_data.insert_date
+wrk:xnatExecutionEnvironment_notify/meta/activation_user_xdat_user_id                               wrk_xnatExecutionEnvironment_notify_meta_data10		wrk_xnatExecutionEnvironment_notify_meta_data.activation_user_xdat_user_id
+wrk:xnatExecutionEnvironment_notify/meta/insert_user_xdat_user_id                                   wrk_xnatExecutionEnvironment_notify_meta_data11		wrk_xnatExecutionEnvironment_notify_meta_data.insert_user_xdat_user_id
+wrk:xnatExecutionEnvironment_notify/meta/origin                                                     wrk_xnatExecutionEnvironment_notify_meta_data12		wrk_xnatExecutionEnvironment_notify_meta_data.origin
+wrk:xnatExecutionEnvironment_notify/meta/modified                                                   wrk_xnatExecutionEnvironment_notify_meta_data13		wrk_xnatExecutionEnvironment_notify_meta_data.modified
+wrk:xnatExecutionEnvironment_notify/meta/shareable                                                  wrk_xnatExecutionEnvironment_notify_meta_data14		wrk_xnatExecutionEnvironment_notify_meta_data.shareable
+wrk:xnatExecutionEnvironment_notify/meta/meta_data_id                                               wrk_xnatExecutionEnvironment_notify_meta_data15		wrk_xnatExecutionEnvironment_notify_meta_data.meta_data_id

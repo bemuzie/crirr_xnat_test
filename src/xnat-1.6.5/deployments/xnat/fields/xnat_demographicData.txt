@@ -1,0 +1,61 @@
+
+
+*********************************************
+
+ac_s_xnat_demographicData_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:demographicData/xnat_abstractdemographicdata_id                                                xnat_demographicData0		xnat_abstractDemographicData.xnat_abstractdemographicdata_id
+xnat:demographicData/dob                                                                            xnat_demographicData1		xnat_demographicData.dob
+xnat:demographicData/yob                                                                            xnat_demographicData2		xnat_demographicData.yob
+xnat:demographicData/age                                                                            xnat_demographicData3		xnat_demographicData.age
+xnat:demographicData/gender                                                                         xnat_demographicData4		xnat_demographicData.gender
+xnat:demographicData/handedness                                                                     xnat_demographicData5		xnat_demographicData.handedness
+xnat:demographicData/ses                                                                            xnat_demographicData6		xnat_demographicData.ses
+xnat:demographicData/employment                                                                     xnat_demographicData7		xnat_demographicData.employment
+xnat:demographicData/education                                                                      xnat_demographicData8		xnat_demographicData.education
+xnat:demographicData/educationDesc                                                                  xnat_demographicData9		xnat_demographicData.educationdesc
+xnat:demographicData/race                                                                           xnat_demographicData10		xnat_demographicData.race
+xnat:demographicData/race2                                                                          xnat_demographicData11		xnat_demographicData.race2
+xnat:demographicData/race3                                                                          xnat_demographicData12		xnat_demographicData.race3
+xnat:demographicData/race4                                                                          xnat_demographicData13		xnat_demographicData.race4
+xnat:demographicData/race5                                                                          xnat_demographicData14		xnat_demographicData.race5
+xnat:demographicData/race6                                                                          xnat_demographicData15		xnat_demographicData.race6
+xnat:demographicData/ethnicity                                                                      xnat_demographicData16		xnat_demographicData.ethnicity
+xnat:demographicData/weight                                                                         xnat_demographicData17		xnat_demographicData.weight
+xnat:demographicData/weight/units                                                                   xnat_demographicData18		xnat_demographicData.weight_units
+xnat:demographicData/height                                                                         xnat_demographicData19		xnat_demographicData.height
+xnat:demographicData/height/units                                                                   xnat_demographicData20		xnat_demographicData.height_units
+xnat:demographicData/gestational_age                                                                xnat_demographicData21		xnat_demographicData.gestational_age
+xnat:demographicData/post_menstrual_age                                                             xnat_demographicData22		xnat_demographicData.post_menstrual_age
+xnat:demographicData/birth_weight                                                                   xnat_demographicData23		xnat_demographicData.birth_weight
+xnat:demographicData/demographicdata_info                                                           xnat_demographicData24		xnat_demographicData.demographicdata_info
+xnat:demographicData/abstractDemographicData/extension                                              xnat_abstractDemographicData25		xnat_abstractDemographicData.extension
+xnat:demographicData/abstractDemographicData/abstractdemographicdata_info                           xnat_abstractDemographicData26		xnat_abstractDemographicData.abstractdemographicdata_info
+xnat:demographicData/abstractDemographicData/xnat_abstractDemographicData_id                        xnat_abstractDemographicData27		xnat_abstractDemographicData.xnat_abstractdemographicdata_id
+xnat:demographicData/abstractDemographicData/extension_item/element_name                            xdat_meta_element28		xdat_meta_element.element_name
+xnat:demographicData/abstractDemographicData/extension_item/xdat_meta_element_id                    xdat_meta_element29		xdat_meta_element.xdat_meta_element_id
+xnat:demographicData/abstractDemographicData/meta/xft_version                                       xnat_abstractDemographicData_meta_data30		xnat_abstractDemographicData_meta_data.xft_version
+xnat:demographicData/abstractDemographicData/meta/last_modified                                     xnat_abstractDemographicData_meta_data31		xnat_abstractDemographicData_meta_data.last_modified
+xnat:demographicData/abstractDemographicData/meta/status                                            xnat_abstractDemographicData_meta_data32		xnat_abstractDemographicData_meta_data.status
+xnat:demographicData/abstractDemographicData/meta/activation_date                                   xnat_abstractDemographicData_meta_data33		xnat_abstractDemographicData_meta_data.activation_date
+xnat:demographicData/abstractDemographicData/meta/row_last_modified                                 xnat_abstractDemographicData_meta_data34		xnat_abstractDemographicData_meta_data.row_last_modified
+xnat:demographicData/abstractDemographicData/meta/insert_date                                       xnat_abstractDemographicData_meta_data35		xnat_abstractDemographicData_meta_data.insert_date
+xnat:demographicData/abstractDemographicData/meta/activation_user_xdat_user_id                      xnat_abstractDemographicData_meta_data36		xnat_abstractDemographicData_meta_data.activation_user_xdat_user_id
+xnat:demographicData/abstractDemographicData/meta/insert_user_xdat_user_id                          xnat_abstractDemographicData_meta_data37		xnat_abstractDemographicData_meta_data.insert_user_xdat_user_id
+xnat:demographicData/abstractDemographicData/meta/origin                                            xnat_abstractDemographicData_meta_data38		xnat_abstractDemographicData_meta_data.origin
+xnat:demographicData/abstractDemographicData/meta/modified                                          xnat_abstractDemographicData_meta_data39		xnat_abstractDemographicData_meta_data.modified
+xnat:demographicData/abstractDemographicData/meta/shareable                                         xnat_abstractDemographicData_meta_data40		xnat_abstractDemographicData_meta_data.shareable
+xnat:demographicData/abstractDemographicData/meta/meta_data_id                                      xnat_abstractDemographicData_meta_data41		xnat_abstractDemographicData_meta_data.meta_data_id
+xnat:demographicData/meta/xft_version                                                               xnat_demographicData_meta_data42		xnat_demographicData_meta_data.xft_version
+xnat:demographicData/meta/last_modified                                                             xnat_demographicData_meta_data43		xnat_demographicData_meta_data.last_modified
+xnat:demographicData/meta/status                                                                    xnat_demographicData_meta_data44		xnat_demographicData_meta_data.status
+xnat:demographicData/meta/activation_date                                                           xnat_demographicData_meta_data45		xnat_demographicData_meta_data.activation_date
+xnat:demographicData/meta/row_last_modified                                                         xnat_demographicData_meta_data46		xnat_demographicData_meta_data.row_last_modified
+xnat:demographicData/meta/insert_date                                                               xnat_demographicData_meta_data47		xnat_demographicData_meta_data.insert_date
+xnat:demographicData/meta/activation_user_xdat_user_id                                              xnat_demographicData_meta_data48		xnat_demographicData_meta_data.activation_user_xdat_user_id
+xnat:demographicData/meta/insert_user_xdat_user_id                                                  xnat_demographicData_meta_data49		xnat_demographicData_meta_data.insert_user_xdat_user_id
+xnat:demographicData/meta/origin                                                                    xnat_demographicData_meta_data50		xnat_demographicData_meta_data.origin
+xnat:demographicData/meta/modified                                                                  xnat_demographicData_meta_data51		xnat_demographicData_meta_data.modified
+xnat:demographicData/meta/shareable                                                                 xnat_demographicData_meta_data52		xnat_demographicData_meta_data.shareable
+xnat:demographicData/meta/meta_data_id                                                              xnat_demographicData_meta_data53		xnat_demographicData_meta_data.meta_data_id

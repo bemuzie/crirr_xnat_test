@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+
+<project xmlns:j="jelly:core" xmlns:log="jelly:log" xmlns:ant="jelly:ant"
+  xmlns:orion202="http://www.maven.org/plugin/appserver/orion202"
+  xmlns:define="jelly:define" >
+
+  <goal name="appserver:orion-2.0.x-reqs"
+    description="Intialize resources for tomcat processing">
+
+    <!-- Check if user has http.conf in a conf dir -->
+    <ant:available file="${maven.appserver.conf.dir}/config/server.xml"
+      type="file" property="maven.appserver.orion202.has.conf.server" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.server">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/server.xml
+    </ant:fail>
+    
+<ant:available file="${maven.appserver.conf.dir}/config/application.xml"
+      type="file" property="maven.appserver.orion202.has.conf.application" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.application">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/application.xml
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/config/data-sources.xml"
+      type="file" property="maven.appserver.orion202.has.conf.datasources" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.datasources">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/data-sources.xml
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/config/global-web-application.xml"
+      type="file" property="maven.appserver.orion202.has.conf.global" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.global">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/global-web-application.xml
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/config/jms.xml"
+      type="file" property="maven.appserver.orion202.has.conf.jms" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.jms">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/jms.xml
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/config/mime.types"
+      type="file" property="maven.appserver.orion202.has.conf.mime" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.mime">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/mime.types
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/config/principals.xml"
+      type="file" property="maven.appserver.orion202.has.conf.principals" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.principals">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/principals.xml
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/config/rmi.xml"
+      type="file" property="maven.appserver.orion202.has.conf.rmi" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.rmi">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/config/rmi.xml
+    </ant:fail>
+    
+    <ant:available file="${maven.appserver.conf.dir}/lib/hsqldb.jar"
+      type="file" property="maven.appserver.orion202.has.conf.hsqldb" value="true" />
+
+    <ant:fail unless="maven.appserver.orion202.has.conf.hsqldb">
+To use this appserver, you must have a project specific
+library file at the following location:
+
+${maven.appserver.conf.dir}/lib/hsqldb.jar
+    </ant:fail>
+    
+    
+    <define:taglib uri="http://www.maven.org/plugin/appserver/orion202">
+
+      <!-- accept the force property with a value of true or false -->
+      <define:tag name="install">
+
+        <j:if test="${force == 'false'}">
+          <!-- Create common directories and copy configuration files -->
+          <mkdir dir="${maven.appserver.dir}/config"/>
+          <mkdir dir="${maven.appserver.dir}/applications"/>
+          <mkdir dir="${maven.appserver.dir}/database"/>
+          <mkdir dir="${maven.appserver.dir}/lib"/>
+          <mkdir dir="${maven.appserver.dir}/log"/>
+          <mkdir dir="${maven.appserver.dir}/persistence"/>
+        </j:if>
+
+        <!-- copy any user configuration files w/ filtering by forcing copy -->
+        <!-- if reinstall -->
+        <ant:copy todir="${maven.appserver.dir}" overwrite="${force}">
+          <ant:fileset dir="${maven.appserver.conf.dir}" />
+        </ant:copy>
+
+      </define:tag>
+    </define:taglib>
+
+  </goal>
+  
+  <!--==================================================================-->
+  <!-- R E I N S T A L L                                                -->
+  <!--==================================================================-->
+  <goal name="appserver:reinstall-orion-2.0.x"
+    prereqs="appserver:orion-2.0.x-reqs" description="Reinstall orion 2.0.x">
+    <orion202:install force="true"/>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- I N S T A L L                                                    -->
+  <!--==================================================================-->
+  <goal name="appserver:install-orion-2.0.x" prereqs="appserver:orion-2.0.x-reqs"
+    description="Install orion 2.0.x">
+    <orion202:install force="false"/>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- S T A R T                                                        -->
+  <!--==================================================================-->
+  <goal name="appserver:start-orion-2.0.x" prereqs="appserver:orion-2.0.x-reqs"
+    description="Start orion 2.0.x" >
+    <java jar="${maven.appserver.home}/orion.jar" fork="yes"
+        dir="${maven.appserver.dir}">
+        <classpath>
+          <!--<pathelement path="${maven.appserver.classpath}"/>-->
+          <fileset dir="${maven.appserver.home}">
+            <include name="*.jar"/>
+          </fileset>
+        </classpath>
+      </java>
+
+  </goal>
+
+  <!--==================================================================-->
+  <!-- R E S T A R T                                                    -->
+  <!--==================================================================-->
+  <goal name="appserver:restart-orion-2.0.x" description="Restart orion 2.0.x"
+    prereqs="appserver:orion-2.0.x-reqs" >
+    <java jar="${maven.appserver.home}/admin.jar" fork="yes"
+    		dir="${maven.appserver.dir}">
+      <arg value="ormi://${maven.appserver.host}:${maven.appserver.rmi.port}" />
+      <arg value="${maven.appserver.adminusername}" />
+      <arg value="${maven.appserver.adminpassword}" />
+      <arg value="-restart"/>
+      <classpath>
+        <pathelement location="${maven.appserver.home}/orion.jar" />
+        <pathelement location="${maven.appserver.home}/ejb.jar" />
+        <pathelement location="${maven.appserver.home}/jndi.jar" />
+       </classpath>
+     </java>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- S T O P                                                          -->
+  <!--==================================================================-->
+  <goal name="appserver:stop-orion-2.0.x" description="Stop orion 2.0.x"
+    prereqs="appserver:orion-2.0.x-reqs" >
+
+    <java jar="${maven.appserver.home}/admin.jar" fork="yes"
+    		dir="${maven.appserver.dir}">
+      <arg value="ormi://${maven.appserver.host}:${maven.appserver.rmi.port}" />
+      <arg value="${maven.appserver.adminusername}" />
+      <arg value="${maven.appserver.adminpassword}" />
+      <arg value="-shutdown"/>
+      <classpath>
+        <pathelement location="${maven.appserver.home}/orion.jar" />
+        <pathelement location="${maven.appserver.home}/ejb.jar" />
+        <pathelement location="${maven.appserver.home}/jndi.jar" />
+       </classpath>
+     </java>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- C L E A N                                                        -->
+  <!--==================================================================-->
+  <goal name="appserver:clean-orion-2.0.x" description="Clean orion 2.0.x"
+    prereqs="appserver:orion-2.0.x-reqs" >
+	<ant:delete dir="${maven.appserver.dir}"/>
+	<ant:mkdir dir="${maven.appserver.dir}"/>
+  </goal>
+
+</project>

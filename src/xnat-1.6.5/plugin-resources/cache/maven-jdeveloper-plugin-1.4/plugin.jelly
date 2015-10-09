@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:ant="jelly:ant"
+  xmlns:maven="jelly:maven"
+  xmlns:j="jelly:core" 
+  xmlns:util="jelly:util">
+  <!--==================================================================-->
+  <!-- Generates Jdeveloper IDE files                                   -->
+  <!--==================================================================-->    
+  <goal name="jdeveloper"
+    description="Generate JDeveloper project files"
+    prereqs="jdeveloper:generate-project"/>       
+
+  <goal name="jdeveloper:generate-project"
+    prereqs="jdeveloper:scanSources"
+    description="Generate jdeveloper .jpr">
+
+    <ant:echo>Creating ${basedir}/${pom.artifactId}.jpr...</ant:echo>
+    <!--  
+      We use the JavaSourceTool to get the relative path
+      -->
+    <maven:makeRelativePath path="${maven.build.dir}" var="mavenBuildDir" basedir="${basedir}" separator="/" />
+    <maven:makeRelativePath path="${maven.docs.dest}" var="mavenDocsDest" basedir="${basedir}" separator="/" />
+    <j:useBean var="javaSourceTool" class="org.apache.maven.jdeveloper.JavaSourceTool"/>      
+    <j:file name="${basedir}/${pom.artifactId}.jpr" prettyPrint="true" xmlns="http://xmlns.oracle.com/jdeveloper/903/jproject" encoding="Cp1252">         
+      <project nselem="project" class="oracle.jdeveloper.model.JProject">
+        <defaultPackage>${pom.package}</defaultPackage>
+        <defaultPackages class="java.util.ArrayList">
+          <Item class="java.lang.String">${pom.package}</Item>      
+         </defaultPackages>
+         <dependencyList/>
+         <htmlRootDirectory path="${mavenDocsDest}/" />
+         <j2eeWebAppName>${maven.jdeveloper.workspace}-${maven.war.final.name}</j2eeWebAppName>
+         <j2eeWebContextRoot>${maven.jdeveloper.workspace}-${ear.bundle.war.context-root}</j2eeWebContextRoot>             
+         <listOfChildren class="oracle.ide.model.DataList">
+           <!-- Add Java Sources -->
+           <j:forEach var="file" items="${javaSourceFiles.iterator()}">         
+             <j:set var="packagePath" value="${javaSourceTool.getPackagePath(file.toString())}"/>
+             <util:replace var="path" oldChar="\" newChar="/" value="${packagePath}"/>
+             <Item class="oracle.jdeveloper.model.JavaSourceNode">
+               <URL path="${pom.build.sourceDirectory}/${path}"/>
+             </Item>
+           </j:forEach>
+           <!-- Add test Sources -->
+           <j:forEach var="file" items="${unitTestSourceFiles.iterator()}">         
+             <j:set var="packagePath" value="${javaSourceTool.getPackagePath(file.toString())}"/> 
+             <util:replace var="path" oldChar="\" newChar="/" value="${packagePath}"/>
+             <Item class="oracle.jdeveloper.model.JavaSourceNode">
+               <URL path="${pom.build.sourceDirectory}/${path}"/>
+             </Item>
+           </j:forEach>
+           <!-- Add integration test Sources -->
+           <j:forEach var="file" items="${integrationTestSourceFiles.iterator()}">         
+             <j:set var="packagePath" value="${javaSourceTool.getPackagePath(file.toString())}"/>
+             <util:replace var="path" oldChar="\" newChar="/" value="${packagePath}"/>
+             <Item class="oracle.jdeveloper.model.JavaSourceNode">
+               <URL path="${pom.build.sourceDirectory}/${path}"/>
+             </Item>
+           </j:forEach>
+           <j:forEach var="file" items="${javaDocFiles.iterator()}">                    
+             <Item class="oracle.jdevimpl.webapp.html.HtmlSourceNode">           
+               <URL path="${file.getPath()}"/>
+             </Item>
+           </j:forEach>
+         </listOfChildren>
+         <ownerMap/>
+         <projectDocPath>
+           <entries class="[Ljava.net.URL;"/>
+         </projectDocPath>
+         <projectLibraryList class="oracle.jdeveloper.library.JProjectLibraryList">
+           <jdkList class="java.util.ArrayList"/>      
+           <libraryList class="java.util.ArrayList">            
+             <j:forEach var="lib" items="${pom.artifacts}">  
+               <j:set var="libentry" value="${maven.jdeveloper.relative.path}/${maven.jdeveloper.maven.home}/repository/${lib.dependency.artifactId}/jars/${lib.name}" trim="true"/>         
+               <Item class="oracle.jdeveloper.library.JLibrary">           
+                 <defaultLibraryDefinition>
+                   <JDKVersion/>
+                   <classPath>
+                     <entries>
+                       <Item path="${libentry}" jar-entry=""/>
+                     </entries>
+                   </classPath>
+                   <docPath>
+                     <entries class="[Ljava.net.URL;"/>
+                   </docPath>
+                   <locked>false</locked>
+                   <sourcePath>
+                     <entries class="[Ljava.net.URL;"/>
+                   </sourcePath>
+                 </defaultLibraryDefinition>           
+                 <definitionList class="java.util.ArrayList"/>
+                 <locked>false</locked>
+                 <name>${lib.dependency.artifactId}</name>
+               </Item>
+             </j:forEach> 
+           </libraryList>
+         </projectLibraryList>
+         <projectSettings>
+           <activeConfigName>Development</activeConfigName>
+             <commonData class="java.util.HashMap">
+               <Item>
+                 <Key>oracle.bm.commonIde.data.project.ModelerProjectSettings</Key>
+                 <Value class="oracle.bm.commonIde.data.project.ModelerProjectSettings">
+                   <modelersPath>
+                     <entries>
+                       <Item path="model/"/>
+                     </entries>
+                   </modelersPath>
+                 </Value>
+               </Item>
+               <Item>
+                 <Key>oracle.jdeveloper.compiler.ant.AntConfiguration</Key>
+                 <Value class="oracle.jdeveloper.compiler.ant.AntConfiguration">
+                   <arguments class="java.lang.String"/>
+                   <makeTarget/>
+                   <projectBuildfile/>
+                   <rebuildTarget/>
+                   <showOutput>true</showOutput>
+                 </Value>
+               </Item>
+             </commonData>
+             <configurations class="java.util.TreeMap">
+               <Item>
+                 <Key>Development</Key>
+                 <Value class="oracle.jdeveloper.model.JProjectConfiguration">
+                   <configData class="java.util.HashMap">
+                     <Item>
+                       <Key>oracle.jdeveloper.compiler.OjcConfiguration</Key>
+                       <Value class="oracle.jdeveloper.compiler.OjcConfiguration">
+                         <assertionsEnabled>true</assertionsEnabled>
+                         <copyRes>
+                           <Item>.gif</Item>
+                           <Item>.properties</Item>
+                           <Item>.jpg</Item>
+                           <Item>.jpeg</Item>
+                           <Item>.xml</Item>
+                           <Item>-apf.xml</Item>
+                         </copyRes>
+                         <currentEncoding>Cp1252</currentEncoding>
+                         <debugInformation>true</debugInformation>
+                         <excludedClasses class="[Ljava.lang.String;"/>
+                         <obfuscate>false</obfuscate>
+                         <showCompileProgress>false</showCompileProgress>
+                         <showDeprecations>true</showDeprecations>
+                         <showObjectDotStaticWarnings>false</showObjectDotStaticWarnings>
+                         <showPartialImportWarnings>false</showPartialImportWarnings>
+                         <showSelfDeprecations>true</showSelfDeprecations>
+                         <showUnusedImportWarnings>false</showUnusedImportWarnings>
+                         <showWarnings>true</showWarnings>
+                         <target>Default</target>
+                         <updateImports>false</updateImports>
+                         <updateZipJarImports>false</updateZipJarImports>
+                       </Value>
+                     </Item>
+                     <Item>
+                       <Key>oracle.jdeveloper.javadoc.JProjectJavadoc</Key>
+                       <Value class="oracle.jdeveloper.javadoc.JProjectJavadoc">
+                         <generateAuthor>false</generateAuthor>
+                         <generateDeprecated>true</generateDeprecated>
+                         <generateIndex>true</generateIndex>
+                         <generateNavbar>true</generateNavbar>
+                         <generateSince>true</generateSince>
+                         <generateTree>true</generateTree>
+                         <generateVersion>false</generateVersion>
+                         <heapSize>32</heapSize>
+                         <miscOptions class="java.lang.String"/>
+                         <oneOneFormat>false</oneOneFormat>
+                         <outputDirectory path="${mavenDocsDest}/jdeveloper-javadoc/"/>
+                         <scope>-protected</scope>
+                       </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdeveloper.runner.RunConfiguration</Key>
+                      <Value class="oracle.jdeveloper.runner.RunConfiguration">
+                        <VMName>client</VMName>
+                        <allowInput>false</allowInput>
+                        <alwaysUseTarget>false</alwaysUseTarget>
+                        <clearLogBeforeRun>false</clearLogBeforeRun>
+                        <compileBeforeRun>true</compileBeforeRun>
+                        <connectionName/>
+                        <javaOptions class="java.lang.String"/>
+                        <logCommand>true</logCommand>
+                        <logError>true</logError>
+                        <logExit>true</logExit>
+                        <logOutput>true</logOutput>
+                        <programArguments class="java.lang.String"/>
+                        <runActiveFile>true</runActiveFile>
+                        <runDirectoryURL/>
+                        <targetURL/>
+                        <useProxy>true</useProxy>
+                      </Value>
+                    </Item>
+                  
+                    <Item>
+                      <Key>oracle.jdevimpl.config.JProjectLibraries</Key>
+                      <Value class="oracle.jdevimpl.config.JProjectLibraries">
+                        <jdkName>j2sdk 1.4.1</jdkName>
+                        <jdkVersionNumber>1.4.1</jdkVersionNumber>                        
+                        <libraries>                                                
+                          <j:set var="path" trim="true">   
+                           JDeveloper Runtime                      
+                            <j:forEach var="dep" items="${pom.dependencies}">
+                              ;${dep.artifactId}                          
+                            </j:forEach>
+                          </j:set>                        
+                          ${path}
+                        </libraries>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdevimpl.config.JProjectPaths</Key>
+                      <Value class="oracle.jdevimpl.config.JProjectPaths">
+                        <additionalClassPath>
+                           <entries class="[Ljava.net.URL;"/>
+                        </additionalClassPath>
+                        <outputDirectory path="${mavenBuildDir}/jdeveloper-classes/"/>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdevimpl.idl.config.IdlConfiguration</Key>
+                      <Value class="oracle.jdevimpl.idl.config.IdlConfiguration">
+                        <codeForIncludedFiles>false</codeForIncludedFiles>
+                        <noBindMethods>false</noBindMethods>
+                        <noComments>false</noComments>
+                        <noExampleCode>false</noExampleCode>
+                        <noSkeletonCode>false</noSkeletonCode>
+                        <noStubCode>false</noStubCode>
+                        <noTieCode>false</noTieCode>
+                        <noToString>false</noToString>
+                        <objectWrapper>false</objectWrapper>
+                        <packageName class="java.lang.String"/>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdevimpl.runner.codecoach.CCConfiguration</Key>
+                      <Value class="oracle.jdevimpl.runner.codecoach.CCConfiguration">
+                        <advices>ALL</advices>
+                        <exclude>com;java;javax;sun;sunw;org;oracle</exclude>
+                        <include class="java.lang.String"/>
+                        <level>4</level>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdevimpl.runner.debug.DebugConfiguration</Key>
+                      <Value class="oracle.jdevimpl.runner.debug.DebugConfiguration">
+                        <JPDAClassicDebugArguments>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,address=&lt;port></JPDAClassicDebugArguments>
+                        <JPDADebugArguments>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=&lt;port></JPDADebugArguments>
+                        <OJVMDebugArguments>-XXdebug,quiet,port&lt;port></OJVMDebugArguments>
+                        <breakpointScope>workspace</breakpointScope>
+                        <remoteDebugging>false</remoteDebugging>
+                        <remoteDebuggingParameters class="java.util.HashMap"/>
+                        <remoteDebuggingParametersSaved>false</remoteDebuggingParametersSaved>
+                        <remoteDebuggingProtocol>ojvm</remoteDebuggingProtocol>
+                        <startOption>running</startOption>
+                        <tracingDisabled>java;javax;sun;sunw;com.sun;org.xml.sax</tracingDisabled>
+                        <tracingEnabled class="java.lang.String"/>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdevimpl.runner.profile.ProfileConfiguration</Key>
+                      <Value class="oracle.jdevimpl.runner.profile.ProfileConfiguration">
+                        <DMSstartID>20000</DMSstartID>
+                        <DMSstate>0</DMSstate>
+                        <eventColumnVisible>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                        </eventColumnVisible>
+                        <events>G(All events;(G(VM Events;(E(0;GC;-16776961;1);E(10;Wait;-65485;0);E(11;Synch Blocks 0;-39322;0);E(12;Synch Blocks 1;-39322;0);E(13;Synch Blocks 2;-39322;0);E(20;Prepare Class;-16751002;0);E(21;Load Class;-16724992;0);E(22;Resolve Class;-16737997;0);));G(BC4J Events;(E(1000;JBO_MISCELLANEOUS;-4144960;1);E(1001;JDBC_SELECT;-256;1);E(1002;JDBC_CREATE_STATEMENT;-256;1);E(1003;JDBC_CONNECT;-256;1);E(1004;JDBC_CREATE_PREPARED_STATEMENT;-256;1);E(1005;JDBC_EXECUTE;-256;1);E(1006;METAOBJECT_LOAD;-65281;1);E(1007;EXECUTE_QUERY;-16776961;1);E(1008;BC4J_CREATE_COMPOBJ;-65281;0);E(1009;BC4J_CREATE_ROOTAM;-65281;1);E(1010;BC4J_CREATE_VIEWOBJECT;-65281;0);E(1011;BC4J_CREATE_AM;-65281;0);E(1012;BC4J_CREATE_VIEWLINK;-65281;0);E(1013;SQLB_DOENTITYDML;-16776961;1);E(1014;SQLB_DOENTITYSELECT;-16776961;1);E(1015;VIEWOBJECT_GETSTATEMENT;-16776961;1);E(1016;REMOTE_METHOD_CALL;-65536;1);));));</events>
+                        <excludedClasses>java;javax;sun;sunw;com;oracle</excludedClasses>
+                        <excludedInstances class="java.lang.String"/>
+                        <includedClasses class="java.lang.String"/>
+                        <includedInstances class="java.lang.String"/>
+                        <localProfiling>true</localProfiling>
+                        <memColumnVisible>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                        </memColumnVisible>
+                        <memoryUpdateInterval>10</memoryUpdateInterval>
+                        <remoteHost class="java.lang.String"/>
+                        <remoteParametersSaved>false</remoteParametersSaved>
+                        <remotePort>4000</remotePort>
+                        <sampleColumnVisible>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                           <Item>true</Item>
+                        </sampleColumnVisible>
+                        <sampleInterval>5</sampleInterval>
+                        <sliderDepth>20</sliderDepth>
+                        <useAPI>false</useAPI>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>oracle.jdevimpl.sqlj.config.SqljConfiguration</Key>
+                      <Value class="oracle.jdevimpl.sqlj.config.SqljConfiguration">
+                        <checkSemantics>false</checkSemantics>
+                        <codegen>oracle</codegen>
+                        <contextConnectionMap class="java.util.HashMap"/>
+                        <useCache>false</useCache>
+                        <warnAll>false</warnAll>
+                        <warnNull>false</warnNull>
+                        <warnPortable>false</warnPortable>
+                        <warnPrecision>false</warnPrecision>
+                        <warnStrict>false</warnStrict>
+                        <warnVerbose>false</warnVerbose>
+                      </Value>
+                    </Item>
+                    <Item>
+                      <Key>WebappJspCompilerOptions</Key>
+                      <Value class="oracle.jdevimpl.webapp.jsp.JspCompilerOptions">
+                        <requestTimeIntrospection>false</requestTimeIntrospection>
+                      </Value>
+                    </Item>
+                  </configData>
+                </Value>
+              </Item>
+            </configurations>
+          </projectSettings>
+          <projectSourcePath>
+            <entries>
+              <Item path="${pom.build.sourceDirectory}"/>        
+              <j:if test="${pom.build.unitTestSourceDirectory}!= ''">
+                <Item path="${pom.build.unitTestSourceDirectory}"/>
+              </j:if>
+              <j:if test="${pom.build.integrationUnitTestSourceDirectory}!= ''">
+                <Item path="${pom.build.integrationUnitTestSourceDirectory}"/>
+              </j:if>
+              <Item path="${mavenBuildDir}/xdoclet/ejbdoclet"/>
+              <Item path="${mavenBuildDir}/xdoclet/jmxdoclet"/>
+            </entries>     
+          </projectSourcePath>
+          <properties class="java.util.HashMap">
+            <Item>
+              <Key>useDynamicPaths</Key>
+              <Value class="java.lang.Boolean">true</Value>
+            </Item>
+          </properties>
+          <properties/>
+          <userAuthor/>
+          <userCompany>${pom.organization.name}</userCompany>
+          <userCopyright>${pom.organization.name}</userCopyright>
+          <userDescription/>
+          <userTitle/>
+          <userVersion/>
+        </project>
+      </j:file>  
+  </goal>
+
+
+<!-- 
+   Scans all source file in order to add them to the file.
+  !-->
+<goal name="jdeveloper:scanSources"
+      description="Scans the source in order to integrate them into JDeveloper files">
+      
+  <ant:fileScanner var="javaSourceFiles">
+    <ant:fileset dir="${pom.build.sourceDirectory}">
+      <ant:patternset>       
+        <ant:include name="**/*.java"/>       
+      </ant:patternset>
+    </ant:fileset>
+  </ant:fileScanner>  
+  <j:if test="${pom.build.unitTestSourceDirectory} != ''">	
+    <ant:fileScanner var="unitTestSourceFiles">
+      <ant:fileset dir="${pom.build.unitTestDirectory}">
+        <ant:patternset>       
+          <ant:include name="**/*.java"/>       
+        </ant:patternset>
+      </ant:fileset>
+     </ant:fileScanner>  
+  </j:if>
+  <j:if test="${pom.build.integrationUnitTestSourceDirectory}!= ''">	
+    <ant:fileScanner var="integrationTestSourceFiles">
+      <ant:fileset dir="${pom.build.integrationUnitTestDirectory}">
+        <ant:patternset>       
+          <ant:include name="**/*.java"/>       
+        </ant:patternset>
+      </ant:fileset>
+    </ant:fileScanner>  
+  </j:if>
+  <ant:fileScanner var="javaDocFiles">
+    <ant:fileset dir="${pom.build.sourceDirectory}">
+      <ant:patternset>       
+        <ant:include name="**/*.html"/>       
+      </ant:patternset>
+    </ant:fileset>
+  </ant:fileScanner>  
+</goal>
+
+  
+
+</project>

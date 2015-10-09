@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Displays xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xdat/display.xsd" schema-element="ext:clinicalAssessmentData" full-description="ClinicalAssessment" brief-description="ClinicalAssessment">
+	<Arc name="PARTICIPANT_EXPERIMENT">
+		<CommonField id="PART_ID" local-field="SUBJECT_ID"/>
+		<CommonField id="DATE" local-field="DATE"/>
+		<CommonField id="EXPT_ID" local-field="EXPT_ID"/>
+	</Arc>
+	<DisplayField id="SUBJECT_ID" header="Subject" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.subject_ID"/>
+		<HTML-Link>
+			<Property name="HREF" value="none"/>
+			<Property name="ONCLICK" value="return rpt('@Field1','xnat:subjectData','xnat:subjectData.ID');">
+				<InsertValue id="Field1" field="SUBJECT_ID"/>
+			</Property>
+		</HTML-Link>
+	</DisplayField>
+	<DisplayField id="EXPT_ID" header="ID" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.ID"/>
+		<HTML-Link>
+			<Property name="HREF" value="none"/>
+			<Property name="ONCLICK" value="return rpt('@Field1','ext:clinicalAssessmentData','ext:clinicalAssessmentData.ID');">
+				<InsertValue id="Field1" field="EXPT_ID"/>
+			</Property>
+		</HTML-Link>
+	</DisplayField>
+	<DisplayField id="RPT" header="ID" visible="true" image="true">
+		<Content type="sql">'/@WEBAPP/images/r.gif'::text</Content>
+		<HTML-Link>
+			<Property name="HREF" value="none"/>
+			<Property name="ONCLICK" value="return rpt('@Field1','ext:clinicalAssessmentData','ext:clinicalAssessmentData.ID');">
+				<InsertValue id="Field1" field="EXPT_ID"/>
+			</Property>
+		</HTML-Link>
+	</DisplayField>
+	<DisplayField id="DATE" header="Date" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.date"/>
+	</DisplayField>
+	<DisplayField id="AGE" header="Age" visible="true" searchable="true" data-type="integer">
+	<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.date"/>
+	<DisplayFieldElement name="Field2" schema-element="xnat:demographicData.dob"/>
+	<DisplayFieldElement name="Field3" schema-element="xnat:demographicData.yob"/>
+	<Content type="sql">CAST(COALESCE(FLOOR(CAST((CAST(((@Field1) - (@Field2))AS FLOAT4)/365) AS numeric)),FLOOR((EXTRACT(YEAR FROM @Field1)) - (@Field3))) AS numeric)</Content>
+	</DisplayField>
+	<DisplayField header="Projects" id="PROJECTS" data-type="string">
+		<DisplayFieldElement name="Field1" viewName="EXT_CLINICALASSESSMENTDATA_PROJECTS" viewColumn="PROJECTS"/>
+	</DisplayField>
+	<DisplayField header="Label" id="LABEL" data-type="string">
+	<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.ID"/>
+	<DisplayFieldElement name="Field2" schema-element="ext:clinicalAssessmentData.label"/>
+	<Content type="sql">COALESCE(@Field2, @Field1)</Content>
+		<HTML-Link>
+			<SecureLink elementName="ext:clinicalAssessmentData">
+				<securityMappingValue displayFieldId="PROJECTS" schemaElementMap="ext:clinicalAssessmentData/sharing/share/project"/>
+				<securityMappingValue displayFieldId="PROJECT" schemaElementMap="ext:clinicalAssessmentData/project"/>
+			</SecureLink>
+			<Property name="HREF" value="@WEBAPPapp/action/DisplayItemAction/search_value/@Field1/search_element/ext:clinicalAssessmentData/search_field/ext:clinicalAssessmentData.ID">
+				<InsertValue id="Field1" field="EXPT_ID"/>
+			</Property>
+			<Property name="ONCLICK" value="return rpt('@Field1','ext:clinicalAssessmentData','ext:clinicalAssessmentData.ID');">
+				<InsertValue id="Field1" field="EXPT_ID"/>
+			</Property>
+			<Property name="TITLE" value="Inserted: @Field1 (@Field2)">
+				<InsertValue id="Field1" field="INSERT_DATE"/>
+				<InsertValue id="Field2" field="INSERT_USER"/>
+			</Property>
+		</HTML-Link>
+	</DisplayField>
+	<DisplayField id="PROJECT" header="Project" visible="true" searchable="true" data-type="string">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.project"/>
+	</DisplayField>
+	<DisplayField id="EXT_CLINICALASSESSMENTDATA_PROJECT_IDENTIFIER" header="EXT_CLINICALASSESSMENTDATA ID" visible="true" searchable="false" data-type="string" xsi:type="SubQueryField">
+		<Content type="sql">ext_clinicalassessmentdata_project_id</Content>
+		<HTML-Link>
+			<SecureLink elementName="ext:clinicalAssessmentData">
+				<securityMappingValue displayFieldId="PROJECTS" schemaElementMap="ext:clinicalAssessmentData/sharing/share/project"/>
+				<securityMappingValue displayFieldId="PROJECT" schemaElementMap="ext:clinicalAssessmentData/project"/>
+			</SecureLink>
+			<Property name="HREF" value="@WEBAPPapp/action/DisplayItemAction/search_value/@Field1/search_element/ext:clinicalAssessmentData/search_field/ext:clinicalAssessmentData.ID/project/@Field2">
+				<InsertValue id="Field1" field="EXPT_ID"/>
+				<InsertValue id="Field2" field="@WHERE"/>
+			</Property>
+		</HTML-Link>
+		<SubQuery>SELECT DISTINCT COALESCE(label,sharing_share_xnat_experimentda_id) AS ext_clinicalassessmentdata_project_id,sharing_share_xnat_experimentda_id FROM (	SELECT sharing_share_xnat_experimentda_id,label FROM xnat_experimentdata_share WHERE project='@WHERE'	UNION 	SELECT id,label FROM xnat_experimentData WHERE project='@WHERE' )SEARCH</SubQuery>
+		<MappingColumns>
+			<MappingColumn schemaField="ext:clinicalAssessmentData.ID" queryField="sharing_share_xnat_experimentda_id"/>
+		</MappingColumns>
+	</DisplayField>
+	<DisplayField id="INSERT_DATE" header="Inserted" visible="true" searchable="true" data-type="string">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.meta.insert_date"/>
+	</DisplayField>
+	<DisplayField id="INSERT_USER" header="Creator" visible="true" searchable="true" data-type="string">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData.meta.insert_user.login"/>
+	</DisplayField>
+	<DisplayField id="EXT_CLINICALASSESSMENTDATA_FIELD_MAP" header="Field" visible="true" searchable="false" data-type="string" xsi:type="SubQueryField">
+		<Content type="sql">field</Content>
+		<SubQuery>SELECT DISTINCT ON ( e.ID) e.ID AS expt_id,field FROM xnat_experimentData_field ef JOIN (SELECT ID,extension,element_name FROM xnat_experimentData e JOIN xdat_meta_element xme ON e.extension=xme.xdat_meta_element_id WHERE xme.element_name='ext:clinicalAssessmentData') e on ef.fields_field_xnat_experimentdat_id=e.id WHERE name='@WHERE'</SubQuery>
+		<MappingColumns>
+			<MappingColumn schemaField="ext:clinicalAssessmentData.ID" queryField="expt_id"/>
+		</MappingColumns>
+	</DisplayField>
+	<DisplayField id="BLOODPRESSURE_HIGHBP_CS_BOOL" header="HighBP_CS_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/BloodPressure/HighBP_CS_Bool"/>
+	</DisplayField>
+	<DisplayField id="BLOODPRESSURE_SYSTOLIC" header="systolic" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/BloodPressure/systolic"/>
+	</DisplayField>
+	<DisplayField id="BLOODPRESSURE_DIASTOLIC" header="diastolic" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/BloodPressure/diastolic"/>
+	</DisplayField>
+	<DisplayField id="NEURO_SBT" header="SBT" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/SBT"/>
+	</DisplayField>
+	<DisplayField id="NEURO_MMSE" header="MMSE" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/MMSE"/>
+	</DisplayField>
+	<DisplayField id="NEURO_BDSC" header="Bdsc" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/Bdsc"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_MEMORY" header="memory" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/memory"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_ORIENTATION" header="orientation" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/orientation"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_JUDGMENT_PROBLEM_SOLVING" header="judgment_problem_solving" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/judgment_problem_solving"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_COMMUNITY_AFFAIRS" header="community_affairs" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/community_affairs"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_HOME_HOBBIES" header="home_hobbies" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/home_hobbies"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_PERSONAL_CARE" header="personal_care" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/personal_care"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_SUMBOX" header="sumbox" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/sumbox"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CDR_RATING" header="rating" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/CDR/rating"/>
+	</DisplayField>
+	<DisplayField id="NEURO_THINKINGPROBLEM_S_BOOL" header="ThinkingProblem_S_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/ThinkingProblem_S_Bool"/>
+	</DisplayField>
+	<DisplayField id="NEURO_THINKINGPROBLEM_CS_BOOL" header="ThinkingProblem_CS_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/ThinkingProblem_CS_Bool"/>
+	</DisplayField>
+	<DisplayField id="NEURO_CONSMEMORYPROBLEM_BOOL" header="ConsMemoryProblem_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/ConsMemoryProblem_Bool"/>
+	</DisplayField>
+	<DisplayField id="NEURO_STROKEBOOL" header="StrokeBool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/StrokeBool"/>
+	</DisplayField>
+	<DisplayField id="NEURO_SX_STROKE_BOOL" header="Sx_Stroke_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/Sx_Stroke_Bool"/>
+	</DisplayField>
+	<DisplayField id="NEURO_SX_TIA_BOOL" header="Sx_Tia_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Neuro/Sx_Tia_Bool"/>
+	</DisplayField>
+	<DisplayField id="MOVEMENT_SPASTICITY_BOOL" header="Spasticity_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Movement/Spasticity_Bool"/>
+	</DisplayField>
+	<DisplayField id="MOVEMENT_RIGID" header="Rigid" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Movement/Rigid"/>
+	</DisplayField>
+	<DisplayField id="MOVEMENT_BRADYK_BOOL" header="Bradyk_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Movement/Bradyk_Bool"/>
+	</DisplayField>
+	<DisplayField id="MOVEMENT_GAIT" header="Gait" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Movement/Gait"/>
+	</DisplayField>
+	<DisplayField id="MOVEMENT_ABNORMALGAIT_BOOL" header="AbnormalGait_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Movement/AbnormalGait_Bool"/>
+	</DisplayField>
+	<DisplayField id="WEIGHT" header="Weight" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Weight"/>
+	</DisplayField>
+	<DisplayField id="DIABETES_BOOL" header="Diabetes_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/Diabetes_Bool"/>
+	</DisplayField>
+	<DisplayField id="HEARTPROBLEMS_BOOL" header="HeartProblems_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/HeartProblems_Bool"/>
+	</DisplayField>
+	<DisplayField id="TOBACCOUSE_BOOL" header="TobaccoUse_Bool" visible="true" searchable="true">
+		<DisplayFieldElement name="Field1" schema-element="ext:clinicalAssessmentData/TobaccoUse_Bool"/>
+	</DisplayField>
+	<DisplayVersion versionName="listing" default-order-by="DATE" default-sort-order="DESC" brief-description="ClinicalAssessment" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="RPT"/>
+		<DisplayFieldRef id="LABEL"/>
+		<DisplayFieldRef id="SUBJECT_LABEL" element_name="xnat:subjectData"/>
+		<DisplayFieldRef id="DATE"/>
+		<DisplayFieldRef id="GENDER" element_name="xnat:subjectData"/>
+		<DisplayFieldRef id="AGE"/>
+		<DisplayFieldRef id="BLOODPRESSURE_HIGHBP_CS_BOOL"/>
+		<DisplayFieldRef id="BLOODPRESSURE_SYSTOLIC"/>
+		<DisplayFieldRef id="BLOODPRESSURE_DIASTOLIC"/>
+		<DisplayFieldRef id="NEURO_SBT"/>
+		<DisplayFieldRef id="NEURO_MMSE"/>
+		<DisplayFieldRef id="NEURO_BDSC"/>
+		<DisplayFieldRef id="NEURO_CDR_MEMORY"/>
+		<DisplayFieldRef id="NEURO_CDR_ORIENTATION"/>
+		<DisplayFieldRef id="NEURO_CDR_JUDGMENT_PROBLEM_SOLVING"/>
+		<DisplayFieldRef id="NEURO_CDR_COMMUNITY_AFFAIRS"/>
+		<DisplayFieldRef id="NEURO_CDR_HOME_HOBBIES"/>
+		<DisplayFieldRef id="NEURO_CDR_PERSONAL_CARE"/>
+		<DisplayFieldRef id="NEURO_CDR_SUMBOX"/>
+		<DisplayFieldRef id="NEURO_CDR_RATING"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_S_BOOL"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_CS_BOOL"/>
+		<DisplayFieldRef id="NEURO_CONSMEMORYPROBLEM_BOOL"/>
+		<DisplayFieldRef id="NEURO_STROKEBOOL"/>
+		<DisplayFieldRef id="NEURO_SX_STROKE_BOOL"/>
+		<DisplayFieldRef id="NEURO_SX_TIA_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_SPASTICITY_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_RIGID"/>
+		<DisplayFieldRef id="MOVEMENT_BRADYK_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_GAIT"/>
+		<DisplayFieldRef id="MOVEMENT_ABNORMALGAIT_BOOL"/>
+		<DisplayFieldRef id="WEIGHT"/>
+		<DisplayFieldRef id="DIABETES_BOOL"/>
+		<DisplayFieldRef id="HEARTPROBLEMS_BOOL"/>
+		<DisplayFieldRef id="TOBACCOUSE_BOOL"/>
+	</DisplayVersion>
+	<DisplayVersion versionName="listing_csv" default-order-by="DATE" default-sort-order="DESC" brief-description="ClinicalAssessment" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="LABEL"/>
+		<DisplayFieldRef id="SUBJECT_LABEL" element_name="xnat:subjectData"/>
+		<DisplayFieldRef id="DATE"/>
+		<DisplayFieldRef id="AGE"/>
+		<DisplayFieldRef id="BLOODPRESSURE_HIGHBP_CS_BOOL"/>
+		<DisplayFieldRef id="BLOODPRESSURE_SYSTOLIC"/>
+		<DisplayFieldRef id="BLOODPRESSURE_DIASTOLIC"/>
+		<DisplayFieldRef id="NEURO_SBT"/>
+		<DisplayFieldRef id="NEURO_MMSE"/>
+		<DisplayFieldRef id="NEURO_BDSC"/>
+		<DisplayFieldRef id="NEURO_CDR_MEMORY"/>
+		<DisplayFieldRef id="NEURO_CDR_ORIENTATION"/>
+		<DisplayFieldRef id="NEURO_CDR_JUDGMENT_PROBLEM_SOLVING"/>
+		<DisplayFieldRef id="NEURO_CDR_COMMUNITY_AFFAIRS"/>
+		<DisplayFieldRef id="NEURO_CDR_HOME_HOBBIES"/>
+		<DisplayFieldRef id="NEURO_CDR_PERSONAL_CARE"/>
+		<DisplayFieldRef id="NEURO_CDR_SUMBOX"/>
+		<DisplayFieldRef id="NEURO_CDR_RATING"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_S_BOOL"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_CS_BOOL"/>
+		<DisplayFieldRef id="NEURO_CONSMEMORYPROBLEM_BOOL"/>
+		<DisplayFieldRef id="NEURO_STROKEBOOL"/>
+		<DisplayFieldRef id="NEURO_SX_STROKE_BOOL"/>
+		<DisplayFieldRef id="NEURO_SX_TIA_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_SPASTICITY_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_RIGID"/>
+		<DisplayFieldRef id="MOVEMENT_BRADYK_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_GAIT"/>
+		<DisplayFieldRef id="MOVEMENT_ABNORMALGAIT_BOOL"/>
+		<DisplayFieldRef id="WEIGHT"/>
+		<DisplayFieldRef id="DIABETES_BOOL"/>
+		<DisplayFieldRef id="HEARTPROBLEMS_BOOL"/>
+		<DisplayFieldRef id="TOBACCOUSE_BOOL"/>
+	</DisplayVersion>
+	<DisplayVersion versionName="full" default-order-by="DATE" default-sort-order="DESC" brief-description="ClinicalAssessment" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="EXPT_ID"/>
+		<DisplayFieldRef id="SUBJECT_LABEL" element_name="xnat:subjectData"/>
+		<DisplayFieldRef id="DATE"/>
+		<DisplayFieldRef id="AGE"/>
+		<DisplayFieldRef id="BLOODPRESSURE_HIGHBP_CS_BOOL"/>
+		<DisplayFieldRef id="BLOODPRESSURE_SYSTOLIC"/>
+		<DisplayFieldRef id="BLOODPRESSURE_DIASTOLIC"/>
+		<DisplayFieldRef id="NEURO_SBT"/>
+		<DisplayFieldRef id="NEURO_MMSE"/>
+		<DisplayFieldRef id="NEURO_BDSC"/>
+		<DisplayFieldRef id="NEURO_CDR_MEMORY"/>
+		<DisplayFieldRef id="NEURO_CDR_ORIENTATION"/>
+		<DisplayFieldRef id="NEURO_CDR_JUDGMENT_PROBLEM_SOLVING"/>
+		<DisplayFieldRef id="NEURO_CDR_COMMUNITY_AFFAIRS"/>
+		<DisplayFieldRef id="NEURO_CDR_HOME_HOBBIES"/>
+		<DisplayFieldRef id="NEURO_CDR_PERSONAL_CARE"/>
+		<DisplayFieldRef id="NEURO_CDR_SUMBOX"/>
+		<DisplayFieldRef id="NEURO_CDR_RATING"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_S_BOOL"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_CS_BOOL"/>
+		<DisplayFieldRef id="NEURO_CONSMEMORYPROBLEM_BOOL"/>
+		<DisplayFieldRef id="NEURO_STROKEBOOL"/>
+		<DisplayFieldRef id="NEURO_SX_STROKE_BOOL"/>
+		<DisplayFieldRef id="NEURO_SX_TIA_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_SPASTICITY_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_RIGID"/>
+		<DisplayFieldRef id="MOVEMENT_BRADYK_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_GAIT"/>
+		<DisplayFieldRef id="MOVEMENT_ABNORMALGAIT_BOOL"/>
+		<DisplayFieldRef id="WEIGHT"/>
+		<DisplayFieldRef id="DIABETES_BOOL"/>
+		<DisplayFieldRef id="HEARTPROBLEMS_BOOL"/>
+		<DisplayFieldRef id="TOBACCOUSE_BOOL"/>
+	</DisplayVersion>
+	<DisplayVersion versionName="detailed" default-order-by="DATE" default-sort-order="DESC" brief-description="ClinicalAssessment" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="BLOODPRESSURE_HIGHBP_CS_BOOL"/>
+		<DisplayFieldRef id="BLOODPRESSURE_SYSTOLIC"/>
+		<DisplayFieldRef id="BLOODPRESSURE_DIASTOLIC"/>
+		<DisplayFieldRef id="NEURO_SBT"/>
+		<DisplayFieldRef id="NEURO_MMSE"/>
+		<DisplayFieldRef id="NEURO_BDSC"/>
+		<DisplayFieldRef id="NEURO_CDR_MEMORY"/>
+		<DisplayFieldRef id="NEURO_CDR_ORIENTATION"/>
+		<DisplayFieldRef id="NEURO_CDR_JUDGMENT_PROBLEM_SOLVING"/>
+		<DisplayFieldRef id="NEURO_CDR_COMMUNITY_AFFAIRS"/>
+		<DisplayFieldRef id="NEURO_CDR_HOME_HOBBIES"/>
+		<DisplayFieldRef id="NEURO_CDR_PERSONAL_CARE"/>
+		<DisplayFieldRef id="NEURO_CDR_SUMBOX"/>
+		<DisplayFieldRef id="NEURO_CDR_RATING"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_S_BOOL"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_CS_BOOL"/>
+		<DisplayFieldRef id="NEURO_CONSMEMORYPROBLEM_BOOL"/>
+		<DisplayFieldRef id="NEURO_STROKEBOOL"/>
+		<DisplayFieldRef id="NEURO_SX_STROKE_BOOL"/>
+		<DisplayFieldRef id="NEURO_SX_TIA_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_SPASTICITY_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_RIGID"/>
+		<DisplayFieldRef id="MOVEMENT_BRADYK_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_GAIT"/>
+		<DisplayFieldRef id="MOVEMENT_ABNORMALGAIT_BOOL"/>
+		<DisplayFieldRef id="WEIGHT"/>
+		<DisplayFieldRef id="DIABETES_BOOL"/>
+		<DisplayFieldRef id="HEARTPROBLEMS_BOOL"/>
+		<DisplayFieldRef id="TOBACCOUSE_BOOL"/>
+	</DisplayVersion>
+	<DisplayVersion versionName="project_bundle" default-order-by="DATE" default-sort-order="DESC" brief-description="ClinicalAssessment" dark-color="9999CC" light-color="CCCCFF">
+		<DisplayFieldRef id="EXT_CLINICALASSESSMENTDATA_PROJECT_IDENTIFIER"/>
+		<DisplayFieldRef id="SUB_PROJECT_IDENTIFIER" element_name="xnat:subjectData"/>
+		<DisplayFieldRef id="DATE"/>
+		<DisplayFieldRef id="AGE"/>
+		<DisplayFieldRef id="BLOODPRESSURE_HIGHBP_CS_BOOL"/>
+		<DisplayFieldRef id="BLOODPRESSURE_SYSTOLIC"/>
+		<DisplayFieldRef id="BLOODPRESSURE_DIASTOLIC"/>
+		<DisplayFieldRef id="NEURO_SBT"/>
+		<DisplayFieldRef id="NEURO_MMSE"/>
+		<DisplayFieldRef id="NEURO_BDSC"/>
+		<DisplayFieldRef id="NEURO_CDR_MEMORY"/>
+		<DisplayFieldRef id="NEURO_CDR_ORIENTATION"/>
+		<DisplayFieldRef id="NEURO_CDR_JUDGMENT_PROBLEM_SOLVING"/>
+		<DisplayFieldRef id="NEURO_CDR_COMMUNITY_AFFAIRS"/>
+		<DisplayFieldRef id="NEURO_CDR_HOME_HOBBIES"/>
+		<DisplayFieldRef id="NEURO_CDR_PERSONAL_CARE"/>
+		<DisplayFieldRef id="NEURO_CDR_SUMBOX"/>
+		<DisplayFieldRef id="NEURO_CDR_RATING"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_S_BOOL"/>
+		<DisplayFieldRef id="NEURO_THINKINGPROBLEM_CS_BOOL"/>
+		<DisplayFieldRef id="NEURO_CONSMEMORYPROBLEM_BOOL"/>
+		<DisplayFieldRef id="NEURO_STROKEBOOL"/>
+		<DisplayFieldRef id="NEURO_SX_STROKE_BOOL"/>
+		<DisplayFieldRef id="NEURO_SX_TIA_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_SPASTICITY_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_RIGID"/>
+		<DisplayFieldRef id="MOVEMENT_BRADYK_BOOL"/>
+		<DisplayFieldRef id="MOVEMENT_GAIT"/>
+		<DisplayFieldRef id="MOVEMENT_ABNORMALGAIT_BOOL"/>
+		<DisplayFieldRef id="WEIGHT"/>
+		<DisplayFieldRef id="DIABETES_BOOL"/>
+		<DisplayFieldRef id="HEARTPROBLEMS_BOOL"/>
+		<DisplayFieldRef id="TOBACCOUSE_BOOL"/>
+	</DisplayVersion>
+	<ViewLink alias="EXT_CLINICALASSESSMENTDATA_PROJECTS">
+		<Mapping TableName="EXT_CLINICALASSESSMENTDATA_PROJECTS">
+			<MappingColumn rootElement="ext:clinicalAssessmentData" fieldElement="ext:clinicalAssessmentData.ID" mapsTo="id"/>
+		</Mapping>
+	</ViewLink>
+	<SQLView name="EXT_CLINICALASSESSMENTDATA_PROJECTS" sql="SELECT id, '&lt;' || expt.project || '&gt;' || xs_a_concat(',&lt;' || shared.project || '&gt;') AS projects FROM xnat_experimentData expt LEFT JOIN xnat_experimentData_share shared ON expt.id=shared.sharing_share_xnat_experimentda_id LEFT JOIN xdat_meta_element xme ON expt.extension = xme.xdat_meta_element_id WHERE element_name='ext:clinicalAssessmentData' GROUP BY expt.id,expt.project"/>
+</Displays>

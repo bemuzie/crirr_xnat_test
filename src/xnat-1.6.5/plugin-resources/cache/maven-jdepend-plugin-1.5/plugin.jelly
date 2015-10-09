@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:ant="jelly:ant" 
+  xmlns:j="jelly:core" 
+  xmlns:doc="doc">
+
+  <goal name="maven-jdepend-plugin:register">
+    <j:if test="${sourcesPresent == 'true'}">
+      <doc:registerReport 
+        name="Metrics" 
+        pluginName="maven-jdepend-plugin"
+        link="jdepend-report"
+        description="Report on source code metrics."/>
+    </j:if>  
+  </goal>
+  
+  <goal name="maven-jdepend-plugin:deregister">
+    <j:if test="${sourcesPresent == 'true'}">
+      <doc:deregisterReport name="Metrics"/>
+    </j:if>  
+  </goal>
+
+  <!-- ================================================================== -->
+  <!-- J D E P E N D  X M L  T A R G E T                                  -->
+  <!-- ================================================================== -->
+
+  <goal 
+    name="maven-jdepend-plugin:report"
+    description="Generate a dependency report with JDepend">
+    
+    <j:if test="${sourcesPresent == 'true'}">
+
+    <attainGoal name="java:compile"/>
+
+    <ant:java 
+      classname="jdepend.xmlui.JDepend" 
+      fork="true"
+      failonerror="true">
+      <ant:arg line="-file '${maven.build.dir}/jdepend-raw-report.xml' '${maven.build.dest}'"/>
+      <ant:classpath>
+        <ant:path refid="maven-classpath"/>
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:pathelement path="${plugin.getDependencyPath('jdepend')}"/>
+      </ant:classpath>
+    </ant:java>
+
+      <doc:jsl
+        input="${maven.build.dir}/jdepend-raw-report.xml"
+        output="jdepend-report.xml"
+        stylesheet="${plugin.resources}/jdepend.jsl"
+        outputMode="xml"
+        prettyPrint="true"
+        />
+    
+    </j:if>
+
+  </goal>
+
+</project>

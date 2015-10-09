@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_xdat_user_groupID_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:user_groupID/groupID                                                                           xdat_user_groupID0		xdat_user_groupID.groupid
+xdat:user_groupID/user_groupid_info                                                                 xdat_user_groupID1		xdat_user_groupID.user_groupid_info
+xdat:user_groupID/xdat_user_groupID_id                                                              xdat_user_groupID2		xdat_user_groupID.xdat_user_groupid_id
+xdat:user_groupID/groups_groupid_xdat_user_xdat_user_id                                             xdat_user_groupID3		xdat_user_groupID.groups_groupid_xdat_user_xdat_user_id
+xdat:user_groupID/meta/xft_version                                                                  xdat_user_groupID_meta_data4		xdat_user_groupID_meta_data.xft_version
+xdat:user_groupID/meta/last_modified                                                                xdat_user_groupID_meta_data5		xdat_user_groupID_meta_data.last_modified
+xdat:user_groupID/meta/status                                                                       xdat_user_groupID_meta_data6		xdat_user_groupID_meta_data.status
+xdat:user_groupID/meta/activation_date                                                              xdat_user_groupID_meta_data7		xdat_user_groupID_meta_data.activation_date
+xdat:user_groupID/meta/row_last_modified                                                            xdat_user_groupID_meta_data8		xdat_user_groupID_meta_data.row_last_modified
+xdat:user_groupID/meta/insert_date                                                                  xdat_user_groupID_meta_data9		xdat_user_groupID_meta_data.insert_date
+xdat:user_groupID/meta/activation_user_xdat_user_id                                                 xdat_user_groupID_meta_data10		xdat_user_groupID_meta_data.activation_user_xdat_user_id
+xdat:user_groupID/meta/insert_user_xdat_user_id                                                     xdat_user_groupID_meta_data11		xdat_user_groupID_meta_data.insert_user_xdat_user_id
+xdat:user_groupID/meta/origin                                                                       xdat_user_groupID_meta_data12		xdat_user_groupID_meta_data.origin
+xdat:user_groupID/meta/modified                                                                     xdat_user_groupID_meta_data13		xdat_user_groupID_meta_data.modified
+xdat:user_groupID/meta/shareable                                                                    xdat_user_groupID_meta_data14		xdat_user_groupID_meta_data.shareable
+xdat:user_groupID/meta/meta_data_id                                                                 xdat_user_groupID_meta_data15		xdat_user_groupID_meta_data.meta_data_id

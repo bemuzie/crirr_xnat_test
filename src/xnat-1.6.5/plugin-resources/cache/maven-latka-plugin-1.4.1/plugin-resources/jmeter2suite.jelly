@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<j:jelly xmlns:j="jelly:core"
+  xmlns:x="jelly:xml"
+  xmlns="dummy">
+
+  <suite>
+    <session>
+      <x:forEach select="$jmeter//testelement[@class='org.apache.jmeter.protocol.http.sampler.HTTPSampler']">
+        <j:set var="host"><x:expr select="property[@name='HTTPSampler.domain']/text()"/></j:set>
+        <j:set var="port"><x:expr select="property[@name='HTTPSampler.port']/text()"/></j:set>
+        <j:set var="path"><x:expr select="property[@name='HTTPSampler.path']/text()"/></j:set>
+
+        <request host="${host}" port="${port}" path="${path}">
+          <!-- params next -->
+          <x:forEach select=".//testelement[@class='org.apache.jmeter.protocol.http.util.HTTPArgument']">
+            <param>
+              <!-- using encoded values here as the latka tags don't encode their contents :( -->
+              <paramName><x:expr select="property[@name='HTTPArgument.encoded_name']/text()"/></paramName>
+              <paramValue><x:expr select="property[@name='HTTPArgument.encoded_value']/text()"/></paramValue>
+            </param>
+          </x:forEach>
+          <validate><statusCode /></validate>
+        </request>
+      </x:forEach>
+    </session>
+  </suite>
+  
+</j:jelly>

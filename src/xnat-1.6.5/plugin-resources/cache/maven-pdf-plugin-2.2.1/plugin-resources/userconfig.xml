@@ -1,0 +1,77 @@
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+<!--<!DOCTYPE configuration SYSTEM "config.dtd">-->
+<!--
+     this file contains templates which allow an user easy
+     configuration of Fop. Actually normally you don't need this configuration
+     file, but if you need to change configuration, you should
+     always use this file and *not* config.xml.
+     Usage: java org.apache.fop.apps.Fop -c userconfig.xml -fo fo-file -pdf pdf-file
+-->
+<configuration>
+  <!--  NOT IMPLEMENTED
+basedir: normally the base directory is the directory where the fo file is
+         located. if you want to specify your own, uncomment this entry
+-->
+  <!--
+  <entry>
+    <key>baseDir</key>
+    <value></value>
+  </entry>
+-->
+  <!--
+************************************************************************
+                        HYPHENATION
+************************************************************************
+-->
+  <!--
+   hyphenation directory
+   if you want to specify your own directory with hyphenation pattern
+   then uncomment the next entry and add the directory name
+-->
+  <!--
+  <entry>
+    <key>hyphenation-dir</key>
+    <value>/java/xml-fop/hyph</value>
+  </entry>
+-->
+  <!--
+************************************************************************
+  Add fonts here
+************************************************************************
+-->
+  <fonts>
+    <font metrics-file="fonts/ttf-gara.xml" kerning="yes" embed-file="fonts/gara.ttf">
+      <font-triplet name="Garamond" style="normal" weight="normal"/>
+    </font>
+    <font metrics-file="fonts/ttf-garabd.xml" kerning="yes" embed-file="fonts/garabd.ttf">
+      <font-triplet name="Garamond" style="normal" weight="bold"/>
+    </font>
+    <font metrics-file="fonts/ttf-garait.xml" kerning="yes" embed-file="fonts/garait.ttf">
+      <font-triplet name="Garamond" style="italic" weight="normal"/>
+    </font>
+    <!-- TT fonts -->
+    <!-- example -->
+    <!--
+ <font metrics-file="arial.xml" kerning="yes" embed-file="arial.ttf">
+    <font-triplet name="Arial" style="normal" weight="normal"/>
+    <font-triplet name="ArialMT" style="normal" weight="normal"/>
+ </font>
+ -->
+  </fonts>
+</configuration>

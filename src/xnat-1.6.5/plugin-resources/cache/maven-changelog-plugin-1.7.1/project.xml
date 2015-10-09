@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-changelog-plugin</id>
+  <name>Maven Changelog Plugin</name>
+  <currentVersion>1.7.1</currentVersion>
+  <description/>
+  <shortDescription>Produce SCM changelog reports</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/changelog/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/MPCHANGELOG</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/changelog/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/changelog/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/changelog/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/changelog/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.4</id>
+      <name>1.4</name>
+      <tag>MAVEN_CHANGELOG_1_4</tag>
+    </version>
+    <version>
+      <id>1.5</id>
+      <name>1.5</name>
+      <tag>MAVEN_CHANGELOG_1_5</tag>
+    </version>
+    <version>
+      <id>1.6</id>
+      <name>1.6</name>
+      <tag>MAVEN_CHANGELOG_1_6</tag>
+    </version>
+    <version>
+      <id>1.7</id>
+      <name>1.7</name>
+      <tag>MAVEN_CHANGELOG_1_7</tag>
+    </version>
+    <version>
+      <id>1.7.1</id>
+      <name>1.7.1</name>
+      <tag>MAVEN_CHANGELOG_1_7_1</tag>
+    </version>
+  </versions>
+  <developers>
+    <developer>
+      <name>Pete Kazmier</name>
+      <id>kaz</id>
+      <email>pete-apache-dev@kazmier.com</email>
+      <organization/>
+      <roles>
+        <role>Documentation</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Eric Pugh</name>
+      <id>epugh</id>
+      <email>epugh@upstate.com</email>
+      <organization/>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Emmanuel Venisse</name>
+      <id>evenisse</id>
+      <email>emmanuel@venisse.net</email>
+      <organization/>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Jason van Zyl</name>
+      <id>jvanzyl</id>
+      <email>jason@zenplex.com</email>
+      <organization>Zenplex</organization>
+      <roles>
+        <role>Architect</role>
+        <role>Release Manager</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Daniel Rall</name>
+      <id>dlr</id>
+      <email>dlr@finemaltcoding.com</email>
+      <organization>CollabNet, Inc.</organization>
+      <roles>
+        <role>Java Developer</role>
+        <role>Documentation</role>
+      </roles>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.5.3-1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-jsl</artifactId>
+      <version>20030211.143151</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
+      <version>20030211.142705</version>
+      <url>http://jakarta.apache.org/commons/jelly/libs/xml/</url>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>netbeans</groupId>
+      <artifactId>cvslib</artifactId>
+      <version>3.6</version>
+    </dependency>
+    <dependency>
+      <groupId>regexp</groupId>
+      <artifactId>regexp</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <!-- Required because of the Developer class -->
+
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven</artifactId>
+      <version>1.0-rc2</version>
+    </dependency>
+    <!-- Required to build under for JDK 1.3 because we fork junit -->
+
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.0.b2</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,82 @@
+
+
+*********************************************
+
+ac_s_xdat_element_access_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:element_access/secondary_password                                                              xdat_element_access0		xdat_element_access.secondary_password
+xdat:element_access/secondary_password/encrypt                                                      xdat_element_access1		xdat_element_access.secondary_password_encrypt
+xdat:element_access/element_name                                                                    xdat_element_access2		xdat_element_access.element_name
+xdat:element_access/element_access_info                                                             xdat_element_access3		xdat_element_access.element_access_info
+xdat:element_access/xdat_element_access_id                                                          xdat_element_access4		xdat_element_access.xdat_element_access_id
+xdat:element_access/xdat_user_xdat_user_id                                                          xdat_element_access5		xdat_element_access.xdat_user_xdat_user_id
+xdat:element_access/xdat_usergroup_xdat_usergroup_id                                                xdat_element_access6		xdat_element_access.xdat_usergroup_xdat_usergroup_id
+xdat:element_access/secure_ip/secure_ip                                                             xdat_element_access_secure_ip7		xdat_element_access_secure_ip.secure_ip
+xdat:element_access/secure_ip/element_access_secure_ip_info                                         xdat_element_access_secure_ip8		xdat_element_access_secure_ip.element_access_secure_ip_info
+xdat:element_access/secure_ip/xdat_element_access_secure_ip_id                                      xdat_element_access_secure_ip9		xdat_element_access_secure_ip.xdat_element_access_secure_ip_id
+xdat:element_access/secure_ip/xdat_element_access_xdat_element_access_id                            xdat_element_access_secure_ip10		xdat_element_access_secure_ip.xdat_element_access_xdat_element_access_id
+xdat:element_access/secure_ip/meta/xft_version                                                      xdat_element_access_secure_ip_meta_data11		xdat_element_access_secure_ip_meta_data.xft_version
+xdat:element_access/secure_ip/meta/last_modified                                                    xdat_element_access_secure_ip_meta_data12		xdat_element_access_secure_ip_meta_data.last_modified
+xdat:element_access/secure_ip/meta/status                                                           xdat_element_access_secure_ip_meta_data13		xdat_element_access_secure_ip_meta_data.status
+xdat:element_access/secure_ip/meta/activation_date                                                  xdat_element_access_secure_ip_meta_data14		xdat_element_access_secure_ip_meta_data.activation_date
+xdat:element_access/secure_ip/meta/row_last_modified                                                xdat_element_access_secure_ip_meta_data15		xdat_element_access_secure_ip_meta_data.row_last_modified
+xdat:element_access/secure_ip/meta/insert_date                                                      xdat_element_access_secure_ip_meta_data16		xdat_element_access_secure_ip_meta_data.insert_date
+xdat:element_access/secure_ip/meta/activation_user_xdat_user_id                                     xdat_element_access_secure_ip_meta_data17		xdat_element_access_secure_ip_meta_data.activation_user_xdat_user_id
+xdat:element_access/secure_ip/meta/insert_user_xdat_user_id                                         xdat_element_access_secure_ip_meta_data18		xdat_element_access_secure_ip_meta_data.insert_user_xdat_user_id
+xdat:element_access/secure_ip/meta/origin                                                           xdat_element_access_secure_ip_meta_data19		xdat_element_access_secure_ip_meta_data.origin
+xdat:element_access/secure_ip/meta/modified                                                         xdat_element_access_secure_ip_meta_data20		xdat_element_access_secure_ip_meta_data.modified
+xdat:element_access/secure_ip/meta/shareable                                                        xdat_element_access_secure_ip_meta_data21		xdat_element_access_secure_ip_meta_data.shareable
+xdat:element_access/secure_ip/meta/meta_data_id                                                     xdat_element_access_secure_ip_meta_data22		xdat_element_access_secure_ip_meta_data.meta_data_id
+xdat:element_access/permissions/allow_set/sub_set_xdat_field_mapping_set_id                         xdat_field_mapping_set23		xdat_field_mapping_set.sub_set_xdat_field_mapping_set_id
+xdat:element_access/permissions/allow_set/method                                                    xdat_field_mapping_set24		xdat_field_mapping_set.method
+xdat:element_access/permissions/allow_set/field_mapping_set_info                                    xdat_field_mapping_set25		xdat_field_mapping_set.field_mapping_set_info
+xdat:element_access/permissions/allow_set/xdat_field_mapping_set_id                                 xdat_field_mapping_set26		xdat_field_mapping_set.xdat_field_mapping_set_id
+xdat:element_access/permissions/allow_set/permissions_allow_set_xdat_elem_xdat_element_access_id    xdat_field_mapping_set27		xdat_field_mapping_set.permissions_allow_set_xdat_elem_xdat_element_access_id
+xdat:element_access/permissions/allow_set/allow/field                                               xdat_field_mapping28		xdat_field_mapping.field
+xdat:element_access/permissions/allow_set/allow/field_value                                         xdat_field_mapping29		xdat_field_mapping.field_value
+xdat:element_access/permissions/allow_set/allow/create_element                                      xdat_field_mapping30		xdat_field_mapping.create_element
+xdat:element_access/permissions/allow_set/allow/read_element                                        xdat_field_mapping31		xdat_field_mapping.read_element
+xdat:element_access/permissions/allow_set/allow/edit_element                                        xdat_field_mapping32		xdat_field_mapping.edit_element
+xdat:element_access/permissions/allow_set/allow/delete_element                                      xdat_field_mapping33		xdat_field_mapping.delete_element
+xdat:element_access/permissions/allow_set/allow/active_element                                      xdat_field_mapping34		xdat_field_mapping.active_element
+xdat:element_access/permissions/allow_set/allow/comparison_type                                     xdat_field_mapping35		xdat_field_mapping.comparison_type
+xdat:element_access/permissions/allow_set/allow/field_mapping_info                                  xdat_field_mapping36		xdat_field_mapping.field_mapping_info
+xdat:element_access/permissions/allow_set/allow/xdat_field_mapping_id                               xdat_field_mapping37		xdat_field_mapping.xdat_field_mapping_id
+xdat:element_access/permissions/allow_set/allow/xdat_field_mapping_set_xdat_field_mapping_set_id    xdat_field_mapping38		xdat_field_mapping.xdat_field_mapping_set_xdat_field_mapping_set_id
+xdat:element_access/permissions/allow_set/allow/meta/xft_version                                    xdat_field_mapping_meta_data39		xdat_field_mapping_meta_data.xft_version
+xdat:element_access/permissions/allow_set/allow/meta/last_modified                                  xdat_field_mapping_meta_data40		xdat_field_mapping_meta_data.last_modified
+xdat:element_access/permissions/allow_set/allow/meta/status                                         xdat_field_mapping_meta_data41		xdat_field_mapping_meta_data.status
+xdat:element_access/permissions/allow_set/allow/meta/activation_date                                xdat_field_mapping_meta_data42		xdat_field_mapping_meta_data.activation_date
+xdat:element_access/permissions/allow_set/allow/meta/row_last_modified                              xdat_field_mapping_meta_data43		xdat_field_mapping_meta_data.row_last_modified
+xdat:element_access/permissions/allow_set/allow/meta/insert_date                                    xdat_field_mapping_meta_data44		xdat_field_mapping_meta_data.insert_date
+xdat:element_access/permissions/allow_set/allow/meta/activation_user_xdat_user_id                   xdat_field_mapping_meta_data45		xdat_field_mapping_meta_data.activation_user_xdat_user_id
+xdat:element_access/permissions/allow_set/allow/meta/insert_user_xdat_user_id                       xdat_field_mapping_meta_data46		xdat_field_mapping_meta_data.insert_user_xdat_user_id
+xdat:element_access/permissions/allow_set/allow/meta/origin                                         xdat_field_mapping_meta_data47		xdat_field_mapping_meta_data.origin
+xdat:element_access/permissions/allow_set/allow/meta/modified                                       xdat_field_mapping_meta_data48		xdat_field_mapping_meta_data.modified
+xdat:element_access/permissions/allow_set/allow/meta/shareable                                      xdat_field_mapping_meta_data49		xdat_field_mapping_meta_data.shareable
+xdat:element_access/permissions/allow_set/allow/meta/meta_data_id                                   xdat_field_mapping_meta_data50		xdat_field_mapping_meta_data.meta_data_id
+xdat:element_access/permissions/allow_set/meta/xft_version                                          xdat_field_mapping_set_meta_data51		xdat_field_mapping_set_meta_data.xft_version
+xdat:element_access/permissions/allow_set/meta/last_modified                                        xdat_field_mapping_set_meta_data52		xdat_field_mapping_set_meta_data.last_modified
+xdat:element_access/permissions/allow_set/meta/status                                               xdat_field_mapping_set_meta_data53		xdat_field_mapping_set_meta_data.status
+xdat:element_access/permissions/allow_set/meta/activation_date                                      xdat_field_mapping_set_meta_data54		xdat_field_mapping_set_meta_data.activation_date
+xdat:element_access/permissions/allow_set/meta/row_last_modified                                    xdat_field_mapping_set_meta_data55		xdat_field_mapping_set_meta_data.row_last_modified
+xdat:element_access/permissions/allow_set/meta/insert_date                                          xdat_field_mapping_set_meta_data56		xdat_field_mapping_set_meta_data.insert_date
+xdat:element_access/permissions/allow_set/meta/activation_user_xdat_user_id                         xdat_field_mapping_set_meta_data57		xdat_field_mapping_set_meta_data.activation_user_xdat_user_id
+xdat:element_access/permissions/allow_set/meta/insert_user_xdat_user_id                             xdat_field_mapping_set_meta_data58		xdat_field_mapping_set_meta_data.insert_user_xdat_user_id
+xdat:element_access/permissions/allow_set/meta/origin                                               xdat_field_mapping_set_meta_data59		xdat_field_mapping_set_meta_data.origin
+xdat:element_access/permissions/allow_set/meta/modified                                             xdat_field_mapping_set_meta_data60		xdat_field_mapping_set_meta_data.modified
+xdat:element_access/permissions/allow_set/meta/shareable                                            xdat_field_mapping_set_meta_data61		xdat_field_mapping_set_meta_data.shareable
+xdat:element_access/permissions/allow_set/meta/meta_data_id                                         xdat_field_mapping_set_meta_data62		xdat_field_mapping_set_meta_data.meta_data_id
+xdat:element_access/meta/xft_version                                                                xdat_element_access_meta_data63		xdat_element_access_meta_data.xft_version
+xdat:element_access/meta/last_modified                                                              xdat_element_access_meta_data64		xdat_element_access_meta_data.last_modified
+xdat:element_access/meta/status                                                                     xdat_element_access_meta_data65		xdat_element_access_meta_data.status
+xdat:element_access/meta/activation_date                                                            xdat_element_access_meta_data66		xdat_element_access_meta_data.activation_date
+xdat:element_access/meta/row_last_modified                                                          xdat_element_access_meta_data67		xdat_element_access_meta_data.row_last_modified
+xdat:element_access/meta/insert_date                                                                xdat_element_access_meta_data68		xdat_element_access_meta_data.insert_date
+xdat:element_access/meta/activation_user_xdat_user_id                                               xdat_element_access_meta_data69		xdat_element_access_meta_data.activation_user_xdat_user_id
+xdat:element_access/meta/insert_user_xdat_user_id                                                   xdat_element_access_meta_data70		xdat_element_access_meta_data.insert_user_xdat_user_id
+xdat:element_access/meta/origin                                                                     xdat_element_access_meta_data71		xdat_element_access_meta_data.origin
+xdat:element_access/meta/modified                                                                   xdat_element_access_meta_data72		xdat_element_access_meta_data.modified
+xdat:element_access/meta/shareable                                                                  xdat_element_access_meta_data73		xdat_element_access_meta_data.shareable
+xdat:element_access/meta/meta_data_id                                                               xdat_element_access_meta_data74		xdat_element_access_meta_data.meta_data_id

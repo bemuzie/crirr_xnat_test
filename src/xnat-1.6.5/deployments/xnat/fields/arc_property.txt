@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_arc_property_r
+(ACTIVE - MULTIPLE - ROOT)
+
+arc:property/property                                                                               arc_property0		arc_property.property
+arc:property/name                                                                                   arc_property1		arc_property.name
+arc:property/property_info                                                                          arc_property2		arc_property.property_info
+arc:property/arc_property_id                                                                        arc_property3		arc_property.arc_property_id
+arc:property/properties_property_arc_project_arc_project_id                                         arc_property4		arc_property.properties_property_arc_project_arc_project_id
+arc:property/meta/xft_version                                                                       arc_property_meta_data5		arc_property_meta_data.xft_version
+arc:property/meta/last_modified                                                                     arc_property_meta_data6		arc_property_meta_data.last_modified
+arc:property/meta/status                                                                            arc_property_meta_data7		arc_property_meta_data.status
+arc:property/meta/activation_date                                                                   arc_property_meta_data8		arc_property_meta_data.activation_date
+arc:property/meta/row_last_modified                                                                 arc_property_meta_data9		arc_property_meta_data.row_last_modified
+arc:property/meta/insert_date                                                                       arc_property_meta_data10		arc_property_meta_data.insert_date
+arc:property/meta/activation_user_xdat_user_id                                                      arc_property_meta_data11		arc_property_meta_data.activation_user_xdat_user_id
+arc:property/meta/insert_user_xdat_user_id                                                          arc_property_meta_data12		arc_property_meta_data.insert_user_xdat_user_id
+arc:property/meta/origin                                                                            arc_property_meta_data13		arc_property_meta_data.origin
+arc:property/meta/modified                                                                          arc_property_meta_data14		arc_property_meta_data.modified
+arc:property/meta/shareable                                                                         arc_property_meta_data15		arc_property_meta_data.shareable
+arc:property/meta/meta_data_id                                                                      arc_property_meta_data16		arc_property_meta_data.meta_data_id

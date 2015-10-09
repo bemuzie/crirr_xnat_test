@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_xnat_imageScanData_share_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:imageScanData_share/share                                                                      xnat_imageScanData_share0		xnat_imageScanData_share.share
+xnat:imageScanData_share/label                                                                      xnat_imageScanData_share1		xnat_imageScanData_share.label
+xnat:imageScanData_share/project                                                                    xnat_imageScanData_share2		xnat_imageScanData_share.project
+xnat:imageScanData_share/imagescandata_share_info                                                   xnat_imageScanData_share3		xnat_imageScanData_share.imagescandata_share_info
+xnat:imageScanData_share/xnat_imageScanData_share_id                                                xnat_imageScanData_share4		xnat_imageScanData_share.xnat_imagescandata_share_id
+xnat:imageScanData_share/sharing_share_xnat_imagescandat_xnat_imagescandata_id                      xnat_imageScanData_share5		xnat_imageScanData_share.sharing_share_xnat_imagescandat_xnat_imagescandata_id
+xnat:imageScanData_share/meta/xft_version                                                           xnat_imageScanData_share_meta_data6		xnat_imageScanData_share_meta_data.xft_version
+xnat:imageScanData_share/meta/last_modified                                                         xnat_imageScanData_share_meta_data7		xnat_imageScanData_share_meta_data.last_modified
+xnat:imageScanData_share/meta/status                                                                xnat_imageScanData_share_meta_data8		xnat_imageScanData_share_meta_data.status
+xnat:imageScanData_share/meta/activation_date                                                       xnat_imageScanData_share_meta_data9		xnat_imageScanData_share_meta_data.activation_date
+xnat:imageScanData_share/meta/row_last_modified                                                     xnat_imageScanData_share_meta_data10		xnat_imageScanData_share_meta_data.row_last_modified
+xnat:imageScanData_share/meta/insert_date                                                           xnat_imageScanData_share_meta_data11		xnat_imageScanData_share_meta_data.insert_date
+xnat:imageScanData_share/meta/activation_user_xdat_user_id                                          xnat_imageScanData_share_meta_data12		xnat_imageScanData_share_meta_data.activation_user_xdat_user_id
+xnat:imageScanData_share/meta/insert_user_xdat_user_id                                              xnat_imageScanData_share_meta_data13		xnat_imageScanData_share_meta_data.insert_user_xdat_user_id
+xnat:imageScanData_share/meta/origin                                                                xnat_imageScanData_share_meta_data14		xnat_imageScanData_share_meta_data.origin
+xnat:imageScanData_share/meta/modified                                                              xnat_imageScanData_share_meta_data15		xnat_imageScanData_share_meta_data.modified
+xnat:imageScanData_share/meta/shareable                                                             xnat_imageScanData_share_meta_data16		xnat_imageScanData_share_meta_data.shareable
+xnat:imageScanData_share/meta/meta_data_id                                                          xnat_imageScanData_share_meta_data17		xnat_imageScanData_share_meta_data.meta_data_id

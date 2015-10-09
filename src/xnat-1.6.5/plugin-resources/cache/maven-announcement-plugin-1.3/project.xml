@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-announcement-plugin</id>
+  <name>Maven Announcement Plugin</name>
+  <currentVersion>1.3</currentVersion>
+  <description>The Announcement plugin generates release announcements. It uses the information found in both the POM and in the changes.xml file to generate the announcement text.</description>&gt;
+  <shortDescription>Produce release announcement</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/announcement/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/MPANNOUNCEMENT</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/announcement/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/announcement/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/announcement/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/announcement/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>MAVEN_ANNOUNCEMENT_1_0</tag>
+    </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_ANNOUNCEMENT_1_1</tag>
+    </version>
+    <version>
+      <id>1.2</id>
+      <name>1.2</name>
+      <tag>MAVEN_ANNOUNCEMENT_1_2</tag>
+    </version>
+    <version>
+      <id>1.3</id>
+      <name>1.3</name>
+      <tag>MAVEN_ANNOUNCEMENT_1_3</tag>
+    </version>
+  </versions>
+  <developers>
+    <developer>
+      <name>Vincent Massol</name>
+      <id>vmassol</id>
+      <email>vmassol@pivolis.com</email>
+      <organization>Pivolis</organization>
+      <roles>
+        <role>Creator</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Brett Porter</name>
+      <id>brett</id>
+      <email>brett@apache.org</email>
+      <organization>f2 network</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Fabrizio Giustina</name>
+    </contributor>
+    <contributor>
+      <name>Felipe Leme</name>
+    </contributor>
+  </contributors>
+  <dependencies>
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
+      <version>20030211.142705</version>
+      <url>http://jakarta.apache.org/commons/jelly/libs/xml/</url>
+    </dependency>
+    <dependency>
+      <id>commons-lang</id>
+      <version>2.0</version>
+      <url>http://jakarta.apache.org/commons/lang/</url>
+    </dependency>
+    <dependency>
+      <id>commons-net</id>
+      <version>1.2.1</version>
+      <url>http://jakarta.apache.org/commons/net/</url>
+    </dependency>
+  </dependencies>
+</project>

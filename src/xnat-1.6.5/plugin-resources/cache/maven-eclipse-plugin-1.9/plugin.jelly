@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project 
+  xmlns:j="jelly:core"
+  xmlns:ant="jelly:ant"
+  xmlns:test="test"
+  xmlns:util="jelly:util"
+  xmlns:define="jelly:define"
+  xmlns:maven="jelly:maven">
+
+
+  <define:taglib uri="eclipse">  
+    <define:tag name="write-classpath-entry">
+      <maven:param-check value="${groupId}" fail="true" message="'groupId' must be specified"/>
+      <maven:param-check value="${artifactId}" fail="true" message="'artifactId' must be specified"/>
+      <maven:param-check value="${version}" fail="false" message="'version' should be specified for artifact ${groupId}.${artifactId}"/>
+      <!-- relativePath is optional, used for jar override -->
+
+      <j:set var="relativePathCheck" value="${relativePath}X" />
+      <j:if test='${relativePathCheck == "X"}'>
+      	<j:set var="relativePath" value="${groupId}/jars/${artifactId}-${version}.jar" />
+      </j:if>
+      <j:set var="mappedsrc" value="${groupId}/src/${artifactId}-${version}.${maven.eclipse.src.extension}"/>
+      <util:file var="checkSrcExist" name="${maven.repo.local}/${mappedsrc}" />
+      <j:choose>
+        <j:when test="${checkSrcExist.exists()}">
+          <classpathentry kind="var" path="MAVEN_REPO/${relativePath}" sourcepath="MAVEN_REPO/${mappedsrc}" />
+        </j:when>
+        <j:otherwise>
+          <classpathentry kind="var" path="MAVEN_REPO/${relativePath}" />
+        </j:otherwise>
+      </j:choose>
+    </define:tag>
+  </define:taglib>
+
+  <!--==================================================================-->
+  <!-- Generate Eclipse .project and .classpath files                   -->
+  <!--==================================================================-->    
+  <goal name="eclipse"
+    description="Generate Eclipse project files"
+    prereqs="eclipse:generate-project, eclipse:generate-classpath">
+    <ant:echo>Now refresh your project in Eclipse (right click on the project and select "Refresh")</ant:echo>
+  </goal>
+
+  <goal name="eclipse:generate-project"
+    description="Generate Eclipse .project file">
+    
+    <ant:echo>Creating ${basedir}/.project ...</ant:echo>
+    <j:file name="${basedir}/.project" prettyPrint="true" xmlns="dummy">
+      <j:import file="${plugin.resources}/templates/project.jelly" inherit="true"/>    
+    </j:file>
+    
+  </goal>
+	
+
+  <!--==================================================================-->
+  <!-- Generate Eclipse  .classpath file                                -->
+  <!--==================================================================-->    
+  <goal name="eclipse:generate-classpath"
+    description="Generate Eclipse .classpath file">
+  
+    <ant:echo>Creating ${basedir}/.classpath ...</ant:echo>                
+    <j:file name="${basedir}/.classpath" prettyPrint="true" outputMode="xml" xmlns="dummy">
+      <j:import file="${plugin.resources}/templates/classpath.jelly" inherit="true"/>    
+    </j:file>
+    
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- Generate Eclipse mappings for Maven goals                        -->
+  <!--==================================================================-->
+  <goal name="eclipse:external-tools"
+           description="Generate an Eclipse external tool for each goal">
+    <ant:mkdir dir="${maven.build.dir}/eclipse/"/>
+    <j:set var="toolFile" value="${maven.build.dir}/eclipse/externaltools.xml" />
+
+    <ant:echo>Creating ${toolFile}</ant:echo>
+
+    <j:set var="os" value="${os.name}" />
+    <j:set var="windows" value="${os.toLowerCase().indexOf('windows') != '-1'}"/>
+    <ant:echo>Adapting the generated file for a ${os} box.</ant:echo>
+    
+    <!-- Strangely, j:file inserts a space between ${maven.home} and /bin/maven ... --> 
+    <j:set var="tool.loc" value="${maven.home}${file.separator}bin${file.separator}maven"/>
+    <j:if test="${windows}">
+      <j:set var="tool.loc" value="${tool.loc}.bat"/>
+    </j:if>
+    
+    <j:file name="${toolFile}" prettyPrint="true" xmlns="dummy">
+      <externaltools>
+        <j:set var="project" value="${org.apache.commons.jelly.werkz.Project}"/>
+
+        <j:set var="session" value="${maven.session}"/>
+        <j:forEach var="goal" items="${session.allGoalNames}">
+
+          <j:set var="maven.eclipse.generate" value="false"/>
+          <j:set var="allGoals" value="${maven.eclipse.goals}" />
+          <j:choose>
+            <j:when test="${allGoals == 'all'}">
+              <j:set var="maven.eclipse.generate" value="true"/>
+            </j:when>
+            <j:otherwise>
+              <j:if test="${goal.indexOf(':') == '-1'}">
+                <j:set var="maven.eclipse.generate" value="true"/>
+              </j:if>
+            </j:otherwise>
+          </j:choose>
+
+          <j:if test="${maven.eclipse.generate}">
+            <tool>
+              <entry key="!{tool_refresh}">$${project}</entry>
+              <entry key="!{tool_show_log}">true</entry>
+              <entry key="!{tool_loc}">${tool.loc}</entry>
+              <entry key="!{tool_args}">-e -p $${resource_loc} ${goal}</entry>
+              <entry key="!{tool_block}">false</entry>
+              <entry key="!{tool_type}">org.eclipse.ui.externaltools.type.program</entry>
+              <entry key="!{tool_dir}">$${container_loc}</entry>
+              <entry key="!{tool_build_types}"></entry>
+              <entry key="!{tool_name}">Maven ${goal}</entry>
+            </tool>
+          </j:if>
+        </j:forEach>
+      </externaltools>
+    </j:file>
+    
+    <j:set var="ws" value="${maven.eclipse.workspace}X" />
+    <j:if test='${ws != "X"}'>
+      <j:set var="toDir" value="${maven.eclipse.workspace}/.metadata/.plugins/org.eclipse.ui.externaltools/" />
+      <ant:copy file="${toolFile}" todir="${toDir}"/>
+    </j:if>
+    
+    <j:if test='${ws == "X"}'>
+      <ant:echo>
+  Please set maven.eclipse.workspace to the location of your eclipse workspace.
+  Alternatively, copy 
+    ${maven.build.dir}/eclipse/externaltools.xml
+  to
+    [maven.eclipse.workspace]/.metadata/.plugins/org.eclipse.ui.externaltools/externaltools.xml
+      </ant:echo>
+    </j:if>
+
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Generate Eclipse mappings for Maven goals                        -->
+  <!--==================================================================-->
+  <goal name="eclipse:external-tools-21"
+           description="Generate an Eclipse 2.1 external tool for each goal">
+    <ant:mkdir dir="${maven.build.dir}/eclipse/"/>
+
+    <ant:echo>Creating external tools </ant:echo>
+
+    <j:set var="os" value="${os.name}" />
+    <j:set var="windows" value="${os.toLowerCase().indexOf('windows') != '-1'}"/>
+    <ant:echo>Adapting the generated file for a ${os} box.</ant:echo>
+    
+    <!-- Strangely, j:file inserts a space between ${maven.home} and /bin/maven ... --> 
+    <j:set var="tool.loc" value="${maven.home}${file.separator}bin${file.separator}maven"/>
+    <j:if test="${windows}">
+      <j:set var="tool.loc" value="${tool.loc}.bat"/>
+    </j:if>
+
+    <j:set var="project" value="${org.apache.commons.jelly.werkz.Project}"/>
+    <j:set var="allGoals" value="${maven.eclipse.goals}" />
+    <j:set var="session" value="${maven.session}"/>
+    <j:forEach var="goal" items="${session.allGoalNames}">
+      <util:replace var="goalName" oldChar=":" newChar="-" value="${goal}"/>
+
+      <j:set var="fileName" value="${maven.build.dir}/eclipse/maven ${goalName}.launch"/>
+
+      <j:set var="maven.eclipse.generate" value="false"/>
+      <j:choose>
+        <j:when test="${allGoals == 'all'}">
+          <j:set var="maven.eclipse.generate" value="true"/>
+        </j:when>
+        <j:otherwise>
+          <j:if test="${goal.indexOf(':') == '-1'}">
+            <j:set var="maven.eclipse.generate" value="true"/>
+          </j:if>
+        </j:otherwise>
+      </j:choose>
+
+      <j:if test="${maven.eclipse.generate}">
+        <ant:echo>Generating ${fileName}</ant:echo>
+        <j:file name="${fileName}" prettyPrint="true" xmlns="dummy">
+          <j:import file="${plugin.resources}/templates/launch.jelly" inherit="true"/>
+        </j:file>
+      </j:if>
+    </j:forEach>
+    
+    <j:set var="ws" value="${maven.eclipse.workspace}X" />
+    <j:if test='${ws != "X"}'>
+      <j:set var="toDir" value="${maven.eclipse.workspace}/.metadata/.plugins/org.eclipse.debug.core/.launches/" />
+      <ant:copy todir="${toDir}">
+        <ant:fileset dir="${maven.build.dir}/eclipse/" includes="*.launch" />
+      </ant:copy>
+    </j:if>
+    
+    <j:if test='${ws == "X"}'>
+      <ant:echo>
+  Please set maven.eclipse.workspace to the location of your eclipse workspace.
+  Alternatively, copy 
+    ${maven.build.dir}/eclipse/*.launch
+  to
+    [maven.eclipse.workspace]/.metadata/.plugins/org.eclipse.debug.core/.launches/
+      </ant:echo>
+    </j:if>
+
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- Add MAVEN_REPO to classpath variables                            -->
+  <!--==================================================================-->
+  <goal name="eclipse:add-maven-repo"
+    description="Ensure that the classpath variable MAVEN_REPO is available">
+
+    <j:set var="ws" value="${maven.eclipse.workspace}X" />
+    <j:choose>
+      <j:when test='${ws != "X"}'>
+        <j:set var="variableFile" value="${maven.eclipse.workspace}/.metadata/.plugins/org.eclipse.jdt.core/pref_store.ini" />
+        <ant:propertyfile file="${variableFile}">
+          <ant:entry key="org.eclipse.jdt.core.classpathVariable.MAVEN_REPO"
+            default="${maven.repo.local}" />
+        </ant:propertyfile>
+      </j:when>
+      <j:otherwise>The property $${maven.eclipse.workspace} was not set. MAVEN_REPO may not be set.</j:otherwise>
+    </j:choose>
+  </goal>
+  
+  <!--==================================================================-->
+  <!-- Clean up eclipse generated files                                 -->
+  <!--==================================================================-->
+  <goal name="eclipse:clean" 
+    description="Clean eclipse generated files">
+    <j:set var="projectFileName" value="${basedir}/.project"/>
+    <j:set var="classpathFileName" value="${basedir}/.classpath"/>
+
+    <ant:delete file="${projectFileName}"/>
+    <ant:delete file="${classpathFileName}"/>
+
+    <ant:echo>Cleaned up eclipse generated files</ant:echo>
+  </goal>  
+
+</project>

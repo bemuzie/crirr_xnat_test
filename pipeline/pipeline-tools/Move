@@ -1,0 +1,6 @@
+#!/bin/bash 
+java -classpath "/data/xnat/pipeline"/lib/jsr173_1.0_api.jar:"/data/xnat/pipeline"/lib/xbean.jar:"/data/xnat/pipeline"/lib/xmlpublic.jar:"/data/xnat/pipeline"/lib/commons-lang-2.6.jar:"/data/xnat/pipeline"/lib/pipelineBase.jar:"/data/xnat/pipeline"/lib/java-getopt-1.0.12.jar:"/data/xnat/pipeline"/lib/PipelineTools.jar Move $@
+
+
+
+

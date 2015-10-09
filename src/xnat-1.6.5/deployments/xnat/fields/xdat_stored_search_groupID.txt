@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_xdat_stored_search_groupID_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:stored_search_groupID/groupID                                                                  xdat_stored_search_groupID0		xdat_stored_search_groupID.groupid
+xdat:stored_search_groupID/stored_search_groupid_info                                               xdat_stored_search_groupID1		xdat_stored_search_groupID.stored_search_groupid_info
+xdat:stored_search_groupID/xdat_stored_search_groupID_id                                            xdat_stored_search_groupID2		xdat_stored_search_groupID.xdat_stored_search_groupid_id
+xdat:stored_search_groupID/allowed_groups_groupid_xdat_sto_id                                       xdat_stored_search_groupID3		xdat_stored_search_groupID.allowed_groups_groupid_xdat_sto_id
+xdat:stored_search_groupID/meta/xft_version                                                         xdat_stored_search_groupID_meta_data4		xdat_stored_search_groupID_meta_data.xft_version
+xdat:stored_search_groupID/meta/last_modified                                                       xdat_stored_search_groupID_meta_data5		xdat_stored_search_groupID_meta_data.last_modified
+xdat:stored_search_groupID/meta/status                                                              xdat_stored_search_groupID_meta_data6		xdat_stored_search_groupID_meta_data.status
+xdat:stored_search_groupID/meta/activation_date                                                     xdat_stored_search_groupID_meta_data7		xdat_stored_search_groupID_meta_data.activation_date
+xdat:stored_search_groupID/meta/row_last_modified                                                   xdat_stored_search_groupID_meta_data8		xdat_stored_search_groupID_meta_data.row_last_modified
+xdat:stored_search_groupID/meta/insert_date                                                         xdat_stored_search_groupID_meta_data9		xdat_stored_search_groupID_meta_data.insert_date
+xdat:stored_search_groupID/meta/activation_user_xdat_user_id                                        xdat_stored_search_groupID_meta_data10		xdat_stored_search_groupID_meta_data.activation_user_xdat_user_id
+xdat:stored_search_groupID/meta/insert_user_xdat_user_id                                            xdat_stored_search_groupID_meta_data11		xdat_stored_search_groupID_meta_data.insert_user_xdat_user_id
+xdat:stored_search_groupID/meta/origin                                                              xdat_stored_search_groupID_meta_data12		xdat_stored_search_groupID_meta_data.origin
+xdat:stored_search_groupID/meta/modified                                                            xdat_stored_search_groupID_meta_data13		xdat_stored_search_groupID_meta_data.modified
+xdat:stored_search_groupID/meta/shareable                                                           xdat_stored_search_groupID_meta_data14		xdat_stored_search_groupID_meta_data.shareable
+xdat:stored_search_groupID/meta/meta_data_id                                                        xdat_stored_search_groupID_meta_data15		xdat_stored_search_groupID_meta_data.meta_data_id

@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_xdat_primary_security_field_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:primary_security_field/primary_security_field                                                  xdat_primary_security_field0		xdat_primary_security_field.primary_security_field
+xdat:primary_security_field/primary_security_field_info                                             xdat_primary_security_field1		xdat_primary_security_field.primary_security_field_info
+xdat:primary_security_field/xdat_primary_security_field_id                                          xdat_primary_security_field2		xdat_primary_security_field.xdat_primary_security_field_id
+xdat:primary_security_field/primary_security_fields_primary_element_name                            xdat_primary_security_field3		xdat_primary_security_field.primary_security_fields_primary_element_name
+xdat:primary_security_field/meta/xft_version                                                        xdat_primary_security_field_meta_data4		xdat_primary_security_field_meta_data.xft_version
+xdat:primary_security_field/meta/last_modified                                                      xdat_primary_security_field_meta_data5		xdat_primary_security_field_meta_data.last_modified
+xdat:primary_security_field/meta/status                                                             xdat_primary_security_field_meta_data6		xdat_primary_security_field_meta_data.status
+xdat:primary_security_field/meta/activation_date                                                    xdat_primary_security_field_meta_data7		xdat_primary_security_field_meta_data.activation_date
+xdat:primary_security_field/meta/row_last_modified                                                  xdat_primary_security_field_meta_data8		xdat_primary_security_field_meta_data.row_last_modified
+xdat:primary_security_field/meta/insert_date                                                        xdat_primary_security_field_meta_data9		xdat_primary_security_field_meta_data.insert_date
+xdat:primary_security_field/meta/activation_user_xdat_user_id                                       xdat_primary_security_field_meta_data10		xdat_primary_security_field_meta_data.activation_user_xdat_user_id
+xdat:primary_security_field/meta/insert_user_xdat_user_id                                           xdat_primary_security_field_meta_data11		xdat_primary_security_field_meta_data.insert_user_xdat_user_id
+xdat:primary_security_field/meta/origin                                                             xdat_primary_security_field_meta_data12		xdat_primary_security_field_meta_data.origin
+xdat:primary_security_field/meta/modified                                                           xdat_primary_security_field_meta_data13		xdat_primary_security_field_meta_data.modified
+xdat:primary_security_field/meta/shareable                                                          xdat_primary_security_field_meta_data14		xdat_primary_security_field_meta_data.shareable
+xdat:primary_security_field/meta/meta_data_id                                                       xdat_primary_security_field_meta_data15		xdat_primary_security_field_meta_data.meta_data_id

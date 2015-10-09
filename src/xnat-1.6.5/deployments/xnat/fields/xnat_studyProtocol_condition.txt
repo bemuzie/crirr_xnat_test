@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_xnat_studyProtocol_condition_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:studyProtocol_condition/ID                                                                     xnat_studyProtocol_condition0		xnat_studyProtocol_condition.id
+xnat:studyProtocol_condition/name                                                                   xnat_studyProtocol_condition1		xnat_studyProtocol_condition.name
+xnat:studyProtocol_condition/description                                                            xnat_studyProtocol_condition2		xnat_studyProtocol_condition.description
+xnat:studyProtocol_condition/studyprotocol_condition_info                                           xnat_studyProtocol_condition3		xnat_studyProtocol_condition.studyprotocol_condition_info
+xnat:studyProtocol_condition/xnat_studyProtocol_condition_id                                        xnat_studyProtocol_condition4		xnat_studyProtocol_condition.xnat_studyprotocol_condition_id
+xnat:studyProtocol_condition/acqconditions_condition_xnat_st_xnat_abstractprotocol_id               xnat_studyProtocol_condition5		xnat_studyProtocol_condition.acqconditions_condition_xnat_st_xnat_abstractprotocol_id
+xnat:studyProtocol_condition/meta/xft_version                                                       xnat_studyProtocol_condition_meta_data6		xnat_studyProtocol_condition_meta_data.xft_version
+xnat:studyProtocol_condition/meta/last_modified                                                     xnat_studyProtocol_condition_meta_data7		xnat_studyProtocol_condition_meta_data.last_modified
+xnat:studyProtocol_condition/meta/status                                                            xnat_studyProtocol_condition_meta_data8		xnat_studyProtocol_condition_meta_data.status
+xnat:studyProtocol_condition/meta/activation_date                                                   xnat_studyProtocol_condition_meta_data9		xnat_studyProtocol_condition_meta_data.activation_date
+xnat:studyProtocol_condition/meta/row_last_modified                                                 xnat_studyProtocol_condition_meta_data10		xnat_studyProtocol_condition_meta_data.row_last_modified
+xnat:studyProtocol_condition/meta/insert_date                                                       xnat_studyProtocol_condition_meta_data11		xnat_studyProtocol_condition_meta_data.insert_date
+xnat:studyProtocol_condition/meta/activation_user_xdat_user_id                                      xnat_studyProtocol_condition_meta_data12		xnat_studyProtocol_condition_meta_data.activation_user_xdat_user_id
+xnat:studyProtocol_condition/meta/insert_user_xdat_user_id                                          xnat_studyProtocol_condition_meta_data13		xnat_studyProtocol_condition_meta_data.insert_user_xdat_user_id
+xnat:studyProtocol_condition/meta/origin                                                            xnat_studyProtocol_condition_meta_data14		xnat_studyProtocol_condition_meta_data.origin
+xnat:studyProtocol_condition/meta/modified                                                          xnat_studyProtocol_condition_meta_data15		xnat_studyProtocol_condition_meta_data.modified
+xnat:studyProtocol_condition/meta/shareable                                                         xnat_studyProtocol_condition_meta_data16		xnat_studyProtocol_condition_meta_data.shareable
+xnat:studyProtocol_condition/meta/meta_data_id                                                      xnat_studyProtocol_condition_meta_data17		xnat_studyProtocol_condition_meta_data.meta_data_id

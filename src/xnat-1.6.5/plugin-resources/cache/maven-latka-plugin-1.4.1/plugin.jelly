@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project xmlns:j="jelly:core" 
+         xmlns:u="jelly:util"
+         xmlns:x="jelly:xml">
+
+
+  <goal name="latka" description="Run the project's latka tests">
+    <attainGoal name="latka:test" />
+  </goal>
+
+  <!-- run all Latka tests in the project -->
+  <goal name="latka:test" description="Run the project's latka tests">
+
+    <j:set var="latkaSrcDir" value="${maven.latka.src.dir}"/>
+
+    <u:available file="${latkaSrcDir}">
+      <j:set var="latkaSrcDirExists" value="true" />
+    </u:available>
+    
+    <j:if test="${latkaSrcDirExists}">
+      <fileScanner var="latkaFiles">
+        <fileset dir="${latkaSrcDir}">
+          <patternset>
+            <include name="**/*.latka"/>
+          </patternset>
+        </fileset>
+      </fileScanner>
+
+      <echo>executing latka tests from: ${latkaSrcDir}</echo>
+      <!-- Major hack - set jaxp properties as they are foobared -->
+      ${systemScope.setProperty('javax.xml.transform.TransformerFactory','org.apache.xalan.processor.TransformerFactoryImpl')}
+      <j:forEach var="file" items="${latkaFiles.iterator()}">
+
+        <echo>Executing ${file}</echo>
+        <j:import file="${file.canonicalPath}" inherit="true"/>
+        
+      </j:forEach>
+
+    </j:if>
+    
+    <j:if test="${!latkaSrcDirExists}"><echo>No Latka source directory found</echo></j:if>
+  </goal>
+
+  <goal name="latka:single"
+        description="Execute a single test defined using the 'testcase' variable">
+    <j:choose>
+      <j:when test="${empty(testcase)}">
+        <echo>
+          You must define the test case to run via -Dtestcase=classname
+          Example: maven -Dtestcase=MyTest latka:single
+        </echo>
+      </j:when>
+        
+      <j:otherwise>
+        <j:set var="latkaSrcDir" value="${maven.latka.src.dir}"/>
+
+        <u:available file="${latkaSrcDir}/${testcase}">
+          <j:set var="testExists" value="true" />
+        </u:available>
+    
+        <j:if test="${testExists}">
+          <echo>Running test ${latkaSrcDir}/${testcase}</echo>
+          <!-- Major hack - set jaxp properties as they are foobared -->
+          ${systemScope.setProperty('javax.xml.transform.TransformerFactory','org.apache.xalan.processor.TransformerFactoryImpl')}
+          <u:file var="singleTestCase" name="${latkaSrcDir}/${testcase}"/>
+          <j:import file="${latkaSrcDir}/${testcase}" inherit="true"/>
+        </j:if>
+
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+  <!-- convert a jmeter set of requests to a latka suite -->
+  <goal name="latka:jmeter-convert"
+    description="Convert a jmeter jmx file to a latka suite">
+
+    <j:set var="foundFile" value="false"/>
+    <u:available file="${jmeterFile}">
+      <j:set var="foundFile" value="true"/>
+      <j:set var="outFileName">${maven.build.dir}/latka/jmeter-suite.latka</j:set>
+      <echo>Converting ${jmeterFile} to a latka test suite</echo>
+      <!-- Major hack - set jaxp properties as they are foobared -->
+      ${systemScope.setProperty('javax.xml.transform.TransformerFactory','org.apache.xalan.processor.TransformerFactoryImpl')}
+
+      <u:file var="jmeterAsFile" name="${jmeterFile}" />
+      <x:parse xml="${jmeterAsFile}" var="jmeter"/>
+      <mkdir dir="${maven.build.dir}/latka" />
+      <j:file name="${outFileName}" prettyPrint="true">
+        <x:element name="j:jelly">
+          <x:attribute name="xmlns:j">jelly:core</x:attribute>
+          <x:attribute name="xmlns">jelly:org.apache.commons.latka.jelly.LatkaTagLibrary</x:attribute>
+          <j:import file="${plugin.resources}/jmeter2suite.jelly" inherit="true"/>
+        </x:element>
+      </j:file>
+      <echo>Latka test suite '${outFileName}' created</echo>
+    </u:available>
+    
+    <j:if test="${!foundFile}">
+      <fail>File ${jmeterFile} not found</fail>
+    </j:if>
+
+  </goal>
+  
+</project>

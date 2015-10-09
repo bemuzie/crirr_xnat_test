@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project xmlns:j="jelly:core" xmlns:log="jelly:log" xmlns:ant="jelly:ant"
+  xmlns:tomcat4x="http://www.maven.org/plugin/appserver/tomcat4x"
+  xmlns:define="jelly:define" >
+
+  <goal name="appserver:tomcat-4.0.x-reqs"
+    description="Intialize resources for tomcat processing">
+
+    <!-- Check if user has http.conf in a conf dir -->
+    <ant:available file="${maven.appserver.conf.dir}/conf/server.xml"
+      type="file" property="maven.appserver.tomcat4x.has.conf" value="true" />
+
+    <ant:fail unless="maven.appserver.tomcat4x.has.conf">
+To use this appserver, you must have a project specific
+configuration file at the following location:
+
+${maven.appserver.conf.dir}/conf/server.xml
+    </ant:fail>
+
+    <define:taglib uri="http://www.maven.org/plugin/appserver/tomcat4x">
+
+      <!-- accept the force property with a value of true or false -->
+      <define:tag name="install">
+
+        <j:if test="${force == 'false'}">
+          <!-- Create common directories and copy configuration files -->
+          <mkdir dir="${maven.appserver.dir}/conf"/>
+          <mkdir dir="${maven.appserver.dir}/work"/>
+          <mkdir dir="${maven.appserver.dir}/temp"/>
+          <mkdir dir="${maven.appserver.dir}/webapps"/>
+          <mkdir dir="${maven.appserver.dir}/logs"/>
+        </j:if>
+
+        <!-- copy any user configuration files w/ filtering by forcing copy -->
+        <!-- if reinstall -->
+        <ant:copy todir="${maven.appserver.dir}" overwrite="${force}">
+          <ant:fileset dir="${maven.appserver.conf.dir}" />
+          <ant:filterset refid="maven.appserver.filterset.default" />
+        </ant:copy>
+
+      </define:tag>
+    </define:taglib>
+
+  </goal>
+
+  <!--==================================================================-->
+  <!-- R E I N S T A L L                                                -->
+  <!--==================================================================-->
+  <goal name="appserver:reinstall-tomcat-4.0.x"
+    prereqs="appserver:tomcat-4.0.x-reqs" description="Reinstall Tomcat 4.0.x">
+    <tomcat4x:install force="true"/>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- I N S T A L L                                                    -->
+  <!--==================================================================-->
+  <goal name="appserver:install-tomcat-4.0.x" prereqs="appserver:tomcat-4.0.x-reqs"
+    description="Install Tomcat 4.0.x">
+    <tomcat4x:install force="false"/>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- S T A R T                                                        -->
+  <!--==================================================================-->
+  <goal name="appserver:start-tomcat-4.0.x" prereqs="appserver:tomcat-4.0.x-reqs"
+    description="Start Tomcat 4.0.x" >
+
+    <java classname="org.apache.catalina.startup.Bootstrap" fork="yes"
+        dir="${maven.appserver.dir}">
+        <classpath>
+          <pathelement path="${maven.appserver.classpath}"/>
+          <fileset dir="${maven.appserver.home}">
+            <include name="bin/bootstrap.jar"/>
+          </fileset>
+        </classpath>
+        <jvmarg value="-Dcatalina.base=${maven.appserver.dir}"/>
+        <jvmarg value="-Dcatalina.home=${maven.appserver.home}"/>
+        <arg value="start"/>
+      </java>
+
+  </goal>
+
+  <!--==================================================================-->
+  <!-- R E S T A R T                                                    -->
+  <!--==================================================================-->
+  <goal name="appserver:restart-tomcat-4.0.x" description="Restart Tomcat 4.0.x"
+    prereqs="appserver:tomcat-4.0.x-reqs" >
+    <ant:fail message="Not yet supported." />
+  </goal>
+
+  <!--==================================================================-->
+  <!-- S T O P                                                          -->
+  <!--==================================================================-->
+  <goal name="appserver:stop-tomcat-4.0.x" description="Stop Tomcat 4.0.x"
+    prereqs="appserver:tomcat-4.0.x-reqs" >
+
+    <java classname="org.apache.catalina.startup.Bootstrap" fork="yes"
+        dir="${maven.appserver.dir}">
+        <classpath>
+          <pathelement path="${maven.appserver.classpath}"/>
+          <fileset dir="${maven.appserver.home}">
+            <include name="bin/bootstrap.jar"/>
+          </fileset>
+        </classpath>
+        <jvmarg value="-Dcatalina.base=${maven.appserver.dir}"/>
+        <jvmarg value="-Dcatalina.home=${maven.appserver.home}"/>
+        <arg value="stop"/>
+      </java>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- C L E A N                                                        -->
+  <!--==================================================================-->
+  <goal name="appserver:clean-tomcat-4.0.x" description="Clean Tomcat 4.0.x"
+    prereqs="appserver:tomcat-4.0.x-reqs" >
+
+  </goal>
+
+</project>

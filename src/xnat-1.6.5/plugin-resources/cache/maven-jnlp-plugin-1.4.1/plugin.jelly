@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:ant="jelly:ant"
+  xmlns:define="jelly:define"
+  xmlns:j="jelly:core"
+  xmlns:jarfile="jarfile"
+  xmlns:maven="jelly:maven"
+  xmlns:u="jelly:util">
+
+    <define:taglib uri="jarfile">
+      <define:jellybean
+        name="updateManifest"
+        className="org.apache.maven.jnlp.UpdateManifest"
+        method="process"
+      />
+    </define:taglib>
+    
+    <!-- ================================================================== -->
+    <!-- Generate JNLP files and signs jars if necessary                    -->
+    <!-- ================================================================== -->
+    <goal name="jnlp"
+        description="Generate JNLP file and sign all jars"
+        prereqs="jnlp:generate-jnlp"/>
+
+    <goal name="jnlp:init"
+          description="Initialize jnlp plugin">
+        <maven:property name="maven.jnlp.signjar.alias" defaultValue="${pom.artifactId}"/>
+        <maven:property name="maven.jnlp.signjar.dname.o" defaultValue="${pom.organization.name}"/>
+    </goal>
+
+    <goal name="jnlp:generate-jnlp"
+             description="Generate the .jnlp file and sign all jars"
+             prereqs="jar:jar, jnlp:init">
+
+        <ant:mkdir dir="${maven.jnlp.dir}"/>
+        <ant:echo>Creating ${maven.jnlp.dir}/${pom.artifactId}.jnlp ...</ant:echo>
+
+        <!-- ================== -->
+        <!-- Generate JNLP file -->
+        <!-- ================== -->
+        <maven:property name="maven.jnlp.description" defaultValue="${pom.description}"/>
+        <maven:property name="maven.jnlp.description.short" defaultValue="${pom.shortDescription}"/>
+        <maven:property name="maven.jnlp.http.codebase" defaultValue="${pom.url}"/>
+        <maven:property name="maven.jnlp.title" defaultValue="${pom.name}"/>
+        <j:set var="final.jar.name" value="${maven.final.name}.jar"/>
+        
+        <j:file name="${maven.jnlp.dir}/${pom.artifactId}.jnlp" prettyPrint="true"
+          xmlns="dummy">
+
+
+            <jnlp spec="${maven.jnlp.spec}"
+              codebase="${maven.jnlp.http.codebase}"
+              href="${pom.artifactId}.jnlp">
+            <j:if test="${context.getVariable('maven.jnlp.cert.version') != null}">
+              <j:set var="certVer" value="${maven.jnlp.cert.version}"/>
+              <ant:echo>Appending Certificate Version: ${certVer}</ant:echo>
+            </j:if>
+
+              <information>
+                <title>${maven.jnlp.title}</title>
+                  <j:if test="${context.getVariable('maven.jnlp.vendor') != null}">
+                    <vendor>${maven.jnlp.vendor}</vendor>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.homepage') != null}">
+                    <homepage href="${maven.jnlp.homepage}"/>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.icon') != null}">
+                    <icon href="${maven.jnlp.icon}"/>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.icon.splash') != null}">
+                    <icon kind="splash" href="${maven.jnlp.icon.splash}"/>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.description') != null}">
+                    <description>${maven.jnlp.description}</description>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.description.one-line') != null}">
+                    <description kind="one-line">${maven.jnlp.description.one-line}</description>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.description.short') != null}">
+                    <description kind="short">${maven.jnlp.description.short}</description>
+                  </j:if>
+                  <j:if test="${context.getVariable('maven.jnlp.description.tooltip') != null}">
+                    <description kind="tooltip">${maven.jnlp.description.tooltip}</description>
+                    </j:if>
+                    <j:if test="${context.getVariable('maven.jnlp.offline.allowed') != null}">
+                        <offline-allowed/>
+                    </j:if>
+                </information>
+                <security>
+                    <j:set var="permission" value="${maven.jnlp.permission}X"/>
+                    <j:if test="${permission == 'allX'}">
+                        <all-permissions/>
+                    </j:if>
+                    <j:if test="${permission == 'j2eeX'}">
+                        <j2ee-application-client-permissions/>
+                    </j:if>
+                </security>
+
+                <resources>
+                    <j2se version="${maven.jnlp.j2se.version}"
+                           initial-heap-size="${maven.jnlp.j2se.heapsize.initial}"
+                           max-heap-size="${maven.jnlp.j2se.heapsize.max}"/>
+                    <j:set var="mainExists" value="false"/>
+
+                    <j:forEach var="lib" items="${pom.artifacts}">
+                        <j:set var="dep" value="${lib.dependency}"/>
+                        <j:set var="depVer" value="${dep.version}"/>
+                        <j:if test="${context.getVariable('maven.jnlp.cert.version') != null}">
+                          <j:set var="depVer" value="${depVer.concat('-').concat(certVer)}"/>
+                        </j:if>
+                        <j:if test="${dep.getProperty('jnlp.jar')=='true'}">
+                            <j:choose>
+                              <j:when test="${dep.getProperty('jnlp.main.jar')=='true'}">
+                                <j:set var="mainExists" value="true"/>
+                                <j:choose>
+                                  <j:when test="${(context.getVariable('maven.jnlp.jardiff') != null) and (dep.version.indexOf('SNAPSHOT') lt 0)}">
+                                       <jar href="${dep.artifactId}.jar" main="true" version="${depVer}"/>
+                                  </j:when>
+                                  <j:when test="${(context.getVariable('maven.jnlp.usejarversions') != null) and (dep.version.indexOf('SNAPSHOT') lt 0)}">
+                                       <jar href="${lib.file.name}" main="true" version="${depVer}"/>
+                                  </j:when>
+                                  <j:otherwise>
+                                    <jar href="${lib.file.name}" main="true"/>
+                                  </j:otherwise>
+                                </j:choose>
+                              </j:when>
+                              <j:otherwise>
+                                <j:choose>
+                                  <j:when test="${(context.getVariable('maven.jnlp.jardiff') != null) and (dep.version.indexOf('SNAPSHOT') lt 0)}">
+                                      <jar href="${dep.artifactId}.jar" version="${depVer}"/>
+                                  </j:when>
+                                  <j:when test="${(context.getVariable('maven.jnlp.usejarversions') != null) and (dep.version.indexOf('SNAPSHOT') lt 0)}">
+                                      <jar href="${lib.file.name}" version="${depVer}"/>
+                                  </j:when>
+                                  <j:otherwise>
+                                    <jar href="${lib.file.name}" />
+                                  </j:otherwise>
+                                </j:choose>
+                              </j:otherwise>
+                            </j:choose>
+                        </j:if>
+                        <j:if test="${dep.getProperty('jnlp.native.jar')=='true'}">
+                            <nativelib href="${lib.file.name}"/>
+                        </j:if>
+                        <j:if test="${dep.getProperty('jnlp.extension.jnlp')!= null}">
+                            <j:choose>
+                                <j:when test="${dep.getProperty('jnlp.extension.site')!= null})">
+                                    <extension name="${lib.file.name}" href="http://${dep.getProperty('jnlp.extension.site')}/${dep.getProperty('jnlp.extension.dir')}/${dep.getProperty('jnlp.extension.jnlp')}"/>
+                                </j:when>
+                                <j:otherwise>
+                                    <extension name="${lib.file.name}" href="${dep.getProperty('jnlp.extension.dir')}/${dep.getProperty('jnlp.extension.jnlp')}"/>
+                                </j:otherwise>
+                            </j:choose>
+                        </j:if>
+                    </j:forEach>
+                    <j:set var="depVer" value="${pom.currentVersion}"/>
+                    <j:if test="${context.getVariable('maven.jnlp.cert.version') != null}">
+                      <j:set var="depVer" value="${depVer.concat('-').concat(certVer)}"/>
+                    </j:if>
+                    <j:choose>
+                        <j:when test="${mainExists=='false'}">
+                            <j:choose>
+                              <j:when test="${(context.getVariable('maven.jnlp.jardiff') != null) and (pom.currentVersion.indexOf('SNAPSHOT') lt 0)}">
+                                <jar href="${pom.artifactId}.jar" main="true" version="${depVer}"/>
+                              </j:when>
+                              <j:when test="${(context.getVariable('maven.jnlp.usejarversions') != null) and (pom.currentVersion.indexOf('SNAPSHOT') lt 0)}">
+                                <jar href="${final.jar.name}" main="true" version="${depVer}"/>
+                              </j:when>
+                              <j:otherwise>
+                                <jar href="${final.jar.name}" main="true"/>
+                              </j:otherwise>
+                            </j:choose>
+                        </j:when>
+                        <j:otherwise>
+                            <j:choose>
+                              <j:when test="${(context.getVariable('maven.jnlp.jardiff') != null) and (pom.currentVersion.indexOf('SNAPSHOT') lt 0)}">
+                                <jar href="${pom.artifactId}.jar" version="${depVer}"/>
+                              </j:when>
+                              <j:when test="${(context.getVariable('maven.jnlp.usejarversions') != null) and (pom.currentVersion.indexOf('SNAPSHOT') lt 0)}">
+                                <jar href="${final.jar.name}" version="${depVer}"/>
+                              </j:when>
+                              <j:otherwise>
+                                <jar href="${final.jar.name}" />
+                              </j:otherwise>
+                            </j:choose>
+                        </j:otherwise>
+                    </j:choose>
+                    <!--  This is close to what it WILL look like, but for now it is the ugly ass thing below  it-->
+
+                    <u:tokenize var="listOfProperties" delim=" ">${maven.jnlp.properties}</u:tokenize>
+                    <j:forEach var="someProperty" items="${listOfProperties}">
+                      <u:tokenize var="nameAndValue" delim="=">${someProperty}</u:tokenize>
+                      <j:if test="${someProperty.indexOf('=') ge 0}">
+                        <u:tokenize var="nameAndValue" delim="=">${someProperty}</u:tokenize>
+                        <property name="${nameAndValue.get(0)}" value="${nameAndValue.get(1)}"/>
+                      </j:if>
+                    </j:forEach>
+                    
+                </resources>
+                <j:choose>
+                    <j:when test="${maven.jnlp.isapplet}">
+                        <applet-desc main-class="${maven.jnlp.mainclass}" name="${maven.jnlp.applet.name}">
+                            <u:tokenize var="listOfArguments" delim=" ">${maven.jnlp.mainclass.arguments}</u:tokenize>
+                            <j:forEach var="someArgument" items="${listOfArguments}">
+                              <argument>${someArgument}</argument>
+                            </j:forEach>
+                        </applet-desc>
+                    </j:when>
+                    <j:when test="${maven.jnlp.isinstaller}">
+                        <installer-desc main-class="${maven.jnlp.mainclass}"/>
+                    </j:when>
+                    <j:when test="${maven.jnlp.iscomponent}">
+                        <component-desc/>
+                    </j:when>
+                    <j:otherwise>
+                        <application-desc main-class="${maven.jnlp.mainclass}">
+                            <u:tokenize var="listOfArguments" delim=" ">${maven.jnlp.mainclass.arguments}</u:tokenize>
+                            <j:forEach var="someArgument" items="${listOfArguments}">
+                              <argument>${someArgument}</argument>
+                            </j:forEach>
+                        </application-desc>
+                    </j:otherwise>
+                </j:choose>
+            </jnlp>
+        </j:file>
+        
+        <j:if test="${context.getVariable('maven.jnlp.usejarversions') != null}">
+        
+            <ant:echo>Creating ${maven.jnlp.dir}/version.xml ...</ant:echo>
+    
+            <!-- ================== -->
+            <!-- Generate version.xml file -->
+            <!-- ================== -->
+            <j:file name="${maven.jnlp.dir}/version.xml" prettyPrint="true"
+              xmlns="dummy">
+               <jnlp-versions>  
+                <j:forEach var="lib" items="${pom.artifacts}">
+                    <j:set var="dep" value="${lib.dependency}"/>
+                    <j:if test="${(dep.getProperty('jnlp.jar')=='true' or dep.getProperty('jnlp.native.jar')=='true') and (dep.version.indexOf('SNAPSHOT') lt 0)}">
+                      <resource>  
+                       <pattern>  
+                         <name>${lib.file.name}</name>  
+                         <j:set var="depVer" value="${dep.version}"/>
+                         <j:if test="${context.getVariable('maven.jnlp.cert.version') != null}">
+                           <j:set var="depVer" value="${depVer.concat('-').concat(certVer)}"/>
+                         </j:if>
+                         <version-id>${depVer}</version-id>
+                       </pattern>  
+                       <file>${lib.file.name}</file>  
+                      </resource>  
+                    </j:if>
+                </j:forEach>
+                    <j:if test="${pom.currentVersion.indexOf('SNAPSHOT') lt 0}">
+                      <resource>  
+                       <pattern>  
+                         <name>${final.jar.name}</name>  
+                         <j:set var="depVer" value="${pom.currentVersion}"/>
+                         <j:if test="${context.getVariable('maven.jnlp.cert.version') != null}">
+                           <j:set var="depVer" value="${depVer.concat('-').concat(certVer)}"/>
+                         </j:if>
+                         <version-id>${depVer}</version-id>  
+                       </pattern>  
+                       <file>${final.jar.name}</file>  
+                      </resource>  
+                     </j:if>
+               </jnlp-versions>
+            </j:file>
+        </j:if>
+        
+        
+        <!-- =========================== -->
+        <!-- Copy jars in jnlp directory -->
+        <!-- =========================== -->
+        <j:set var="storeFileName" value="${maven.jnlp.signjar.store}"/>
+        <j:if test="${!empty(storeFileName)}">
+          <ant:available file="${maven.jnlp.signjar.store}" property="maven.jnlp.store.exists"/>
+        </j:if>
+        <j:choose>
+          <j:when test="${maven.jnlp.store.exists}">
+
+            <!-- ================ -->
+            <!-- Updates Manifest -->
+            <!-- ================ -->
+            <ant:mkdir dir="${maven.jnlp.tmpdir}"/>
+            
+            <jarfile:updateManifest
+                inputJar="${maven.build.dir}/${maven.final.name}.jar"
+                manifest="${plugin.resources}/jnlp.manifest"
+                outputDir="${maven.jnlp.tmpdir}"
+            />
+            
+            <j:forEach var="lib" items="${pom.artifacts}">
+              <j:set var="dep" value="${lib.dependency}"/>
+              <j:if test="${dep.getProperty('jnlp.jar')=='true'}">
+                <jarfile:updateManifest
+                    inputJar="${lib.file.absolutePath}"
+                    manifest="${plugin.resources}/jnlp.manifest"
+                    outputDir="${maven.jnlp.tmpdir}"
+                />
+              </j:if>
+              <j:if test="${dep.getProperty('jnlp.native.jar')=='true'}">
+                <jarfile:updateManifest
+                    inputJar="${lib.file.absolutePath}"
+                    manifest="${plugin.resources}/jnlp.manifest"
+                    outputDir="${maven.jnlp.tmpdir}"
+                />
+              </j:if>
+            </j:forEach>
+    
+            <!-- ========= -->
+            <!-- Sign jars -->
+            <!-- ========= -->
+            <ant:echo>Found a store...signing jars</ant:echo>
+
+            <ant:echo>Signing jar files ...</ant:echo>
+            <j:choose>
+                <j:when test="${(context.getVariable('maven.jnlp.jardiff') != null) and (pom.currentVersion.indexOf('SNAPSHOT') lt 0)}">
+                    <j:set var="maven.final.signedname" value="${pom.artifactId}__V${pom.currentVersion}.jar"/>
+                </j:when>
+                <j:otherwise>
+                    <ant:echo>Not Using JarDiff ...</ant:echo>
+                    <j:set var="maven.final.signedname" value="${maven.final.name}.jar"/>
+                </j:otherwise>
+            </j:choose>
+            <ant:signjar
+                jar="${maven.jnlp.tmpdir}/${maven.final.name}.jar"
+                signedjar="${maven.jnlp.dir}/${maven.final.signedname}"
+                alias="${maven.jnlp.signjar.alias}"
+                storetype="${maven.jnlp.signjar.storetype}"
+                storepass="${maven.jnlp.signjar.storepass}"
+                keystore="${maven.jnlp.signjar.store}"/>
+
+            <j:forEach var="lib" items="${pom.artifacts}">
+              <j:set var="dep" value="${lib.dependency}"/>
+              <j:if test="${dep.getProperty('jnlp.jar')=='true'}">
+                <j:choose>
+                    <j:when test="${(context.getVariable('maven.jnlp.jardiff') != null) and (dep.version.indexOf('SNAPSHOT') lt 0)}">
+                        <j:set var="lib.file.signedname" value="${dep.artifactId}__V${dep.version}.jar"/>
+                    </j:when>
+                    <j:otherwise>
+                        <j:set var="lib.file.signedname" value="${dep.artifact}"/>
+                    </j:otherwise>
+                </j:choose>
+                <ant:signjar
+                  jar="${maven.jnlp.tmpdir}/${lib.file.name}"
+                  signedjar="${maven.jnlp.dir}/${lib.file.signedname}"
+                  alias="${maven.jnlp.signjar.alias}"
+                  storetype="${maven.jnlp.signjar.storetype}"
+                  storepass="${maven.jnlp.signjar.storepass}"
+                  keystore="${maven.jnlp.signjar.store}"/>
+              </j:if>
+              <j:if test="${dep.getProperty('jnlp.native.jar')=='true'}">
+                <ant:signjar
+                  jar="${maven.jnlp.tmpdir}/${lib.file.name}"
+                  signedjar="${maven.jnlp.dir}/${lib.file.name}"
+                  alias="${maven.jnlp.signjar.alias}"
+                  storetype="${maven.jnlp.signjar.storetype}"
+                  storepass="${maven.jnlp.signjar.storepass}"
+                  keystore="${maven.jnlp.signjar.store}"/>
+              </j:if>
+            </j:forEach>
+          </j:when>
+          <j:otherwise>
+            <ant:copy todir="${maven.jnlp.dir}" flatten="true">
+              <j:forEach var="lib" items="${pom.artifacts}">
+                <j:set var="dep" value="${lib.dependency}"/>
+                <j:if test="${dep.getProperty('jnlp.jar')=='true'}">
+                  <ant:fileset dir="${lib.file.parent}">
+                    <ant:include name="${lib.file.name}"/>
+                  </ant:fileset>
+                </j:if>
+                <j:if test="${dep.getProperty('jnlp.native.jar')=='true'}">
+                  <ant:fileset dir="${lib.file.parent}">
+                    <ant:include name="${lib.file.name}"/>
+                  </ant:fileset>
+                </j:if>
+              </j:forEach>
+              <ant:fileset dir="${maven.build.dir}">
+                <ant:include name="${maven.final.name}.jar"/>
+              </ant:fileset>
+            </ant:copy>
+          </j:otherwise>
+        </j:choose>
+    </goal>
+    
+    <!-- ================================================================== -->
+    <!-- Generate keystore file for signing jar files                       -->
+    <!-- ================================================================== -->
+    <goal name="jnlp:generate-keystore"
+             description="Generate a keystore file"
+             prereqs="jnlp:init">
+
+        <ant:delete file="${maven.jnlp.signjar.store}"/>
+        <ant:genkey alias="${maven.jnlp.signjar.alias}"
+                   storepass="${maven.jnlp.signjar.storepass}"
+                   keystore="${maven.jnlp.signjar.store}"
+                   storetype="${maven.jnlp.signjar.storetype}"
+                   validity="${maven.jnlp.signjar.validity}" >
+            <ant:dname>
+                <j:if test="${context.getVariable('maven.jnlp.signjar.dname.cn') != null}">
+                    <param name="CN" value="${maven.jnlp.signjar.dname.cn}" />
+                </j:if>
+                <j:if test="${context.getVariable('maven.jnlp.signjar.dname.ou') != null}">
+                    <param name="OU" value="${maven.jnlp.signjar.dname.ou}" />
+                </j:if>
+                <j:if test="${context.getVariable('maven.jnlp.signjar.dname.o') != null}">
+                    <param name="O" value="${maven.jnlp.signjar.dname.o}" />
+                </j:if>
+                <j:if test="${context.getVariable('maven.jnlp.signjar.dname.l') != null}">
+                    <param name="L" value="${maven.jnlp.signjar.dname.l}" />
+                </j:if>
+                <j:if test="${context.getVariable('maven.jnlp.signjar.dname.s') != null}">
+                    <param name="S" value="${maven.jnlp.signjar.dname.s}" />
+                </j:if>
+                <j:if test="${context.getVariable('maven.jnlp.signjar.dname.c') != null}">
+                    <param name="C" value="${maven.jnlp.signjar.dname.c}" />
+                </j:if>
+            </ant:dname>
+        </ant:genkey>
+    </goal>
+
+</project>

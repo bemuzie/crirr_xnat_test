@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_subjectVariablesData_variable_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:subjectVariablesData_variable/variable                                                         xnat_subjectVariablesData_variable0		xnat_subjectVariablesData_variable.variable
+xnat:subjectVariablesData_variable/name                                                             xnat_subjectVariablesData_variable1		xnat_subjectVariablesData_variable.name
+xnat:subjectVariablesData_variable/subjectvariablesdata_variable_info                               xnat_subjectVariablesData_variable2		xnat_subjectVariablesData_variable.subjectvariablesdata_variable_info
+xnat:subjectVariablesData_variable/xnat_subjectVariablesData_variable_id                            xnat_subjectVariablesData_variable3		xnat_subjectVariablesData_variable.xnat_subjectvariablesdata_variable_id
+xnat:subjectVariablesData_variable/variables_variable_xnat_subject_id                               xnat_subjectVariablesData_variable4		xnat_subjectVariablesData_variable.variables_variable_xnat_subject_id
+xnat:subjectVariablesData_variable/meta/xft_version                                                 xnat_subjectVariablesData_variable_meta_data5		xnat_subjectVariablesData_variable_meta_data.xft_version
+xnat:subjectVariablesData_variable/meta/last_modified                                               xnat_subjectVariablesData_variable_meta_data6		xnat_subjectVariablesData_variable_meta_data.last_modified
+xnat:subjectVariablesData_variable/meta/status                                                      xnat_subjectVariablesData_variable_meta_data7		xnat_subjectVariablesData_variable_meta_data.status
+xnat:subjectVariablesData_variable/meta/activation_date                                             xnat_subjectVariablesData_variable_meta_data8		xnat_subjectVariablesData_variable_meta_data.activation_date
+xnat:subjectVariablesData_variable/meta/row_last_modified                                           xnat_subjectVariablesData_variable_meta_data9		xnat_subjectVariablesData_variable_meta_data.row_last_modified
+xnat:subjectVariablesData_variable/meta/insert_date                                                 xnat_subjectVariablesData_variable_meta_data10		xnat_subjectVariablesData_variable_meta_data.insert_date
+xnat:subjectVariablesData_variable/meta/activation_user_xdat_user_id                                xnat_subjectVariablesData_variable_meta_data11		xnat_subjectVariablesData_variable_meta_data.activation_user_xdat_user_id
+xnat:subjectVariablesData_variable/meta/insert_user_xdat_user_id                                    xnat_subjectVariablesData_variable_meta_data12		xnat_subjectVariablesData_variable_meta_data.insert_user_xdat_user_id
+xnat:subjectVariablesData_variable/meta/origin                                                      xnat_subjectVariablesData_variable_meta_data13		xnat_subjectVariablesData_variable_meta_data.origin
+xnat:subjectVariablesData_variable/meta/modified                                                    xnat_subjectVariablesData_variable_meta_data14		xnat_subjectVariablesData_variable_meta_data.modified
+xnat:subjectVariablesData_variable/meta/shareable                                                   xnat_subjectVariablesData_variable_meta_data15		xnat_subjectVariablesData_variable_meta_data.shareable
+xnat:subjectVariablesData_variable/meta/meta_data_id                                                xnat_subjectVariablesData_variable_meta_data16		xnat_subjectVariablesData_variable_meta_data.meta_data_id

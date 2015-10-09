@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-clover-plugin</id>
+  <name>Maven Clover Plugin</name>
+  <currentVersion>1.6</currentVersion>
+  <description/>
+  <shortDescription>Produce Clover reports</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/clover/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/MPCLOVER</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/clover/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/clover/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/clover/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/clover/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.3</id>
+      <name>1.3</name>
+      <tag>MAVEN_CLOVER_1_3</tag>
+    </version>
+    <version>
+      <id>1.4</id>
+      <name>1.4</name>
+      <tag>MAVEN_CLOVER_1_4</tag>
+    </version>
+    <version>
+      <id>1.5</id>
+      <name>1.5</name>
+      <tag>MAVEN_CLOVER_1_5</tag>
+    </version>
+    <version>
+      <id>1.6</id>
+      <name>1.6</name>
+      <tag>MAVEN_CLOVER_1_6</tag>
+    </version>
+  </versions>
+  <developers>
+    <developer>
+      <name>Vincent Massol</name>
+      <id>vmassol</id>
+      <email>vmassol@pivolis.com</email>
+      <organization>Pivolis</organization>
+      <roles>
+        <role>Creator</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Bob McWhirter</name>
+      <id>werken</id>
+      <email>bob@werken.com</email>
+      <organization>The Werken Company</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Stéphane Mor</name>
+      <id>smor</id>
+      <email>stephanemor@yahoo.fr</email>
+      <organization>Hasgard Systèmes et Réseaux</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Emmanuel Venisse</name>
+      <id>evenisse</id>
+      <email>emmanuel@venisse.net</email>
+      <organization/>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Jason van Zyl</name>
+      <id>jvanzyl</id>
+      <email>jason@zenplex.com</email>
+      <organization>Zenplex</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>clover</groupId>
+      <artifactId>clover-ant</artifactId>
+      <version>1.3_01</version>
+      <properties>
+        <classloader>root</classloader>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>clover</groupId>
+      <artifactId>clover-30day-eval</artifactId>
+      <version>1.0</version>
+      <type>license</type>
+    </dependency>
+  </dependencies>
+</project>

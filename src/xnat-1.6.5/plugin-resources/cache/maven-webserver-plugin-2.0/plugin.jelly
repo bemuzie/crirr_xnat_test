@@ -1,0 +1,612 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<!-- ================================================================== -->
+<!-- W E B S E R V E R  P L U G I N                                     -->
+<!-- ================================================================== -->
+<project xmlns:j="jelly:core" xmlns:ant="jelly:ant" xmlns:log="jelly:log"
+  xmlns:util="jelly:util"
+  xmlns:exception="http://www.maven.org/plugin/webserver/exception"
+  xmlns:webserver="http://www.maven.org/plugin/webserver"
+  xmlns:define="jelly:define" >
+
+  <!--==================================================================-->
+  <!-- S U P P O R T E D  W E B S E R V E R S                           -->
+  <!--==================================================================-->
+
+  <j:import inherit="true" file="${plugin.resources}/apache-2.x.jelly" />
+
+
+  <!--==================================================================-->
+  <!-- B E G I N  C O R E  P R O C E S S I N G                          -->
+  <!--==================================================================-->
+  <!-- tell the user what Maven thinks about their webserver instance -->
+  <goal name="webserver:init"
+    description="Initialize resources needed for the plugin">
+
+    <!--
+    1. First check that name and version properties have values
+    2. Check the webserver name and version is supported by this plugin
+    3. Check the home dir to make sure we can find the install
+    4. Check the rest of the required properties
+    5. Check the ports to make sure they are numbers only
+    -->
+
+    <define:taglib uri="http://www.maven.org/plugin/webserver/exception">
+      <define:tag name="requiredPropertyMissing">
+        <ant:fail message=" ">
+ --------------------------------------------------------------------------
+ | Plugin Configuration Error                                             |
+ --------------------------------------------------------------------------
+
+  A required property is missing a value.
+
+  Property name: ${propname}
+
+  Errors must be corrected before using this plugin.
+
+ --------------------------------------------------------------------------
+        </ant:fail>
+      </define:tag>
+      <define:tag name="invalidPropertyDirectory">
+        <ant:fail message=" ">
+ --------------------------------------------------------------------------
+ | Plugin Configuration Error                                             |
+ --------------------------------------------------------------------------
+
+  A required property is pointing to an invalid directory.
+
+  Property name: ${propname}
+  Invalid value: ${propvalue}
+
+  Errors must be corrected before using this plugin.
+
+ --------------------------------------------------------------------------
+        </ant:fail>
+      </define:tag>
+      <define:tag name="webserverNameNotSupported">
+        <ant:fail message=" ">
+ --------------------------------------------------------------------------
+ | Plugin Configuration Error                                             |
+ --------------------------------------------------------------------------
+
+  The specified webserver name is currently not supported.
+
+  Property name: ${propname}
+  Property value: ${propvalue}
+
+  For supported ${propname} values, please see the help docs.
+
+ --------------------------------------------------------------------------
+        </ant:fail>
+      </define:tag>
+      <define:tag name="webserverVersionNotSupported">
+        <ant:fail message=" ">
+ --------------------------------------------------------------------------
+ | Plugin Configuration Error                                             |
+ --------------------------------------------------------------------------
+
+  The specified version for the ${webserver} webserver is currently
+  not supported.
+
+  Property name: ${propname}
+  Property value: ${propvalue}
+
+  For supported ${propname} values, please see the help docs.
+
+ --------------------------------------------------------------------------
+        </ant:fail>
+      </define:tag>
+    </define:taglib>
+
+
+    <!-- Check required properties for a name and version first -->
+    <j:if test="${context.getVariable('maven.webserver.name') == null}">
+      <exception:requiredPropertyMissing propname="maven.webserver.name" />
+    </j:if>
+    <j:if test="${context.getVariable('maven.webserver.version') == null}">
+      <exception:requiredPropertyMissing propname="maven.webserver.version" />
+    </j:if>
+
+    <!-- Check if the webserver name and version are supported -->
+    <j:choose>
+      <j:when test="${context.getVariable('maven.webserver.name') == 'apache'}">
+        <j:choose>
+          <j:when test="${context.getVariable('maven.webserver.version') == '2.x'}" />
+          <j:otherwise>
+            <exception:webserverVersionNotSupported
+              webserver="${maven.webserver.name}"
+              propname="maven.webserver.version"
+              propvalue="${maven.webserver.version}" />
+          </j:otherwise>
+        </j:choose>
+      </j:when>
+      <j:otherwise>
+        <exception:webserverNameNotSupported propname="maven.webserver.name"
+          propvalue="${maven.webserver.name}" />
+      </j:otherwise>
+    </j:choose>
+
+    <!-- Check the home dir to see if it exists -->
+    <!-- hack to work around maven console caching property values -->
+    <j:remove var="maven.webserver.conf.dir.exists" />
+    <util:available file="${maven.webserver.home}">
+      <j:set var="maven.webserver.home.exists" value="true" />
+    </util:available>
+    <j:if test="${!context.getVariable('maven.webserver.home.exists')}">
+      <exception:invalidPropertyDirectory propname="maven.webserver.home"
+      propvalue="${maven.webserver.home}" />
+    </j:if>
+
+    <!-- Check the rest of the required properties -->
+    <j:if test="${context.getVariable('maven.webserver.dir') == null}">
+      <exception:requiredPropertyMissing propname="maven.webserver.dir" />
+    </j:if>
+    <j:if test="${context.getVariable('maven.webserver.test.socket') == null}">
+      <exception:requiredPropertyMissing propname="maven.webserver.test.socket" />
+    </j:if>
+    <j:if test="${context.getVariable('maven.webserver.root') == null}">
+      <exception:requiredPropertyMissing propname="maven.webserver.root" />
+    </j:if>
+
+    <!-- sanity check for preset variables -->
+    <j:choose>
+      <j:when test="${context.getVariable('maven.webserver.port.http') == null}">
+        <j:if test="${context.getVariable('maven.webserver.port.https') == null}">
+          <exception:requiredPropertyMissing
+            propname="maven.webserver.port.http OR maven.webserver.port.https" />
+        </j:if>
+      </j:when>
+      <j:when test="${context.getVariable('maven.webserver.port.https') == null}">
+        <j:if test="${context.getVariable('maven.webserver.port.http') == null}">
+          <exception:requiredPropertyMissing
+            propname="maven.webserver.port.http OR maven.webserver.port.https" />
+        </j:if>
+      </j:when>
+    </j:choose>
+
+    <!-- These are special cases where the user should not override -->
+    <j:if test="${context.getVariable('maven.webserver.fullname') == null}">
+      <exception:requiredPropertyMissing propname="maven.webserver.fullname" />
+    </j:if>
+    <j:remove var="maven.webserver.conf.dir.exists" />
+    <util:available file="${maven.webserver.conf.dir}">
+      <j:set var="maven.webserver.conf.dir.exists" value="true" />
+    </util:available>
+    <j:if test="${!context.getVariable('maven.webserver.conf.dir.exists')}">
+      <exception:invalidPropertyDirectory propname="maven.webserver.conf.dir"
+      propvalue="${maven.webserver.conf.dir}" />
+    </j:if>
+
+    <!-- convert all path related properties to their os equivalent -->
+    <ant:property name="maven.webserver.home.path"
+      location="${context.getVariable('maven.webserver.home')}" />
+    <ant:property name="maven.webserver.conf.dir.path"
+      location="${context.getVariable('maven.webserver.conf.dir')}" />
+    <ant:property name="maven.webserver.root.path"
+      location="${context.getVariable('maven.webserver.root')}" />
+    <ant:property name="maven.webserver.dir.path"
+      location="${context.getVariable('maven.webserver.dir')}" />
+
+      <!-- convert all path related properties to their os equivalent -->
+    <ant:property name="maven.appserver.home.path"
+      location="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.home')}" />
+    <ant:property name="maven.appserver.conf.dir.path"
+      location="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.conf.dir')}" />
+    <ant:property name="maven.appserver.root.path"
+      location="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.root')}" />
+    <ant:property name="maven.appserver.dir.path"
+      location="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.dir')}" />
+
+    <!-- create the filterset to be available to copy tasks that want it -->
+    <ant:filterset id="maven.webserver.filterset.default">
+      <ant:filter token="maven.webserver.home"
+        value="${context.getVariable('maven.webserver.home.path')}" />
+      <ant:filter token="maven.webserver.name"
+        value="${context.getVariable('maven.webserver.name')}" />
+      <ant:filter token="maven.webserver.version"
+        value="${context.getVariable('maven.webserver.version')}" />
+      <ant:filter token="maven.webserver.port.http"
+        value="${context.getVariable('maven.webserver.port.http')}" />
+      <ant:filter token="maven.webserver.port.https"
+        value="${context.getVariable('maven.webserver.port.https')}" />
+      <ant:filter token="maven.webserver.port.A"
+        value="${context.getVariable('maven.webserver.port.A')}" />
+      <ant:filter token="maven.webserver.port.B"
+        value="${context.getVariable('maven.webserver.port.B')}" />
+      <ant:filter token="maven.webserver.port.C"
+        value="${context.getVariable('maven.webserver.port.C')}" />
+      <ant:filter token="maven.webserver.conf.dir"
+        value="${context.getVariable('maven.webserver.conf.dir.path')}" />
+      <ant:filter token="maven.webserver.host"
+        value="${context.getVariable('maven.webserver.host')}" />
+      <ant:filter token="maven.webserver.dir"
+        value="${context.getVariable('maven.webserver.dir.path')}" />
+      <ant:filter token="maven.webserver.root"
+        value="${context.getVariable('maven.webserver.root.path')}" />
+
+      <!-- allow integration with the properties of the appserver plugin -->
+      <ant:filter token="maven.appserver.home"
+        value="${context.getVariable('maven.appserver.home.path')}" />
+      <ant:filter token="maven.appserver.name"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.name')}" />
+      <ant:filter token="maven.appserver.version"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.version')}" />
+      <ant:filter token="maven.appserver.port.http"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.port.http')}" />
+      <ant:filter token="maven.appserver.port.https"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.port.https')}" />
+      <ant:filter token="maven.appserver.port.A"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.port.A')}" />
+      <ant:filter token="maven.appserver.port.B"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.port.B')}" />
+      <ant:filter token="maven.appserver.port.C"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.port.C')}" />
+      <ant:filter token="maven.appserver.conf.dir"
+        value="${context.getVariable('maven.appserver.conf.dir.path')}" />
+      <ant:filter token="maven.appserver.host"
+        value="${pom.getPluginContext('maven-appserver-plugin').getVariable('maven.appserver.host')}" />
+      <ant:filter token="maven.appserver.dir"
+        value="${context.getVariable('maven.appserver.dir.path')}" />
+      <ant:filter token="maven.appserver.root"
+        value="${context.getVariable('maven.appserver.root.path')}" />
+
+    </ant:filterset>
+
+    <!-- a flag to see if the webserver is started -->
+    <j:remove var="maven.webserver.started" />
+    <ant:condition property="maven.webserver.started">
+      <ant:and>
+        <ant:socket server="${context.getVariable('maven.webserver.host')}"
+          port="${context.getVariable('maven.webserver.test.socket')}" />
+        <!-- only use the test url if defined, else just use the socket -->
+        <j:if test="${context.getVariable('maven.webserver.test.url') != null}">
+          <ant:http url="${context.getVariable('maven.webserver.test.url')}" />
+        </j:if>
+      </ant:and>
+    </ant:condition>
+
+    <!-- a flag to see if the webserver is installed -->
+    <j:remove var="maven.webserver.installed" />
+    <ant:condition property="maven.webserver.installed">
+      <ant:and>
+        <ant:available file="${context.getVariable('maven.webserver.root')}" type="dir" />
+        <ant:available file="${context.getVariable('maven.webserver.dir')}" type="dir" />
+      </ant:and>
+    </ant:condition>
+
+    <j:if test="${context.getVariable('maven.webserver.started') == 'true' and context.getVariable('maven.webserver.installed') == 'true'}">
+      <j:set var="maven.webserver.installedAndStarted" value="true" />
+    </j:if>
+
+    <j:set var="maven.webserver.installed.msg">
+      <j:choose>
+        <j:when test="${context.getVariable('maven.webserver.installed')}">installed</j:when>
+        <j:otherwise>not installed</j:otherwise>
+      </j:choose>
+    </j:set>
+
+    <j:set var="maven.webserver.started.msg">
+      <j:choose>
+        <j:when test="${context.getVariable('maven.webserver.started')}">started</j:when>
+        <j:otherwise>not started</j:otherwise>
+      </j:choose>
+    </j:set>
+
+    <j:if test="${context.getVariable('maven.webserver.test.url') != null}">
+    <log:info trim="false">
+Maven has determined your <j:expr value="${maven.webserver.fullname}"/> webserver instance is <j:expr value="${maven.webserver.installed.msg}"/> in directory [ <j:expr value="${maven.webserver.dir}"/> ] and <j:expr value="${maven.webserver.started.msg}"/> on <j:expr value="${maven.webserver.test.url}"/>
+    </log:info>
+    </j:if>
+
+    <j:if test="${context.getVariable('maven.webserver.test.url') == null}">
+    <log:info trim="false">
+Maven has determined your <j:expr value="${context.getVariable('maven.webserver.fullname')}"/> webserver instance is <j:expr value="${context.getVariable('maven.webserver.installed.msg')}"/> in directory [ <j:expr value="${maven.webserver.dir}"/> ] and <j:expr value="${maven.webserver.started.msg}"/> using socket <j:expr value="${maven.webserver.test.socket}"/> on host <j:expr value="${maven.webserver.host}"/>.
+    </log:info>
+    </j:if>
+
+    <!--==================================================================-->
+    <!-- C O R E                                                          -->
+    <!--==================================================================-->
+    <define:taglib uri="http://www.maven.org/plugin/webserver">
+
+      <!--==================================================================-->
+      <!-- C L E A N                                                        -->
+      <!--==================================================================-->
+      <define:tag name="clean">
+        <log:info trim="false">
+<j:expr value="${maven.webserver.fullname}" />: Deleting webserver instance ...
+        </log:info>
+        <attainGoal session="${context.getVariable('maven.session.global', 'parent')}"
+          name="webserver:clean-${maven.webserver.fullname}" />
+       <ant:delete dir="${maven.webserver.dir}"/>
+      </define:tag>
+
+      <!--==================================================================-->
+      <!-- I N S T A L L                                                    -->
+      <!--==================================================================-->
+      <define:tag name="install">
+        <log:info trim="false">
+<j:expr value="${maven.webserver.fullname}" />: Installing webserver instance ...
+        </log:info>
+        <attainGoal
+          session="${context.getVariable('maven.session.global', 'parent')}"
+          name="webserver:install-${maven.webserver.fullname}" />
+      </define:tag>
+
+      <!--==================================================================-->
+      <!-- R E I N S T A L L                                                -->
+      <!--==================================================================-->
+      <define:tag name="reinstall">
+        <log:info trim="false">
+<j:expr value="${maven.webserver.fullname}" />: Re-installing webserver instance ...
+        </log:info>
+        <attainGoal session="${context.getVariable('maven.session.global', 'parent')}"
+           name="webserver:reinstall-${maven.webserver.fullname}" />
+      </define:tag>
+
+
+      <!--==================================================================-->
+      <!-- S T A R T                                                        -->
+      <!--==================================================================-->
+      <define:tag name="start">
+        <log:info trim="false">
+<j:expr value="${maven.webserver.fullname}" />: Starting webserver instance ...
+        </log:info>
+        <attainGoal
+          session="${context.getVariable('maven.session.global', 'parent')}"
+          name="webserver:start-${maven.webserver.fullname}" />
+      </define:tag>
+
+      <!--==================================================================-->
+      <!-- R E S T A R T                                                    -->
+      <!--==================================================================-->
+      <define:tag name="restart">
+        <log:info trim="false">
+<j:expr value="${maven.webserver.fullname}" />: Re-starting webserver instance ...
+        </log:info>
+        <attainGoal
+          session="${context.getVariable('maven.session.global', 'parent')}"
+          name="webserver:restart-${maven.webserver.fullname}" />
+      </define:tag>
+
+      <!--==================================================================-->
+      <!-- S T O P                                                          -->
+      <!--==================================================================-->
+      <define:tag name="stop">
+        <log:info trim="false">
+<j:expr value="${maven.webserver.fullname}" />: Stopping webserver instance ...
+        </log:info>
+        <attainGoal session="${context.getVariable('maven.session.global', 'parent')}"
+          name="webserver:stop-${maven.webserver.fullname}" />
+      </define:tag>
+
+    </define:taglib>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- C Y C L E                                                        -->
+  <!--==================================================================-->
+  <goal name="webserver:cycle" prereqs="webserver:init"
+    description="Forced install and start of a webserver instance">
+
+    <!-- all goals will need a webserver dir -->
+    <ant:mkdir dir="${maven.webserver.dir}" />
+    <ant:mkdir dir="${maven.webserver.root}" />
+
+    <j:choose>
+      <!-- not installed - simply install and start-->
+      <j:when test="${context.getVariable('maven.webserver.installed') != 'true'}">
+        <webserver:install />
+        <webserver:start />
+      </j:when>
+
+      <!-- installed and stopped -->
+      <j:when test="${context.getVariable('maven.webserver.installed') == 'true' and context.getVariable('maven.webserver.started') != 'true'}">
+        <webserver:reinstall />
+        <webserver:start />
+      </j:when>
+
+      <!-- installed and started -->
+      <j:when test="${context.getVariable('maven.webserver.installedAndStarted') == 'true'}">
+        <webserver:reinstall />
+        <webserver:restart />
+      </j:when>
+      <!-- one of those 'things' that should never happen -->
+      <j:otherwise>
+        <ant:fail message=" ">
+ --------------------------------------------------------------------------
+ | Plugin Runtime Error                                                   |
+ --------------------------------------------------------------------------
+
+ Maven could not determine the current status for your <j:expr value="${maven.webserver.fullname}"/>
+ instance. This was an unexpected runtime error that should be reported.
+
+ --------------------------------------------------------------------------
+        </ant:fail>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- I N S T A L L                                                    -->
+  <!--==================================================================-->
+  <goal name="webserver:install" prereqs="webserver:init"
+    description="Install a webserver instance">
+
+    <!-- all goals will need a webserver dir and root -->
+    <ant:mkdir dir="${maven.webserver.dir}"/>
+    <ant:mkdir dir="${maven.webserver.root}"/>
+
+    <j:choose>
+      <!-- not installed - simply install -->
+      <j:when test="${context.getVariable('maven.webserver.installed') != 'true'}">
+        <webserver:install />
+      </j:when>
+      <j:otherwise>
+        <log:warn trim="false">
+Webserver could not be installed because it is already installed. Trying to
+reinstall the webserver instead ...
+        </log:warn>
+        <webserver:reinstall />
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- R E I N S T A L L                                                -->
+  <!--==================================================================-->
+  <!-- the purpose of this target is to allow the user to be very       -->
+  <!-- specific when using pre and post goals and sometimes there may   -->
+  <!-- be custom implementations of reinstall needed                    -->
+  <!-- by default we just call the install goal again                   -->
+  <goal name="webserver:reinstall"
+    prereqs="webserver:init" description="Reinstall a webserver instance" >
+
+    <j:choose>
+      <j:when test="${context.getVariable('maven.webserver.installed') != 'true'}">
+        <log:warn trim="false">
+Webserver could not be reinstalled because it is not yet installed. Trying to
+install the webserver instead ...
+        </log:warn>
+        <webserver:install />
+      </j:when>
+      <j:otherwise>
+        <webserver:reinstall />
+      </j:otherwise>
+    </j:choose>
+  </goal>
+
+
+
+  <!--==================================================================-->
+  <!-- S T A R T                                                        -->
+  <!--==================================================================-->
+  <goal name="webserver:start" prereqs="webserver:init"
+    description="Start a webserver instance">
+
+    <j:choose>
+      <j:when test="${context.getVariable('maven.webserver.installed') != 'true'}">
+        <ant:echo message=" ">
+ --------------------------------------------------------------------------
+ | Plugin Warning                                                         |
+ --------------------------------------------------------------------------
+
+ Webserver not yet installed
+
+ You may try
+ o webserver:install webserver:start
+ o webserver:cycle
+
+ --------------------------------------------------------------------------
+        </ant:echo>
+      </j:when>
+      <j:when test="${context.getVariable('maven.webserver.started') == 'true'}">
+        <log:warn trim="false">
+Webserver could not be started because it is already started. Trying to restart
+the webserver instead ...
+        </log:warn>
+        <webserver:restart />
+      </j:when>
+      <j:when test="${context.getVariable('maven.webserver.installed') == 'true'}">
+        <webserver:start />
+      </j:when>
+    </j:choose>
+
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- R E S T A R T                                                    -->
+  <!--==================================================================-->
+  <!-- the purpose of this target is to allow the user to be very       -->
+  <!-- specific when using pre and post goals                           -->
+  <goal name="webserver:restart"
+    prereqs="webserver:init"
+    description="Restart a webserver instance">
+
+    <j:choose>
+      <j:when test="${context.getVariable('maven.webserver.started') == 'true'}">
+        <webserver:restart />
+      </j:when>
+      <j:otherwise>
+        <log:warn trim="false">
+Webserver could not be restarted because it is not yet started. Trying to start
+the webserver ...
+        </log:warn>
+        <webserver:start />
+      </j:otherwise>
+    </j:choose>
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- S T O P                                                          -->
+  <!--==================================================================-->
+  <goal name="webserver:stop" prereqs="webserver:init"
+    description="Stop a webserver instance">
+
+    <j:choose>
+      <j:when test="${context.getVariable('maven.webserver.installedAndStarted') == 'true'}">
+        <webserver:stop />
+      </j:when>
+      <j:otherwise>
+        <log:info trim="false">
+Webserver already stopped!
+        </log:info>
+      </j:otherwise>
+    </j:choose>
+  </goal>
+
+
+  <!--==================================================================-->
+  <!-- C L E A N                                                        -->
+  <!--==================================================================-->
+  <goal name="webserver:clean" prereqs="webserver:init"
+    description="Safely delete an installed webserver instance">
+
+    <j:choose>
+
+      <!-- started and installed -->
+      <j:when test="${context.getVariable('maven.webserver.installedAndStarted') == 'true'}">
+        <webserver:stop />
+        <webserver:clean />
+      </j:when>
+
+      <!-- installed not started -->
+      <j:when test="${context.getVariable('maven.webserver.installed') == 'true'}">
+        <webserver:clean />
+      </j:when>
+
+      <!-- already cleaned -->
+      <j:otherwise>
+        <log:info trim="false">
+Webserver already cleaned!
+        </log:info>
+      </j:otherwise>
+
+    </j:choose>
+  </goal>
+
+</project>

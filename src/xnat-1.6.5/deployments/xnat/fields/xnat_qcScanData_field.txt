@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_qcScanData_field_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:qcScanData_field/field                                                                         xnat_qcScanData_field0		xnat_qcScanData_field.field
+xnat:qcScanData_field/name                                                                          xnat_qcScanData_field1		xnat_qcScanData_field.name
+xnat:qcScanData_field/qcscandata_field_info                                                         xnat_qcScanData_field2		xnat_qcScanData_field.qcscandata_field_info
+xnat:qcScanData_field/xnat_qcScanData_field_id                                                      xnat_qcScanData_field3		xnat_qcScanData_field.xnat_qcscandata_field_id
+xnat:qcScanData_field/fields_field_xnat_qcscandata_xnat_qcscandata_id                               xnat_qcScanData_field4		xnat_qcScanData_field.fields_field_xnat_qcscandata_xnat_qcscandata_id
+xnat:qcScanData_field/meta/xft_version                                                              xnat_qcScanData_field_meta_data5		xnat_qcScanData_field_meta_data.xft_version
+xnat:qcScanData_field/meta/last_modified                                                            xnat_qcScanData_field_meta_data6		xnat_qcScanData_field_meta_data.last_modified
+xnat:qcScanData_field/meta/status                                                                   xnat_qcScanData_field_meta_data7		xnat_qcScanData_field_meta_data.status
+xnat:qcScanData_field/meta/activation_date                                                          xnat_qcScanData_field_meta_data8		xnat_qcScanData_field_meta_data.activation_date
+xnat:qcScanData_field/meta/row_last_modified                                                        xnat_qcScanData_field_meta_data9		xnat_qcScanData_field_meta_data.row_last_modified
+xnat:qcScanData_field/meta/insert_date                                                              xnat_qcScanData_field_meta_data10		xnat_qcScanData_field_meta_data.insert_date
+xnat:qcScanData_field/meta/activation_user_xdat_user_id                                             xnat_qcScanData_field_meta_data11		xnat_qcScanData_field_meta_data.activation_user_xdat_user_id
+xnat:qcScanData_field/meta/insert_user_xdat_user_id                                                 xnat_qcScanData_field_meta_data12		xnat_qcScanData_field_meta_data.insert_user_xdat_user_id
+xnat:qcScanData_field/meta/origin                                                                   xnat_qcScanData_field_meta_data13		xnat_qcScanData_field_meta_data.origin
+xnat:qcScanData_field/meta/modified                                                                 xnat_qcScanData_field_meta_data14		xnat_qcScanData_field_meta_data.modified
+xnat:qcScanData_field/meta/shareable                                                                xnat_qcScanData_field_meta_data15		xnat_qcScanData_field_meta_data.shareable
+xnat:qcScanData_field/meta/meta_data_id                                                             xnat_qcScanData_field_meta_data16		xnat_qcScanData_field_meta_data.meta_data_id

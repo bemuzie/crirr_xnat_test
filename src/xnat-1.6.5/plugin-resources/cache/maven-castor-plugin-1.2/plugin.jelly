@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project xmlns:j="jelly:core" 
+         xmlns:ant="jelly:ant" 
+         xmlns:define="jelly:define"
+         xmlns:castor="castor"
+         xmlns:maven="jelly:maven">
+  
+  <!-- ================================================================== -->
+  <!-- C A S T O R                                                        -->
+  <!-- ================================================================== -->
+
+  <goal name="castor:prepare-filesystem"
+        description="Make any necessary directories for castor processing">
+    <ant:mkdir dir="${maven.castor.dest}"/>
+    <ant:mkdir dir="${maven.castor.tstamp}"/>
+
+    <ant:path id="maven.castor.compile.src.set"
+              location="${maven.castor.dest}"/>
+    <maven:addPath id="maven.compile.src.set"
+                   refid="maven.castor.compile.src.set"/>
+
+    <!-- determine if SourceGenerator needs to be run in a separate JVM, -->
+    <!-- to pick up the castorbuilder.properties file                    -->
+    <j:set var="dir" value="${maven.castor.properties.dir}"/>
+    <j:choose>
+      <!-- NOTE: need to set temp 'dir' var as               -->
+      <!--       !empty{maven.castor.properties.dir} doesn't -->
+      <!--       work as expected.                           -->
+ 
+      <j:when test="${!empty(dir)}">
+        <ant:property name="maven.castor.fork" value="true"/>
+        <ant:path id="maven.castor.classpath">
+          <ant:path refid="maven.dependency.classpath"/>
+          <ant:pathelement location="${maven.castor.properties.dir}"/>
+        </ant:path>  
+      </j:when>
+      <j:otherwise>
+        <ant:property name="maven.castor.fork" value="false"/>
+        <ant:path id="maven.castor.classpath">
+          <ant:path refid="maven.dependency.classpath"/>
+        </ant:path>  
+      </j:otherwise>
+    </j:choose>
+  </goal>
+
+  <define:taglib uri="castor">
+    <define:tag name="generate">
+
+      <j:set var="fileVar" value="${schema}.filename"/>
+      <j:set var="uptodateVar" value="${schema}.uptodate"/>
+      <ant:basename property="${fileVar}" file="${schema}"/>
+
+      <!-- need to jump through some hoops to get values, in order to -->
+      <!-- support maven 1.0-beta-10                                  -->
+      <j:set var="filename" 
+             value="${pom.context.getVariable(fileVar)}"/>
+      <j:set var="context" 
+             value="${pom.getPluginContext('maven-castor-plugin')}"/>
+      <j:set var="log" value="${context.getVariable('maven.castor.tstamp')}"/>
+      <j:set var="gen" value="${context.getVariable('maven.castor.dest')}"/>
+
+      <ant:uptodate property="${uptodateVar}" targetfile="${log}/${filename}">
+        <ant:srcfiles dir="${basedir}" includes="${schema}"/>
+      </ant:uptodate>
+
+      <j:set var="uptodate" value="${pom.context.getVariable(uptodateVar)}"/>
+
+      <j:if test="${uptodate == null}">
+        <ant:echo message="Generating sources for ${schema}"/>
+
+        <ant:java className="org.exolab.castor.builder.SourceGenerator"
+                  fork="${maven.castor.fork}"
+                  failonerror="true">
+          <ant:arg value="-i"/>
+          <ant:arg value="${schema}"/>
+          <ant:arg value="-f"/>
+          <j:if test="${!empty(package)}">
+            <ant:arg value="-package"/>
+            <ant:arg value="${package}"/>
+          </j:if>
+          <j:if test="${!empty(types)}">
+            <ant:arg value="-types"/>
+            <ant:arg value="${types}"/>
+          </j:if>
+          <j:if test="${!empty(marshal) and !marshal.trim().equals('true')}">
+            <ant:arg value="-nomarshall"/>
+          </j:if>
+          <ant:arg value="-dest"/>
+          <ant:arg value="${gen}"/>
+
+          <ant:classpath refid="maven.castor.classpath"/>
+        </ant:java>
+        <ant:touch file="${log}/${filename}"/>
+      </j:if>
+
+    </define:tag>
+
+    <!-- needs to be deprecated -->
+    <define:tag name="srcgen">
+      <ant:echo message="DEPRECATED: castor:srcgen. Use castor:generate"/>
+      <ant:java
+          className="org.exolab.castor.builder.SourceGenerator"
+          failonerror="true">
+
+          <ant:arg value="-i${schema}"/>
+          <ant:arg value="-f"/>
+          <ant:arg value="-package${package}"/>
+          <ant:arg value="-types${types}"/>
+          <ant:arg value="-nomarshall"/>
+          <ant:arg value="-dest${generationDirectory}"/>
+        </ant:java>
+      </define:tag>
+
+  </define:taglib>
+
+</project>

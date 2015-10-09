@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_experimentData_field_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:experimentData_field/field                                                                     xnat_experimentData_field0		xnat_experimentData_field.field
+xnat:experimentData_field/name                                                                      xnat_experimentData_field1		xnat_experimentData_field.name
+xnat:experimentData_field/experimentdata_field_info                                                 xnat_experimentData_field2		xnat_experimentData_field.experimentdata_field_info
+xnat:experimentData_field/xnat_experimentData_field_id                                              xnat_experimentData_field3		xnat_experimentData_field.xnat_experimentdata_field_id
+xnat:experimentData_field/fields_field_xnat_experimentdat_id                                        xnat_experimentData_field4		xnat_experimentData_field.fields_field_xnat_experimentdat_id
+xnat:experimentData_field/meta/xft_version                                                          xnat_experimentData_field_meta_data5		xnat_experimentData_field_meta_data.xft_version
+xnat:experimentData_field/meta/last_modified                                                        xnat_experimentData_field_meta_data6		xnat_experimentData_field_meta_data.last_modified
+xnat:experimentData_field/meta/status                                                               xnat_experimentData_field_meta_data7		xnat_experimentData_field_meta_data.status
+xnat:experimentData_field/meta/activation_date                                                      xnat_experimentData_field_meta_data8		xnat_experimentData_field_meta_data.activation_date
+xnat:experimentData_field/meta/row_last_modified                                                    xnat_experimentData_field_meta_data9		xnat_experimentData_field_meta_data.row_last_modified
+xnat:experimentData_field/meta/insert_date                                                          xnat_experimentData_field_meta_data10		xnat_experimentData_field_meta_data.insert_date
+xnat:experimentData_field/meta/activation_user_xdat_user_id                                         xnat_experimentData_field_meta_data11		xnat_experimentData_field_meta_data.activation_user_xdat_user_id
+xnat:experimentData_field/meta/insert_user_xdat_user_id                                             xnat_experimentData_field_meta_data12		xnat_experimentData_field_meta_data.insert_user_xdat_user_id
+xnat:experimentData_field/meta/origin                                                               xnat_experimentData_field_meta_data13		xnat_experimentData_field_meta_data.origin
+xnat:experimentData_field/meta/modified                                                             xnat_experimentData_field_meta_data14		xnat_experimentData_field_meta_data.modified
+xnat:experimentData_field/meta/shareable                                                            xnat_experimentData_field_meta_data15		xnat_experimentData_field_meta_data.shareable
+xnat:experimentData_field/meta/meta_data_id                                                         xnat_experimentData_field_meta_data16		xnat_experimentData_field_meta_data.meta_data_id

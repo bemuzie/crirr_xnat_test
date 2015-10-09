@@ -1,0 +1,72 @@
+
+
+*********************************************
+
+ac_s_cat_entry_r
+(ACTIVE - MULTIPLE - ROOT)
+
+cat:entry/URI                                                                                       cat_entry0		cat_entry.uri
+cat:entry/ID                                                                                        cat_entry1		cat_entry.id
+cat:entry/name                                                                                      cat_entry2		cat_entry.name
+cat:entry/description                                                                               cat_entry3		cat_entry.description
+cat:entry/format                                                                                    cat_entry4		cat_entry.format
+cat:entry/content                                                                                   cat_entry5		cat_entry.content
+cat:entry/cachePath                                                                                 cat_entry6		cat_entry.cachepath
+cat:entry/createdTime                                                                               cat_entry7		cat_entry.createdtime
+cat:entry/createdBy                                                                                 cat_entry8		cat_entry.createdby
+cat:entry/createdEventId                                                                            cat_entry9		cat_entry.createdeventid
+cat:entry/modifiedTime                                                                              cat_entry10		cat_entry.modifiedtime
+cat:entry/modifiedBy                                                                                cat_entry11		cat_entry.modifiedby
+cat:entry/modifiedEventId                                                                           cat_entry12		cat_entry.modifiedeventid
+cat:entry/digest                                                                                    cat_entry13		cat_entry.digest
+cat:entry/extension                                                                                 cat_entry14		cat_entry.extension
+cat:entry/entry_info                                                                                cat_entry15		cat_entry.entry_info
+cat:entry/cat_entry_id                                                                              cat_entry16		cat_entry.cat_entry_id
+cat:entry/entries_entry_cat_catalog_cat_catalog_id                                                  cat_entry17		cat_entry.entries_entry_cat_catalog_cat_catalog_id
+cat:entry/metaFields/metaField/metaField                                                            cat_entry_metaField18		cat_entry_metaField.metafield
+cat:entry/metaFields/metaField/name                                                                 cat_entry_metaField19		cat_entry_metaField.name
+cat:entry/metaFields/metaField/entry_metafield_info                                                 cat_entry_metaField20		cat_entry_metaField.entry_metafield_info
+cat:entry/metaFields/metaField/cat_entry_metaField_id                                               cat_entry_metaField21		cat_entry_metaField.cat_entry_metafield_id
+cat:entry/metaFields/metaField/metafields_metafield_cat_entry_cat_entry_id                          cat_entry_metaField22		cat_entry_metaField.metafields_metafield_cat_entry_cat_entry_id
+cat:entry/metaFields/metaField/meta/xft_version                                                     cat_entry_metaField_meta_data23		cat_entry_metaField_meta_data.xft_version
+cat:entry/metaFields/metaField/meta/last_modified                                                   cat_entry_metaField_meta_data24		cat_entry_metaField_meta_data.last_modified
+cat:entry/metaFields/metaField/meta/status                                                          cat_entry_metaField_meta_data25		cat_entry_metaField_meta_data.status
+cat:entry/metaFields/metaField/meta/activation_date                                                 cat_entry_metaField_meta_data26		cat_entry_metaField_meta_data.activation_date
+cat:entry/metaFields/metaField/meta/row_last_modified                                               cat_entry_metaField_meta_data27		cat_entry_metaField_meta_data.row_last_modified
+cat:entry/metaFields/metaField/meta/insert_date                                                     cat_entry_metaField_meta_data28		cat_entry_metaField_meta_data.insert_date
+cat:entry/metaFields/metaField/meta/activation_user_xdat_user_id                                    cat_entry_metaField_meta_data29		cat_entry_metaField_meta_data.activation_user_xdat_user_id
+cat:entry/metaFields/metaField/meta/insert_user_xdat_user_id                                        cat_entry_metaField_meta_data30		cat_entry_metaField_meta_data.insert_user_xdat_user_id
+cat:entry/metaFields/metaField/meta/origin                                                          cat_entry_metaField_meta_data31		cat_entry_metaField_meta_data.origin
+cat:entry/metaFields/metaField/meta/modified                                                        cat_entry_metaField_meta_data32		cat_entry_metaField_meta_data.modified
+cat:entry/metaFields/metaField/meta/shareable                                                       cat_entry_metaField_meta_data33		cat_entry_metaField_meta_data.shareable
+cat:entry/metaFields/metaField/meta/meta_data_id                                                    cat_entry_metaField_meta_data34		cat_entry_metaField_meta_data.meta_data_id
+cat:entry/tags/tag/tag                                                                              cat_entry_tag35		cat_entry_tag.tag
+cat:entry/tags/tag/entry_tag_info                                                                   cat_entry_tag36		cat_entry_tag.entry_tag_info
+cat:entry/tags/tag/cat_entry_tag_id                                                                 cat_entry_tag37		cat_entry_tag.cat_entry_tag_id
+cat:entry/tags/tag/tags_tag_cat_entry_cat_entry_id                                                  cat_entry_tag38		cat_entry_tag.tags_tag_cat_entry_cat_entry_id
+cat:entry/tags/tag/meta/xft_version                                                                 cat_entry_tag_meta_data39		cat_entry_tag_meta_data.xft_version
+cat:entry/tags/tag/meta/last_modified                                                               cat_entry_tag_meta_data40		cat_entry_tag_meta_data.last_modified
+cat:entry/tags/tag/meta/status                                                                      cat_entry_tag_meta_data41		cat_entry_tag_meta_data.status
+cat:entry/tags/tag/meta/activation_date                                                             cat_entry_tag_meta_data42		cat_entry_tag_meta_data.activation_date
+cat:entry/tags/tag/meta/row_last_modified                                                           cat_entry_tag_meta_data43		cat_entry_tag_meta_data.row_last_modified
+cat:entry/tags/tag/meta/insert_date                                                                 cat_entry_tag_meta_data44		cat_entry_tag_meta_data.insert_date
+cat:entry/tags/tag/meta/activation_user_xdat_user_id                                                cat_entry_tag_meta_data45		cat_entry_tag_meta_data.activation_user_xdat_user_id
+cat:entry/tags/tag/meta/insert_user_xdat_user_id                                                    cat_entry_tag_meta_data46		cat_entry_tag_meta_data.insert_user_xdat_user_id
+cat:entry/tags/tag/meta/origin                                                                      cat_entry_tag_meta_data47		cat_entry_tag_meta_data.origin
+cat:entry/tags/tag/meta/modified                                                                    cat_entry_tag_meta_data48		cat_entry_tag_meta_data.modified
+cat:entry/tags/tag/meta/shareable                                                                   cat_entry_tag_meta_data49		cat_entry_tag_meta_data.shareable
+cat:entry/tags/tag/meta/meta_data_id                                                                cat_entry_tag_meta_data50		cat_entry_tag_meta_data.meta_data_id
+cat:entry/extension_item/element_name                                                               xdat_meta_element51		xdat_meta_element.element_name
+cat:entry/extension_item/xdat_meta_element_id                                                       xdat_meta_element52		xdat_meta_element.xdat_meta_element_id
+cat:entry/meta/xft_version                                                                          cat_entry_meta_data53		cat_entry_meta_data.xft_version
+cat:entry/meta/last_modified                                                                        cat_entry_meta_data54		cat_entry_meta_data.last_modified
+cat:entry/meta/status                                                                               cat_entry_meta_data55		cat_entry_meta_data.status
+cat:entry/meta/activation_date                                                                      cat_entry_meta_data56		cat_entry_meta_data.activation_date
+cat:entry/meta/row_last_modified                                                                    cat_entry_meta_data57		cat_entry_meta_data.row_last_modified
+cat:entry/meta/insert_date                                                                          cat_entry_meta_data58		cat_entry_meta_data.insert_date
+cat:entry/meta/activation_user_xdat_user_id                                                         cat_entry_meta_data59		cat_entry_meta_data.activation_user_xdat_user_id
+cat:entry/meta/insert_user_xdat_user_id                                                             cat_entry_meta_data60		cat_entry_meta_data.insert_user_xdat_user_id
+cat:entry/meta/origin                                                                               cat_entry_meta_data61		cat_entry_meta_data.origin
+cat:entry/meta/modified                                                                             cat_entry_meta_data62		cat_entry_meta_data.modified
+cat:entry/meta/shareable                                                                            cat_entry_meta_data63		cat_entry_meta_data.shareable
+cat:entry/meta/meta_data_id                                                                         cat_entry_meta_data64		cat_entry_meta_data.meta_data_id

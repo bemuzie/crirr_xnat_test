@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE dataset SYSTEM "file://@TURBINE_APP_NAME@-data.dtd">
+
+<!-- =============================================================================== -->
+<!--                                                                                 -->
+<!-- Application Data in XML. Add your custom values to this file                    -->
+<!--                                                                                 -->
+<!-- @version $Id: application-data.xml,v 1.1 2005/07/18 20:47:31 big Exp $ -->
+<!--                                                                                 -->
+<!-- =============================================================================== -->
+
+<dataset name="all"/>
+

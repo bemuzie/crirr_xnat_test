@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_scr_screeningScanData_r
+(ACTIVE - MULTIPLE - ROOT)
+
+scr:screeningScanData/imageScan_ID                                                                  scr_screeningScanData0		scr_screeningScanData.imagescan_id
+scr:screeningScanData/comments                                                                      scr_screeningScanData1		scr_screeningScanData.comments
+scr:screeningScanData/pass                                                                          scr_screeningScanData2		scr_screeningScanData.pass
+scr:screeningScanData/screeningscandata_info                                                        scr_screeningScanData3		scr_screeningScanData.screeningscandata_info
+scr:screeningScanData/scr_screeningScanData_id                                                      scr_screeningScanData4		scr_screeningScanData.scr_screeningscandata_id
+scr:screeningScanData/scans_scan_scr_screeningassessm_id                                            scr_screeningScanData5		scr_screeningScanData.scans_scan_scr_screeningassessm_id
+scr:screeningScanData/meta/xft_version                                                              scr_screeningScanData_meta_data6		scr_screeningScanData_meta_data.xft_version
+scr:screeningScanData/meta/last_modified                                                            scr_screeningScanData_meta_data7		scr_screeningScanData_meta_data.last_modified
+scr:screeningScanData/meta/status                                                                   scr_screeningScanData_meta_data8		scr_screeningScanData_meta_data.status
+scr:screeningScanData/meta/activation_date                                                          scr_screeningScanData_meta_data9		scr_screeningScanData_meta_data.activation_date
+scr:screeningScanData/meta/row_last_modified                                                        scr_screeningScanData_meta_data10		scr_screeningScanData_meta_data.row_last_modified
+scr:screeningScanData/meta/insert_date                                                              scr_screeningScanData_meta_data11		scr_screeningScanData_meta_data.insert_date
+scr:screeningScanData/meta/activation_user_xdat_user_id                                             scr_screeningScanData_meta_data12		scr_screeningScanData_meta_data.activation_user_xdat_user_id
+scr:screeningScanData/meta/insert_user_xdat_user_id                                                 scr_screeningScanData_meta_data13		scr_screeningScanData_meta_data.insert_user_xdat_user_id
+scr:screeningScanData/meta/origin                                                                   scr_screeningScanData_meta_data14		scr_screeningScanData_meta_data.origin
+scr:screeningScanData/meta/modified                                                                 scr_screeningScanData_meta_data15		scr_screeningScanData_meta_data.modified
+scr:screeningScanData/meta/shareable                                                                scr_screeningScanData_meta_data16		scr_screeningScanData_meta_data.shareable
+scr:screeningScanData/meta/meta_data_id                                                             scr_screeningScanData_meta_data17		scr_screeningScanData_meta_data.meta_data_id

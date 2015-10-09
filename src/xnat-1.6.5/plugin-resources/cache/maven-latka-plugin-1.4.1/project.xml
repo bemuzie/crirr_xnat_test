@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-latka-plugin</id>
+  <name>Maven Latka Plug-in</name>
+  <currentVersion>1.4.1</currentVersion>
+  <description/>
+  <shortDescription>Run Latka scripts</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/latka/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/MPLATKA</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/latka/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/latka/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/latka/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/latka/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.3</id>
+      <name>1.3</name>
+      <tag>MAVEN_LATKA_1_3</tag>
+    </version>
+    <version>
+      <id>1.4</id>
+      <name>1.4</name>
+      <tag>MAVEN_LATKA_1_4</tag>
+    </version>
+    <version>
+      <id>1.4.1</id>
+      <name>1.4.1</name>
+      <tag>MAVEN_LATKA_1_4_1</tag>
+    </version>
+  </versions>
+  <developers/>
+  <dependencies>
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
+      <version>20030211.142705</version>
+      <url>http://jakarta.apache.org/commons/jelly/libs/xml/</url>
+    </dependency>
+    <dependency>
+      <groupId>commons-latka</groupId>
+      <artifactId>commons-latka</artifactId>
+      <version>1.0-dev.20030107.163533</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+      <version>1.0-FCS-full</version>
+    </dependency>
+    <dependency>
+      <groupId>jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>1.0b8</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <properties>
+        <classloader>root</classloader>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>regexp</groupId>
+      <artifactId>regexp</artifactId>
+      <version>1.2</version>
+      <url>http://jakarta.apache.org/regexp/</url>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.4.1</version>
+      <url>http://xml.apache.org/xalan-j/</url>
+      <properties>
+        <classloader>root</classloader>
+      </properties>
+    </dependency>
+    <!-- for samples -->
+    <!-- html taglib -->
+
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-html</artifactId>
+      <version>20030317.100924</version>
+      <url>http://jakarta.apache.org/commons/jelly/libs/html/</url>
+    </dependency>
+    <dependency>
+      <groupId>nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+      <version>0.7.7</version>
+    </dependency>
+  </dependencies>
+</project>

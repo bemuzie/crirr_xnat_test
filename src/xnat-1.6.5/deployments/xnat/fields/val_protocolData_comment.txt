@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_val_protocolData_comment_r
+(ACTIVE - MULTIPLE - ROOT)
+
+val:protocolData_comment/comment                                                                    val_protocolData_comment0		val_protocolData_comment.comment
+val:protocolData_comment/username                                                                   val_protocolData_comment1		val_protocolData_comment.username
+val:protocolData_comment/dateTime                                                                   val_protocolData_comment2		val_protocolData_comment.datetime
+val:protocolData_comment/protocoldata_comment_info                                                  val_protocolData_comment3		val_protocolData_comment.protocoldata_comment_info
+val:protocolData_comment/val_protocolData_comment_id                                                val_protocolData_comment4		val_protocolData_comment.val_protocoldata_comment_id
+val:protocolData_comment/check_comments_comment_val_prot_id                                         val_protocolData_comment5		val_protocolData_comment.check_comments_comment_val_prot_id
+val:protocolData_comment/meta/xft_version                                                           val_protocolData_comment_meta_data6		val_protocolData_comment_meta_data.xft_version
+val:protocolData_comment/meta/last_modified                                                         val_protocolData_comment_meta_data7		val_protocolData_comment_meta_data.last_modified
+val:protocolData_comment/meta/status                                                                val_protocolData_comment_meta_data8		val_protocolData_comment_meta_data.status
+val:protocolData_comment/meta/activation_date                                                       val_protocolData_comment_meta_data9		val_protocolData_comment_meta_data.activation_date
+val:protocolData_comment/meta/row_last_modified                                                     val_protocolData_comment_meta_data10		val_protocolData_comment_meta_data.row_last_modified
+val:protocolData_comment/meta/insert_date                                                           val_protocolData_comment_meta_data11		val_protocolData_comment_meta_data.insert_date
+val:protocolData_comment/meta/activation_user_xdat_user_id                                          val_protocolData_comment_meta_data12		val_protocolData_comment_meta_data.activation_user_xdat_user_id
+val:protocolData_comment/meta/insert_user_xdat_user_id                                              val_protocolData_comment_meta_data13		val_protocolData_comment_meta_data.insert_user_xdat_user_id
+val:protocolData_comment/meta/origin                                                                val_protocolData_comment_meta_data14		val_protocolData_comment_meta_data.origin
+val:protocolData_comment/meta/modified                                                              val_protocolData_comment_meta_data15		val_protocolData_comment_meta_data.modified
+val:protocolData_comment/meta/shareable                                                             val_protocolData_comment_meta_data16		val_protocolData_comment_meta_data.shareable
+val:protocolData_comment/meta/meta_data_id                                                          val_protocolData_comment_meta_data17		val_protocolData_comment_meta_data.meta_data_id

@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:j="jelly:core"
+  xmlns:i="jelly:interaction"
+  xmlns:ant="jelly:ant" 
+  xmlns:define="jelly:define"
+  xmlns:u="jelly:util"
+  xmlns:genapp="genapp">
+
+  <define:taglib uri="genapp">
+    <!--
+     |
+     | @template
+     |
+     -->
+    <define:tag name="generate">
+      <!-- If a template directory is provided directly, then use it (and don't ask)! -->
+      <j:set var="currenttemplatedir" value="${maven.genapp.template.dir}"/>
+      <j:if test="${empty(currenttemplatedir)}">
+        <!-- Get the template -->
+        <!-- create a temporary variable with no dots in the name to get around a jexl bug -->
+        <j:set var="presettemplate" value="${template}"/>
+        <j:if test="${empty(presettemplate)}">
+          <i:ask question="${maven.genapp.prompt.template}" answer="template" default="${maven.genapp.default.template}"/>
+        </j:if>
+      
+        <!-- Search the template in the plugin resources at first place -->
+        <u:available file="${plugin.resources}/${template}">
+          <j:set var="maven.genapp.template.dir" value="${plugin.resources}/${template}"/>
+        </u:available>
+      
+        <!-- If template is in the user's home directory, use it -->    
+        <u:available file="${user.home}/.maven/template/${template}">
+          <j:set var="maven.genapp.template.dir" value="${user.home}/.maven/template/${template}"/>
+        </u:available>
+      
+        <!-- If template is in a given template repository, use it -->    
+        <u:available file="${maven.genapp.template.repository}/${template}">
+          <j:set var="maven.genapp.template.dir" value="${maven.genapp.template.repository}/${template}"/>
+        </u:available>
+      </j:if>
+      
+      <j:set var="currenttemplatedir" value="${maven.genapp.template.dir}"/>
+      <j:if test="${empty(currenttemplatedir)}">
+        <fail>
+          Unable to locate a template named ${template}
+        </fail>
+      </j:if>
+      
+      <!-- Ensure that the template has a template-resources directory and use it -->
+      <u:available file="${maven.genapp.template.dir}/template-resources">
+        <!-- Set resources dir to the template resources directory -->
+        <j:set var="maven.genapp.resources" value="${maven.genapp.template.dir}/template-resources"/>
+      </u:available>
+  
+      <!-- Check that we have a template-resources directory, if not the template is broken -->
+      <j:set var="currenttemplateresources" value="${maven.genapp.resources}"/>
+      <j:if test="${empty(currenttemplateresources)}">
+        <fail>
+          Found a template in ${maven.genapp.template.dir}, but it was broken.
+        </fail>
+      </j:if>
+      
+      <!-- Load template properties if available -->
+      <u:available file="${maven.genapp.template.dir}/template.properties">
+        <u:properties file="${maven.genapp.template.dir}/template.properties"/>
+      </u:available>
+
+      <!-- Split variables manually, since jelly does not support this currently. -->
+      <u:tokenize var="maven.genapp.param.split" delim=",">${maven.genapp.param}</u:tokenize>
+
+      <j:forEach var="var" items="${maven.genapp.param.split}">
+        <j:set var="varname">maven.genapp.template.${var}</j:set>
+        <j:set var="presetval" value="${context.findVariable(varname)}"/>
+        <j:if test="${empty(presetval)}">
+          <j:set var="varname">maven.genapp.default.${var}</j:set>
+          <j:set var="defaultval" value="${context.findVariable(varname)}"/>
+          <j:set var="varname">maven.genapp.prompt.${var}</j:set>
+          <j:set var="prompt" value="${context.findVariable(varname)}"/>
+          <j:if test="${empty(prompt)}">
+            <j:set var="maven.genapp.template.${var}" value="${defaultval}"/>
+          </j:if>
+          <j:if test="${!empty(prompt)}">
+            <i:ask question="${prompt}" answer="maven.genapp.template.${var}" default="${defaultval}"/>
+          </j:if>
+        </j:if>
+        <j:invoke method="toUpperCase" on="${var}" var="placeholder" />
+        <j:set var="varname">maven.genapp.template.${var}</j:set>
+        <j:set var="value" value="${context.findVariable(varname)}"/>
+        <filter token="${placeholder}" value="${value}"/>
+      </j:forEach>
+
+      <!-- Show used variables for template -->
+      <!-- ant:echo>Parameters used in template:</ant:echo -->
+      <j:forEach var="var" items="${maven.genapp.param.split}">
+        <j:set var="varname">maven.genapp.template.${var}</j:set>
+        <j:set var="value" value="${context.findVariable(varname)}"/>
+        <j:invoke method="toUpperCase" on="${var}" var="placeholder" />
+        <!-- ant:echo>${varname} (${placeholder}):${value}</ant:echo -->
+      </j:forEach>
+
+      <!-- Turn the specified package into a path -->
+      <u:replace var="appPath" oldChar="." newChar="/" value="${maven.genapp.template.package}"/>
+
+      <!-- split variables manually, since jelly does not support this currently. -->
+      <u:tokenize var="maven.genapp.repackage.split" delim=",">${maven.genapp.repackage}</u:tokenize>
+      <u:tokenize var="maven.genapp.filter.split" delim=",">${maven.genapp.filter}</u:tokenize>
+  
+      <!-- copy resources that need repackaged, eg java files -->
+      <j:forEach var="res" items="${maven.genapp.repackage.split}">
+        <ant:copy todir="${basedir}/src/${res}/${appPath}" 
+              filtering="true">
+          <ant:fileset dir="${maven.genapp.resources}/src/${res}" />
+        </ant:copy>      
+      </j:forEach>
+  
+      <!-- copy resources that just need filtered, eg project.xml -->
+      <ant:copy todir="${basedir}" filtering="true">      
+        <ant:fileset dir="${maven.genapp.resources}">
+          <j:forEach var="res" items="${maven.genapp.filter.split}">
+            <ant:include name="${res}"/>
+          </j:forEach>
+        </ant:fileset>
+      </ant:copy>
+  
+      <!-- copy rest of app unfiltered -->
+      <ant:copy todir="${basedir}">      
+        <ant:fileset dir="${maven.genapp.resources}">
+          <ant:exclude name="src/java"/>
+          <ant:exclude name="src/test"/>
+          <j:forEach var="res" items="${maven.genapp.filter}">
+            <ant:exclude name="${res}"/>
+          </j:forEach>
+          <j:forEach var="res" items="${maven.genapp.repackage.split}">
+            <ant:exclude name="src/${res}/**"/>
+          </j:forEach>
+        </ant:fileset>
+      </ant:copy>
+	  
+      <!-- copy config files normally excluded by Ant default excludes -->
+      <ant:copy todir="${basedir}">
+        <ant:fileset dir="${maven.genapp.resources}" defaultexcludes="no">
+          <ant:include name="**/.*"/>
+          <ant:exclude name="**/.svn/**"/>
+          <ant:exclude name="**/*~"/>
+          <ant:exclude name="**/*.bak"/>
+          <ant:exclude name="**/*.swp"/>
+        </ant:fileset>
+      </ant:copy>
+      
+      <!-- Run the specific jelly script for the template -->
+      <u:available file="${maven.genapp.template.dir}/template.jelly">
+        <echo>Use template.jelly file present in ${maven.genapp.template.dir}.</echo>
+        <j:import file="${maven.genapp.template.dir}/template.jelly" inherit="true"/> 
+      </u:available>
+    </define:tag>
+  </define:taglib>
+  
+  <goal 
+    name="genapp" 
+    description="Generate Application based on a template">
+
+    <genapp:generate template="${maven.genapp.template}"/>
+  </goal>
+
+</project>

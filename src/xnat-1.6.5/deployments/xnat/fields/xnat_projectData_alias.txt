@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_projectData_alias_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:projectData_alias/alias                                                                        xnat_projectData_alias0		xnat_projectData_alias.alias
+xnat:projectData_alias/source                                                                       xnat_projectData_alias1		xnat_projectData_alias.source
+xnat:projectData_alias/projectdata_alias_info                                                       xnat_projectData_alias2		xnat_projectData_alias.projectdata_alias_info
+xnat:projectData_alias/xnat_projectData_alias_id                                                    xnat_projectData_alias3		xnat_projectData_alias.xnat_projectdata_alias_id
+xnat:projectData_alias/aliases_alias_xnat_projectdata_id                                            xnat_projectData_alias4		xnat_projectData_alias.aliases_alias_xnat_projectdata_id
+xnat:projectData_alias/meta/xft_version                                                             xnat_projectData_alias_meta_data5		xnat_projectData_alias_meta_data.xft_version
+xnat:projectData_alias/meta/last_modified                                                           xnat_projectData_alias_meta_data6		xnat_projectData_alias_meta_data.last_modified
+xnat:projectData_alias/meta/status                                                                  xnat_projectData_alias_meta_data7		xnat_projectData_alias_meta_data.status
+xnat:projectData_alias/meta/activation_date                                                         xnat_projectData_alias_meta_data8		xnat_projectData_alias_meta_data.activation_date
+xnat:projectData_alias/meta/row_last_modified                                                       xnat_projectData_alias_meta_data9		xnat_projectData_alias_meta_data.row_last_modified
+xnat:projectData_alias/meta/insert_date                                                             xnat_projectData_alias_meta_data10		xnat_projectData_alias_meta_data.insert_date
+xnat:projectData_alias/meta/activation_user_xdat_user_id                                            xnat_projectData_alias_meta_data11		xnat_projectData_alias_meta_data.activation_user_xdat_user_id
+xnat:projectData_alias/meta/insert_user_xdat_user_id                                                xnat_projectData_alias_meta_data12		xnat_projectData_alias_meta_data.insert_user_xdat_user_id
+xnat:projectData_alias/meta/origin                                                                  xnat_projectData_alias_meta_data13		xnat_projectData_alias_meta_data.origin
+xnat:projectData_alias/meta/modified                                                                xnat_projectData_alias_meta_data14		xnat_projectData_alias_meta_data.modified
+xnat:projectData_alias/meta/shareable                                                               xnat_projectData_alias_meta_data15		xnat_projectData_alias_meta_data.shareable
+xnat:projectData_alias/meta/meta_data_id                                                            xnat_projectData_alias_meta_data16		xnat_projectData_alias_meta_data.meta_data_id

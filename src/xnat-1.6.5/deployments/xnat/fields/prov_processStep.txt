@@ -1,0 +1,50 @@
+
+
+*********************************************
+
+ac_s_prov_processStep_r
+(ACTIVE - MULTIPLE - ROOT)
+
+prov:processStep/program                                                                            prov_processStep0		prov_processStep.program
+prov:processStep/program/version                                                                    prov_processStep1		prov_processStep.program_version
+prov:processStep/program/arguments                                                                  prov_processStep2		prov_processStep.program_arguments
+prov:processStep/timestamp                                                                          prov_processStep3		prov_processStep.timestamp
+prov:processStep/cvs                                                                                prov_processStep4		prov_processStep.cvs
+prov:processStep/user                                                                               prov_processStep5		prov_processStep.user_name
+prov:processStep/machine                                                                            prov_processStep6		prov_processStep.machine
+prov:processStep/platform                                                                           prov_processStep7		prov_processStep.platform
+prov:processStep/platform/version                                                                   prov_processStep8		prov_processStep.platform_version
+prov:processStep/compiler                                                                           prov_processStep9		prov_processStep.compiler
+prov:processStep/compiler/version                                                                   prov_processStep10		prov_processStep.compiler_version
+prov:processStep/processstep_info                                                                   prov_processStep11		prov_processStep.processstep_info
+prov:processStep/prov_processStep_id                                                                prov_processStep12		prov_processStep.prov_processstep_id
+prov:processStep/prov_process_prov_process_id                                                       prov_processStep13		prov_processStep.prov_process_prov_process_id
+prov:processStep/library/library                                                                    prov_processStep_library14		prov_processStep_library.library
+prov:processStep/library/version                                                                    prov_processStep_library15		prov_processStep_library.version
+prov:processStep/library/processstep_library_info                                                   prov_processStep_library16		prov_processStep_library.processstep_library_info
+prov:processStep/library/prov_processStep_library_id                                                prov_processStep_library17		prov_processStep_library.prov_processstep_library_id
+prov:processStep/library/prov_processstep_prov_processstep_id                                       prov_processStep_library18		prov_processStep_library.prov_processstep_prov_processstep_id
+prov:processStep/library/meta/xft_version                                                           prov_processStep_library_meta_data19		prov_processStep_library_meta_data.xft_version
+prov:processStep/library/meta/last_modified                                                         prov_processStep_library_meta_data20		prov_processStep_library_meta_data.last_modified
+prov:processStep/library/meta/status                                                                prov_processStep_library_meta_data21		prov_processStep_library_meta_data.status
+prov:processStep/library/meta/activation_date                                                       prov_processStep_library_meta_data22		prov_processStep_library_meta_data.activation_date
+prov:processStep/library/meta/row_last_modified                                                     prov_processStep_library_meta_data23		prov_processStep_library_meta_data.row_last_modified
+prov:processStep/library/meta/insert_date                                                           prov_processStep_library_meta_data24		prov_processStep_library_meta_data.insert_date
+prov:processStep/library/meta/activation_user_xdat_user_id                                          prov_processStep_library_meta_data25		prov_processStep_library_meta_data.activation_user_xdat_user_id
+prov:processStep/library/meta/insert_user_xdat_user_id                                              prov_processStep_library_meta_data26		prov_processStep_library_meta_data.insert_user_xdat_user_id
+prov:processStep/library/meta/origin                                                                prov_processStep_library_meta_data27		prov_processStep_library_meta_data.origin
+prov:processStep/library/meta/modified                                                              prov_processStep_library_meta_data28		prov_processStep_library_meta_data.modified
+prov:processStep/library/meta/shareable                                                             prov_processStep_library_meta_data29		prov_processStep_library_meta_data.shareable
+prov:processStep/library/meta/meta_data_id                                                          prov_processStep_library_meta_data30		prov_processStep_library_meta_data.meta_data_id
+prov:processStep/meta/xft_version                                                                   prov_processStep_meta_data31		prov_processStep_meta_data.xft_version
+prov:processStep/meta/last_modified                                                                 prov_processStep_meta_data32		prov_processStep_meta_data.last_modified
+prov:processStep/meta/status                                                                        prov_processStep_meta_data33		prov_processStep_meta_data.status
+prov:processStep/meta/activation_date                                                               prov_processStep_meta_data34		prov_processStep_meta_data.activation_date
+prov:processStep/meta/row_last_modified                                                             prov_processStep_meta_data35		prov_processStep_meta_data.row_last_modified
+prov:processStep/meta/insert_date                                                                   prov_processStep_meta_data36		prov_processStep_meta_data.insert_date
+prov:processStep/meta/activation_user_xdat_user_id                                                  prov_processStep_meta_data37		prov_processStep_meta_data.activation_user_xdat_user_id
+prov:processStep/meta/insert_user_xdat_user_id                                                      prov_processStep_meta_data38		prov_processStep_meta_data.insert_user_xdat_user_id
+prov:processStep/meta/origin                                                                        prov_processStep_meta_data39		prov_processStep_meta_data.origin
+prov:processStep/meta/modified                                                                      prov_processStep_meta_data40		prov_processStep_meta_data.modified
+prov:processStep/meta/shareable                                                                     prov_processStep_meta_data41		prov_processStep_meta_data.shareable
+prov:processStep/meta/meta_data_id                                                                  prov_processStep_meta_data42		prov_processStep_meta_data.meta_data_id

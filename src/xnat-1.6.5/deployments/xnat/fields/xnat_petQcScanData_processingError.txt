@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_xnat_petQcScanData_processingError_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:petQcScanData_processingError/processingError                                                  xnat_petQcScanData_processingError0		xnat_petQcScanData_processingError.processingerror
+xnat:petQcScanData_processingError/petqcscandata_processingerror_info                               xnat_petQcScanData_processingError1		xnat_petQcScanData_processingError.petqcscandata_processingerror_info
+xnat:petQcScanData_processingError/xnat_petQcScanData_processingError_id                            xnat_petQcScanData_processingError2		xnat_petQcScanData_processingError.xnat_petqcscandata_processingerror_id
+xnat:petQcScanData_processingError/processingerrors_processingerro_xnat_qcscandata_id               xnat_petQcScanData_processingError3		xnat_petQcScanData_processingError.processingerrors_processingerro_xnat_qcscandata_id
+xnat:petQcScanData_processingError/meta/xft_version                                                 xnat_petQcScanData_processingError_meta_data4		xnat_petQcScanData_processingError_meta_data.xft_version
+xnat:petQcScanData_processingError/meta/last_modified                                               xnat_petQcScanData_processingError_meta_data5		xnat_petQcScanData_processingError_meta_data.last_modified
+xnat:petQcScanData_processingError/meta/status                                                      xnat_petQcScanData_processingError_meta_data6		xnat_petQcScanData_processingError_meta_data.status
+xnat:petQcScanData_processingError/meta/activation_date                                             xnat_petQcScanData_processingError_meta_data7		xnat_petQcScanData_processingError_meta_data.activation_date
+xnat:petQcScanData_processingError/meta/row_last_modified                                           xnat_petQcScanData_processingError_meta_data8		xnat_petQcScanData_processingError_meta_data.row_last_modified
+xnat:petQcScanData_processingError/meta/insert_date                                                 xnat_petQcScanData_processingError_meta_data9		xnat_petQcScanData_processingError_meta_data.insert_date
+xnat:petQcScanData_processingError/meta/activation_user_xdat_user_id                                xnat_petQcScanData_processingError_meta_data10		xnat_petQcScanData_processingError_meta_data.activation_user_xdat_user_id
+xnat:petQcScanData_processingError/meta/insert_user_xdat_user_id                                    xnat_petQcScanData_processingError_meta_data11		xnat_petQcScanData_processingError_meta_data.insert_user_xdat_user_id
+xnat:petQcScanData_processingError/meta/origin                                                      xnat_petQcScanData_processingError_meta_data12		xnat_petQcScanData_processingError_meta_data.origin
+xnat:petQcScanData_processingError/meta/modified                                                    xnat_petQcScanData_processingError_meta_data13		xnat_petQcScanData_processingError_meta_data.modified
+xnat:petQcScanData_processingError/meta/shareable                                                   xnat_petQcScanData_processingError_meta_data14		xnat_petQcScanData_processingError_meta_data.shareable
+xnat:petQcScanData_processingError/meta/meta_data_id                                                xnat_petQcScanData_processingError_meta_data15		xnat_petQcScanData_processingError_meta_data.meta_data_id

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+    xmlns:j="jelly:core" 
+    xmlns:util="jelly:util" 
+    xmlns:x="jelly:xml" 
+    xmlns:ant="jelly:ant"
+    xmlns:doc="doc">
+
+  <goal name="cruisecontrol" prereqs="cruisecontrol:configure"/>
+
+  <!--==================================================================-->
+  <!-- Validate necessary properties for Cruise Control                 -->
+  <!--==================================================================-->    
+  <goal name="cruisecontrol:validate" prereqs="scm:validate">
+    <j:set var="cruisecontrolHomeX" value="${maven.cruisecontrol.home}X"/>
+    <j:set var="ccHome" value="${maven.cruisecontrol.home}" />
+    <j:if test="${cruisecontrolHomeX == 'X'}">
+      <ant:fail>You must specify maven.cruisecontrol.home</ant:fail>
+    </j:if>
+
+    <j:set var="nagEmail" value="${pom.build.nagEmailAddress}" />
+    <j:if test="${empty(nagEmail)}">
+      <ant:fail>You must specify pom.build.nagEmailAddress</ant:fail>
+    </j:if>
+    <j:set var="defaultSuffix" value="${maven.cruisecontrol.mail.defaultsuffix}" />
+    <j:if test="${defaultSuffix == 'DEFAULT_SUFFIX_NOT_SET'}">
+      <util:tokenize var="tokens" delim="@">${pom.build.nagEmailAddress}</util:tokenize>
+      <j:set var="maven.cruisecontrol.mail.defaultsuffix" value="@${tokens[1]}" />
+    </j:if>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Update a configuration file for Cruise Control                   -->
+  <!-- Will add or update this project's section                        -->
+  <!--==================================================================-->    
+  <goal name="cruisecontrol:configure"
+    description="Update a Cruise Control configuration file with this project"
+    prereqs="cruisecontrol:validate">
+    
+    <j:choose>
+      <j:when test="${systemScope['os.name'].startsWith('Windows')}">
+        <j:set var="mavenScript" value="${maven.cruisecontrol.mavenhome}/bin/maven.bat"/>        
+      </j:when>
+      <j:otherwise>
+        <j:set var="mavenScript" value="${maven.cruisecontrol.mavenhome}/bin/maven"/> 
+      </j:otherwise>
+    </j:choose>    
+    <x:parse var="doc"><cruisecontrol></cruisecontrol></x:parse>
+    <util:available file="${maven.cruisecontrol.config}">
+      <util:file var="inputFile" name="${maven.cruisecontrol.config}" />
+      <x:parse var="doc" xml="${inputFile}" />
+    </util:available>
+
+    <ant:mkdir dir="${maven.build.dir}" />
+    <j:set
+        var="tempConfigFile"
+        value="${maven.build.dir}/cruisecontrol-config-temp.xml" />
+    <j:set
+        var="stylesheet" 
+        value="file:${maven.cruisecontrol.template}" />
+    <j:file name="${tempConfigFile}" outputMode="xml" prettyPrint="yes">
+      <j:include uri="${stylesheet.toString()}" />
+    </j:file>
+    <ant:copy file="${tempConfigFile}" tofile="${maven.cruisecontrol.config}" />
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Run Cruise Control                                               -->
+  <!--==================================================================-->    
+  <goal name="cruisecontrol:run"
+    description="Run Cruise Control"
+    prereqs="cruisecontrol:validate">
+    <ant:java jar="${maven.cruisecontrol.home}/main/dist/cruisecontrol.jar" fork="true">
+      <arg line="-projectname ${pom.artifactId}"/>
+      <arg line="-configfile ${maven.cruisecontrol.config}"/>
+    </ant:java>
+  </goal>
+
+  <goal name="maven-cruisecontrol-plugin:report">
+    <!-- TODO: download and transform instead of linking to it -->
+  </goal>
+
+  <goal name="maven-cruisecontrol-plugin:register">
+    <doc:registerReport 
+      name="CC Build Results"
+      pluginName="maven-cruisecontrol-plugin"
+      externalLink="${maven.cruisecontrol.buildresults.url}"
+      description="See the cruise control build results page for this project." />
+  </goal>
+  
+  <goal name="maven-cruisecontrol-plugin:deregister">
+    <doc:deregisterReport name="CC Build Results"/>
+  </goal>
+  
+</project>
+

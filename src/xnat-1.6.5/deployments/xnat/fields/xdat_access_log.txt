@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_xdat_access_log_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:access_log/login                                                                               xdat_access_log0		xdat_access_log.login
+xdat:access_log/access_date                                                                         xdat_access_log1		xdat_access_log.access_date
+xdat:access_log/ip                                                                                  xdat_access_log2		xdat_access_log.ip
+xdat:access_log/method                                                                              xdat_access_log3		xdat_access_log.method
+xdat:access_log/access_log_info                                                                     xdat_access_log4		xdat_access_log.access_log_info
+xdat:access_log/xdat_access_log_id                                                                  xdat_access_log5		xdat_access_log.xdat_access_log_id
+xdat:access_log/meta/xft_version                                                                    xdat_access_log_meta_data6		xdat_access_log_meta_data.xft_version
+xdat:access_log/meta/last_modified                                                                  xdat_access_log_meta_data7		xdat_access_log_meta_data.last_modified
+xdat:access_log/meta/status                                                                         xdat_access_log_meta_data8		xdat_access_log_meta_data.status
+xdat:access_log/meta/activation_date                                                                xdat_access_log_meta_data9		xdat_access_log_meta_data.activation_date
+xdat:access_log/meta/row_last_modified                                                              xdat_access_log_meta_data10		xdat_access_log_meta_data.row_last_modified
+xdat:access_log/meta/insert_date                                                                    xdat_access_log_meta_data11		xdat_access_log_meta_data.insert_date
+xdat:access_log/meta/activation_user_xdat_user_id                                                   xdat_access_log_meta_data12		xdat_access_log_meta_data.activation_user_xdat_user_id
+xdat:access_log/meta/insert_user_xdat_user_id                                                       xdat_access_log_meta_data13		xdat_access_log_meta_data.insert_user_xdat_user_id
+xdat:access_log/meta/origin                                                                         xdat_access_log_meta_data14		xdat_access_log_meta_data.origin
+xdat:access_log/meta/modified                                                                       xdat_access_log_meta_data15		xdat_access_log_meta_data.modified
+xdat:access_log/meta/shareable                                                                      xdat_access_log_meta_data16		xdat_access_log_meta_data.shareable
+xdat:access_log/meta/meta_data_id                                                                   xdat_access_log_meta_data17		xdat_access_log_meta_data.meta_data_id

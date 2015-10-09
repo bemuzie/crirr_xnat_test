@@ -1,0 +1,643 @@
+Possible Parent Data-Types:
+
+wrk:workflowData
+	NONE
+
+wrk:abstractExecutionEnvironment
+	wrk:workflowData/executionEnvironment  
+
+wrk:xnatExecutionEnvironment
+	wrk:workflowData/executionEnvironment  
+
+wrk:xnatExecutionEnvironment_parameter
+	wrk:xnatExecutionEnvironment/parameters/parameter  
+
+wrk:xnatExecutionEnvironment_notify
+	wrk:xnatExecutionEnvironment/notify  
+
+cat:catalog
+	NONE
+
+cat:catalog_metaField
+	cat:catalog/metaFields/metaField  
+
+cat:catalog_tag
+	cat:catalog/tags/tag  
+
+cat:entry
+	cat:catalog/entries/entry  
+
+cat:entry_metaField
+	cat:entry/metaFields/metaField  
+
+cat:entry_tag
+	cat:entry/tags/tag  
+
+cat:dcmEntry
+	cat:catalog/entries/entry  
+
+cat:dcmCatalog
+	NONE
+
+pipe:PipelineRepository
+	NONE
+
+pipe:pipelineDetails
+	pipe:PipelineRepository/pipeline  
+
+pipe:pipelineDetails_element
+	pipe:pipelineDetails/generatesElements/element  
+
+pipe:pipelineDetails_parameter
+	pipe:pipelineDetails/parameters/parameter  
+
+scr:screeningAssessment
+	xnat:imageSessionData/assessors/assessor  
+
+scr:screeningScanData
+	scr:screeningAssessment/scans/scan  
+
+ext:atlasScalingFactorData
+	xnat:imageSessionData/assessors/assessor  
+
+ext:clinicalAssessmentData
+	xnat:subjectData/experiments/experiment  
+
+ext:clinicalAssessmentData_Diagnosis
+	ext:clinicalAssessmentData/Diagnosis  
+
+ext:clinicalAssessmentData_Medication
+	ext:clinicalAssessmentData/Medication  
+
+ext:segmentationFastData
+	xnat:imageSessionData/assessors/assessor  
+
+arc:ArchiveSpecification
+	NONE
+
+arc:ArchiveSpecification_notification_type
+	arc:ArchiveSpecification/notification_types/notification_type  
+
+arc:project
+	arc:ArchiveSpecification/projects/project  
+
+arc:project_descendant_pipeline
+	arc:project_descendant/pipeline  
+
+arc:project_descendant
+	arc:project/pipelines/descendants/descendant  
+
+arc:project_pipeline
+	arc:project/pipelines/pipeline  
+
+arc:pipelineData
+	NONE
+
+arc:pipelineParameterData
+	arc:pipelineData/parameters/parameter  
+
+arc:pathInfo
+	arc:ArchiveSpecification/globalPaths  arc:project/paths  
+
+arc:property
+	arc:project/properties/property  
+
+arc:fieldSpecification
+	arc:ArchiveSpecification/fieldSpecifications/fieldSpecification  arc:project/fieldSpecifications/fieldSpecification  
+
+val:protocolData
+	xnat:imageSessionData/assessors/assessor  
+
+val:protocolData_condition
+	val:protocolData/check/conditions/condition  
+
+val:protocolData_comment
+	val:protocolData/check/comments/comment  
+
+val:protocolData_scan_check_condition
+	val:protocolData_scan_check/conditions/condition  
+
+val:protocolData_scan_check_comment
+	val:protocolData_scan_check/comments/comment  
+
+val:protocolData_scan_check
+	val:protocolData/scans/scan_check  
+
+val:additionalVal
+	val:protocolData/check/additionalVal  val:protocolData_scan_check/additionalVal  
+
+xnat:projectData
+	NONE
+
+xnat:projectData_alias
+	xnat:projectData/aliases/alias  
+
+xnat:projectData_field
+	xnat:projectData/fields/field  
+
+xnat:subjectData
+	NONE
+
+xnat:subjectData_addID
+	xnat:subjectData/addID  
+
+xnat:subjectData_field
+	xnat:subjectData/fields/field  
+
+xnat:projectParticipant
+	xnat:subjectData/sharing/share  
+
+xnat:experimentData
+	NONE
+
+xnat:experimentData_share
+	xnat:experimentData/sharing/share  
+
+xnat:experimentData_field
+	xnat:experimentData/fields/field  
+
+xnat:genericData
+	NONE
+
+xnat:pVisitData
+	NONE
+
+xnat:abstractSubjectMetadata
+	xnat:subjectData/metadata  
+
+xnat:subjectMetadata
+	xnat:subjectData/metadata  
+
+xnat:abstractDemographicData
+	xnat:subjectData/demographics  
+
+xnat:demographicData
+	xnat:subjectData/demographics  
+
+xnat:subjectAssessorData
+	xnat:subjectData/experiments/experiment  
+
+xnat:subjectVariablesData
+	xnat:subjectData/experiments/experiment  
+
+xnat:subjectVariablesData_variable
+	xnat:subjectVariablesData/variables/variable  
+
+xnat:imageSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:mrSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:mrAssessorData
+	xnat:imageSessionData/assessors/assessor  
+
+xnat:mrScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:derivedData
+	NONE
+
+xnat:reconstructedImageData
+	xnat:imageSessionData/reconstructions/reconstructedImage  
+
+xnat:reconstructedImageData_scanID
+	xnat:reconstructedImageData/inScans/scanID  
+
+xnat:investigatorData
+	xnat:projectData/PI  xnat:projectData/investigators/investigator  xnat:subjectData/investigator  xnat:experimentData/investigator  
+
+xnat:volumetricRegion
+	ext:segmentationFastData/brainVolume  
+
+xnat:volumetricRegion_subregion
+	xnat:volumetricRegion/subregions/subregion  
+
+xnat:addField
+	xnat:mrScanData/parameters/addParam  xnat:reconstructedImageData/parameters/addParam  xnat:petScanData/parameters/addParam  xnat:imageAssessorData/parameters/addParam  
+
+xnat:validationData
+	xnat:experimentData/validation  xnat:imageScanData/validation  
+
+xnat:abstractResource
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:abstractResource_tag
+	xnat:abstractResource/tags/tag  
+
+xnat:resource
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:imageResource
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:resourceSeries
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:imageResourceSeries
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:dicomSeries
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:dicomSeries_image
+	xnat:dicomSeries/imageSet/image  
+
+xnat:publicationResource
+	xnat:projectData/publications/publication  xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:abstractProtocol
+	xnat:projectData/studyProtocol  
+
+xnat:studyProtocol
+	xnat:projectData/studyProtocol  
+
+xnat:studyProtocol_condition
+	xnat:studyProtocol/acqConditions/condition  
+
+xnat:studyProtocol_group
+	xnat:studyProtocol/subjectGroups/group  
+
+xnat:studyProtocol_variable
+	xnat:studyProtocol/subjectVariables/variable  
+
+xnat:studyProtocol_session
+	xnat:studyProtocol/imageSessionTypes/session  
+
+xnat:petAssessorData
+	xnat:imageSessionData/assessors/assessor  
+
+xnat:petSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:petmrSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:petScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:petScanData_frame
+	xnat:petScanData/parameters/frames/frame  
+
+xnat:computationData
+	xnat:reconstructedImageData/computations/datum  
+
+xnat:regionResource
+	xnat:imageSessionData/regions/region  
+
+xnat:regionResource_label
+	xnat:regionResource/subregionlabels/label  
+
+xnat:resourceCatalog
+	xnat:projectData/resources/resource  xnat:subjectData/resources/resource  xnat:experimentData/resources/resource  xnat:reconstructedImageData/in/file  xnat:reconstructedImageData/out/file  xnat:regionResource/file  xnat:regionResource/baseimage  xnat:imageAssessorData/in/file  xnat:imageAssessorData/out/file  xnat:imageScanData/file  
+
+xnat:statisticsData
+	xnat:qcAssessmentData_scan_slice/sliceStatistics  xnat:qcAssessmentData_scan/scanStatistics  
+
+xnat:statisticsData_additionalStatistics
+	xnat:statisticsData/additionalStatistics  
+
+xnat:statisticsData_addField
+	xnat:statisticsData/addField  
+
+xnat:abstractStatistics
+	xnat:qcAssessmentData_scan_slice/sliceStatistics  xnat:qcAssessmentData_scan/scanStatistics  
+
+xnat:qcAssessmentData
+	xnat:imageSessionData/assessors/assessor  
+
+xnat:qcAssessmentData_scan_slice
+	xnat:qcAssessmentData_scan/sliceQC/slice  
+
+xnat:qcAssessmentData_scan
+	xnat:qcAssessmentData/scans/scan  
+
+xnat:datatypeProtocol
+	xnat:projectData/studyProtocol  
+
+xnat:fieldDefinitionGroup
+	xnat:datatypeProtocol/definitions/definition  
+
+xnat:fieldDefinitionGroup_field_possibleValue
+	xnat:fieldDefinitionGroup_field/possibleValues/possibleValue  
+
+xnat:fieldDefinitionGroup_field
+	xnat:fieldDefinitionGroup/fields/field  
+
+xnat:contrastBolus
+	xnat:ctScanData/parameters/contrastBolus  xnat:xaScanData/parameters/contrastBolus  
+
+xnat:imageAssessorData
+	xnat:imageSessionData/assessors/assessor  
+
+xnat:imageScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:imageScanData_share
+	xnat:imageScanData/sharing/share  
+
+xnat:ctSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:ctScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:ctScanData_focalSpot
+	xnat:ctScanData/parameters/focalSpots/focalSpot  
+
+xnat:crSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:crScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:dxSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:dxScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:mgSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:mgScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:ioSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:ioScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:usSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:usScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:ecgSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:ecgScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:hdSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:hdScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:epsSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:epsScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:xaSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:xaScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:rfSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:rfScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:xa3DSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:xa3DScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:dx3DCraniofacialSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:dx3DCraniofacialScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:nmSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:nmScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:srSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:srScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:esSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:esScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:esvSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:esvScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:gmSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:gmScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:gmvSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:gmvScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:smSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:smScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:xcSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:xcScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:xcvSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:xcvScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:opSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:opScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:optSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:optScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:rtSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:rtImageScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:otherDicomSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:scScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:segScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:mrsScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:voiceAudioScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:otherDicomScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:qcScanData
+	xnat:qcManualAssessorData/scans/scan  
+
+xnat:qcScanData_field
+	xnat:qcScanData/fields/field  
+
+xnat:mrQcScanData
+	xnat:qcManualAssessorData/scans/scan  
+
+xnat:petQcScanData
+	xnat:qcManualAssessorData/scans/scan  
+
+xnat:petQcScanData_processingError
+	xnat:petQcScanData/processingErrors/processingError  
+
+xnat:otherQcScanData
+	xnat:qcManualAssessorData/scans/scan  
+
+xnat:qcManualAssessorData
+	xnat:imageSessionData/assessors/assessor  
+
+xnat:megSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:megScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat:eegSessionData
+	xnat:subjectData/experiments/experiment  
+
+xnat:eegScanData
+	xnat:imageSessionData/scans/scan  
+
+xnat_a:sideEffectsPittsburghData
+	xnat:subjectData/experiments/experiment  
+
+xnat_a:ybocsData
+	xnat:subjectData/experiments/experiment  
+
+xnat_a:ygtssData
+	xnat:subjectData/experiments/experiment  
+
+xnat_a:updrs3Data
+	xnat:subjectData/experiments/experiment  
+
+xnat_a:scidResearchData
+	xnat:subjectData/experiments/experiment  
+
+prov:process
+	xnat:derivedData/provenance  xnat:reconstructedImageData/provenance  xnat:resource/provenance  
+
+prov:processStep
+	prov:process/processStep  
+
+prov:processStep_library
+	prov:processStep/library  
+
+xdat:security
+	NONE
+
+xdat:element_access
+	xdat:user/element_access  xdat:userGroup/element_access  
+
+xdat:element_access_secure_ip
+	xdat:element_access/secure_ip  
+
+xdat:field_mapping
+	xdat:field_mapping_set/allow  
+
+xdat:field_mapping_set
+	xdat:element_access/permissions/allow_set  
+
+xdat:role_type
+	xdat:security/roles/role  xdat:user/assigned_roles/assigned_role  
+
+xdat:action_type
+	xdat:security/actions/action  xdat:role_type/allowed_actions/allowed_action  
+
+xdat:primary_security_field
+	xdat:element_security/primary_security_fields/primary_security_field  
+
+xdat:element_security
+	xdat:security/element_security_set/element_security  
+
+xdat:element_security_listing_action
+	xdat:element_security/listing_actions/listing_action  
+
+xdat:element_action_type
+	xdat:element_security/element_actions/element_action  
+
+xdat:user
+	xdat:security/users/user  xdat:change_info/change_user  xdat:user_login/user  
+
+xdat:user_groupID
+	xdat:user/groups/groupID  
+
+xdat:change_info
+	NONE
+
+xdat:user_login
+	NONE
+
+xdat:stored_search
+	NONE
+
+xdat:stored_search_allowed_user
+	xdat:stored_search/allowed_user  
+
+xdat:stored_search_groupID
+	xdat:stored_search/allowed_groups/groupID  
+
+xdat:criteria_set
+	xdat:stored_search/search_where  
+
+xdat:criteria
+	xdat:criteria_set/criteria  
+
+xdat:search_field
+	xdat:stored_search/search_field  
+
+xdat:access_log
+	NONE
+
+xdat:userGroup
+	xdat:security/groups/group  
+
+xdat:Search
+	NONE
+
+xdat:newsEntry
+	xdat:security/newsList/news  
+
+xdat:infoEntry
+	xdat:security/infoList/info  

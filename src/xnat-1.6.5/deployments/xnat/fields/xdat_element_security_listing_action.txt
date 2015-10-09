@@ -1,0 +1,30 @@
+
+
+*********************************************
+
+ac_s_xdat_element_security_listing_action_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:element_security_listing_action/element_action_name                                            xdat_element_security_listing_action0		xdat_element_security_listing_action.element_action_name
+xdat:element_security_listing_action/display_name                                                   xdat_element_security_listing_action1		xdat_element_security_listing_action.display_name
+xdat:element_security_listing_action/sequence                                                       xdat_element_security_listing_action2		xdat_element_security_listing_action.sequence
+xdat:element_security_listing_action/image                                                          xdat_element_security_listing_action3		xdat_element_security_listing_action.image
+xdat:element_security_listing_action/popup                                                          xdat_element_security_listing_action4		xdat_element_security_listing_action.popup
+xdat:element_security_listing_action/secureAccess                                                   xdat_element_security_listing_action5		xdat_element_security_listing_action.secureaccess
+xdat:element_security_listing_action/secureFeature                                                  xdat_element_security_listing_action6		xdat_element_security_listing_action.securefeature
+xdat:element_security_listing_action/parameterString                                                xdat_element_security_listing_action7		xdat_element_security_listing_action.parameterstring
+xdat:element_security_listing_action/element_security_listing_action_info                           xdat_element_security_listing_action8		xdat_element_security_listing_action.element_security_listing_action_info
+xdat:element_security_listing_action/xdat_element_security_listing_action_id                        xdat_element_security_listing_action9		xdat_element_security_listing_action.xdat_element_security_listing_action_id
+xdat:element_security_listing_action/listing_actions_listing_action__element_name                   xdat_element_security_listing_action10		xdat_element_security_listing_action.listing_actions_listing_action__element_name
+xdat:element_security_listing_action/meta/xft_version                                               xdat_element_security_listing_action_meta_data11		xdat_element_security_listing_action_meta_data.xft_version
+xdat:element_security_listing_action/meta/last_modified                                             xdat_element_security_listing_action_meta_data12		xdat_element_security_listing_action_meta_data.last_modified
+xdat:element_security_listing_action/meta/status                                                    xdat_element_security_listing_action_meta_data13		xdat_element_security_listing_action_meta_data.status
+xdat:element_security_listing_action/meta/activation_date                                           xdat_element_security_listing_action_meta_data14		xdat_element_security_listing_action_meta_data.activation_date
+xdat:element_security_listing_action/meta/row_last_modified                                         xdat_element_security_listing_action_meta_data15		xdat_element_security_listing_action_meta_data.row_last_modified
+xdat:element_security_listing_action/meta/insert_date                                               xdat_element_security_listing_action_meta_data16		xdat_element_security_listing_action_meta_data.insert_date
+xdat:element_security_listing_action/meta/activation_user_xdat_user_id                              xdat_element_security_listing_action_meta_data17		xdat_element_security_listing_action_meta_data.activation_user_xdat_user_id
+xdat:element_security_listing_action/meta/insert_user_xdat_user_id                                  xdat_element_security_listing_action_meta_data18		xdat_element_security_listing_action_meta_data.insert_user_xdat_user_id
+xdat:element_security_listing_action/meta/origin                                                    xdat_element_security_listing_action_meta_data19		xdat_element_security_listing_action_meta_data.origin
+xdat:element_security_listing_action/meta/modified                                                  xdat_element_security_listing_action_meta_data20		xdat_element_security_listing_action_meta_data.modified
+xdat:element_security_listing_action/meta/shareable                                                 xdat_element_security_listing_action_meta_data21		xdat_element_security_listing_action_meta_data.shareable
+xdat:element_security_listing_action/meta/meta_data_id                                              xdat_element_security_listing_action_meta_data22		xdat_element_security_listing_action_meta_data.meta_data_id

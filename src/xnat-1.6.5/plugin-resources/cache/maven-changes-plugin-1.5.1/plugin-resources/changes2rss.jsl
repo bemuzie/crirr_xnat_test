@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ * ========================================================================
+ * 
+ * Copyright 2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * ========================================================================
+-->
+
+<jsl:stylesheet
+  select="$doc"
+  xmlns:j="jelly:core"
+  xmlns:jsl="jelly:jsl"
+  xmlns:util="jelly:util"
+  xmlns:x="jelly:xml"
+  xmlns:doc="doc"
+  xmlns="dummy" trim="true">
+
+  <jsl:template match="document">
+    <rss version="0.91">
+      <channel>
+        <title>Changes report</title> 
+        <link>${pom.url}</link> 
+        <description>Changes report</description>
+        <language>en-us</language>
+        <copyright>Copyright 2004 The Apache Software Foundation</copyright>
+        <item>
+
+          <j:set var="changesCount"><x:expr select="count(//release[@version='${pom.currentVersion}']/action)"/></j:set>
+
+          <title>${changesCount} change(s) for version ${pom.currentVersion}</title>
+          
+          <!-- If we don't go through a tmp variable Jelly inserts a space between ${pom.url} 
+               and '/changes-report.html'. Go figure... -->
+          <j:set var="link" value="${pom.url}/changes-report.html"/>
+          
+          <link>${link}</link> 
+          <description>
+            <table border="1">
+              <tr><th style='width:50px'>Type</th><th>Changes</th><th style='width:70px'>By</th></tr>             
+              <x:forEach var="action" select="//release[@version='${pom.currentVersion}']/action">
+                <j:set var="type"><x:expr select="@type"/></j:set>
+                <j:set var="dev"><x:expr select="@dev"/></j:set>
+                <j:set var="issue"><x:expr select="@issue"/></j:set>
+                <j:set var="dueto"><x:expr select="@due-to"/></j:set>
+                <j:set var="duetoemail"><x:expr select="@due-to-email"/></j:set>
+                <tr>
+                  <td>${type}</td>
+                  <td>
+                    <x:expr select="string($action)"/>
+
+                    <j:if test="${issue != ''}">
+                      <j:useBean var="finder" class="org.apache.maven.changes.IssueFinder"/>
+                      <j:set var="template" value="${maven.changes.issue.template}"/>
+                      <j:set var="trackerURL" value="${pom.issueTrackingUrl}"/>
+                      Fixes <a href="${finder.getIssueURL(trackerURL,issue,template)}">${issue}</a>.
+                    </j:if>
+
+                    <j:if test="${dueto != ''}">
+                      <j:choose>
+                        <j:when test="${duetoemail != ''}">
+                          Thanks to <a href="mailto:${duetoemail}">${dueto}</a>.
+                        </j:when>
+                        <j:otherwise>
+                          Thanks to ${dueto}.
+                        </j:otherwise>
+                      </j:choose>
+                    </j:if>
+
+                  </td>
+                  <td>
+                    <j:set var="teamLink" value="${pom.url}/team-list.html#${dev}"/>
+                    <a href="${teamLink}">${dev}</a>
+                  </td>
+                </tr>               
+
+              </x:forEach>
+            </table>
+          </description>
+        </item>
+      </channel>
+    </rss>
+  </jsl:template>
+
+</jsl:stylesheet>

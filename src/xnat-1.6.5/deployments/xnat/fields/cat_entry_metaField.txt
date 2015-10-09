@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_cat_entry_metaField_r
+(ACTIVE - MULTIPLE - ROOT)
+
+cat:entry_metaField/metaField                                                                       cat_entry_metaField0		cat_entry_metaField.metafield
+cat:entry_metaField/name                                                                            cat_entry_metaField1		cat_entry_metaField.name
+cat:entry_metaField/entry_metafield_info                                                            cat_entry_metaField2		cat_entry_metaField.entry_metafield_info
+cat:entry_metaField/cat_entry_metaField_id                                                          cat_entry_metaField3		cat_entry_metaField.cat_entry_metafield_id
+cat:entry_metaField/metafields_metafield_cat_entry_cat_entry_id                                     cat_entry_metaField4		cat_entry_metaField.metafields_metafield_cat_entry_cat_entry_id
+cat:entry_metaField/meta/xft_version                                                                cat_entry_metaField_meta_data5		cat_entry_metaField_meta_data.xft_version
+cat:entry_metaField/meta/last_modified                                                              cat_entry_metaField_meta_data6		cat_entry_metaField_meta_data.last_modified
+cat:entry_metaField/meta/status                                                                     cat_entry_metaField_meta_data7		cat_entry_metaField_meta_data.status
+cat:entry_metaField/meta/activation_date                                                            cat_entry_metaField_meta_data8		cat_entry_metaField_meta_data.activation_date
+cat:entry_metaField/meta/row_last_modified                                                          cat_entry_metaField_meta_data9		cat_entry_metaField_meta_data.row_last_modified
+cat:entry_metaField/meta/insert_date                                                                cat_entry_metaField_meta_data10		cat_entry_metaField_meta_data.insert_date
+cat:entry_metaField/meta/activation_user_xdat_user_id                                               cat_entry_metaField_meta_data11		cat_entry_metaField_meta_data.activation_user_xdat_user_id
+cat:entry_metaField/meta/insert_user_xdat_user_id                                                   cat_entry_metaField_meta_data12		cat_entry_metaField_meta_data.insert_user_xdat_user_id
+cat:entry_metaField/meta/origin                                                                     cat_entry_metaField_meta_data13		cat_entry_metaField_meta_data.origin
+cat:entry_metaField/meta/modified                                                                   cat_entry_metaField_meta_data14		cat_entry_metaField_meta_data.modified
+cat:entry_metaField/meta/shareable                                                                  cat_entry_metaField_meta_data15		cat_entry_metaField_meta_data.shareable
+cat:entry_metaField/meta/meta_data_id                                                               cat_entry_metaField_meta_data16		cat_entry_metaField_meta_data.meta_data_id

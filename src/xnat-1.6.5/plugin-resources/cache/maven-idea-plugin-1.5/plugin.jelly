@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project xmlns:j="jelly:core"
+    xmlns:multiproject="multiproject"
+    xmlns:ant="jelly:ant"
+    xmlns:util="jelly:util"
+    xmlns:maven="jelly:maven">
+
+    <multiproject:dependency-handle />
+
+    <!--==================================================================-->
+    <!-- Generate IntelliJ IDEA project, workspace and model files        -->
+    <!--==================================================================-->
+    <goal name="idea"
+        description="Generate IDEA project files"
+        prereqs="idea:idea"/>
+
+    <goal name="idea:init">
+        <j:set var="template.dir" value="${plugin.resources}/templates/v${maven.idea.project.version}"/>
+    </goal>
+
+
+    <goal name="idea:project"
+        description="Generate IDEA .ipr project files"
+        prereqs="idea:init">
+        <ant:echo>Creating ${basedir}/${pom.artifactId}.ipr ...</ant:echo>
+
+        <j:file name="${basedir}/${pom.artifactId}.ipr" prettyPrint="true" xmlns="dummy">
+            <j:import file="${template.dir}/project.jelly" inherit="true"/>
+        </j:file>
+
+    </goal>
+
+
+    <goal name="idea:workspace"
+        description="Generate IDEA .iws project files"
+        prereqs="idea:init">
+        <ant:echo>Creating ${basedir}/${pom.artifactId}.iws ...</ant:echo>
+
+        <j:file name="${basedir}/${pom.artifactId}.iws" prettyPrint="true" xmlns="dummy">
+            <j:import file="${template.dir}/workspace.jelly" inherit="true"/>
+        </j:file>
+    </goal>
+
+    <goal name="idea:idea"
+        description="Generate IDEA .ipr, .iml and .iws project files">
+        <attainGoal name="idea:project"/>
+        <attainGoal name="idea:workspace"/>
+        <attainGoal name="idea:module"/>
+    </goal>
+
+    <!-- Depends on war:load to make sure war plugin is loaded (needed by module.jelly) - should use
+         a dependency handle -->
+    <goal name="idea:module"
+        description="Generate IDEA .iml project files"
+        prereqs="idea:init,war:load">
+        <util:available file="${template.dir}/module.jelly">
+            <ant:echo>Creating ${basedir}/${pom.artifactId}.iml ...</ant:echo>
+            <j:file name="${basedir}/${pom.artifactId}.iml" prettyPrint="true" xmlns="dummy">
+                <j:import file="${template.dir}/module.jelly" inherit="true"/>
+            </j:file>
+        </util:available>
+    </goal>
+
+
+    <!--
+
+
+     -->
+    <goal name="idea:multiproject" prereqs="idea:init">
+
+        <j:set var="ideaVersion" value="${maven.idea.project.version}"/>
+        <j:if test="${ideaVersion == '3'}"> 
+          <ant:fail>ERROR: This goal should be used only with IDEA 4 and above.</ant:fail>
+        </j:if>
+
+      
+        <attainGoal name="idea:workspace"/>
+        
+        <!-- Finding modules -->
+        <!-- we use plugin's own settings in first order. -->
+        <!-- if they are not provided we will try use use multiproject settings -->
+        <j:set var="multiprojectIncludes" value="${maven.idea.project.multiproject.includes}"/>
+        <j:if test="${multiprojectIncludes == null or multiprojectIncludes.length() eq 0}">
+           <maven:pluginVar var="multiprojectIncludes" plugin="maven-multiproject-plugin" property="maven.multiproject.includes"/>
+        </j:if>
+        
+        <j:set var="multiprojectExcludes" value="${maven.idea.project.multiproject.excludes}"/>
+        <j:if test="${multiprojectExcludes == null or multiprojectExcludes.length() eq 0}">
+           <maven:pluginVar var="multiprojectExcludes" plugin="maven-multiproject-plugin" property="maven.multiproject.excludes"/>
+        </j:if>
+
+
+        <j:set var="multiprojectBasedir" value="${maven.idea.project.multiproject.basedir}"/>
+        <j:if test="${multiprojectBasedir == null or multiprojectBasedir.length() eq 0}">
+           <maven:pluginVar var="multiprojectBasedir" plugin="maven-multiproject-plugin" property="maven.multiproject.basedir"/>
+        </j:if>
+       
+        <maven:reactor
+            basedir="${multiprojectBasedir}"
+            banner="Generating idea module file for:"
+            includes="${multiprojectIncludes}"
+            excludes="${multiprojectExcludes}"
+            postProcessing="true"
+            goals="idea:module"
+            ignoreFailures="true"/>
+
+        <ant:echo>Creating ${basedir}/${pom.artifactId}.ipr ...</ant:echo>
+        <j:file name="${basedir}/${pom.artifactId}.ipr" prettyPrint="true" xmlns="dummy">
+            <j:import file="${template.dir}/multiproject.jelly" inherit="true"/>
+        </j:file>
+
+    </goal>
+
+</project>
+

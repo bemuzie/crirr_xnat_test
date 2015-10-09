@@ -1,0 +1,29 @@
+
+
+*********************************************
+
+ac_s_xnat_contrastBolus_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:contrastBolus/agent                                                                            xnat_contrastBolus0		xnat_contrastBolus.agent
+xnat:contrastBolus/route                                                                            xnat_contrastBolus1		xnat_contrastBolus.route
+xnat:contrastBolus/volume                                                                           xnat_contrastBolus2		xnat_contrastBolus.volume
+xnat:contrastBolus/totalDose                                                                        xnat_contrastBolus3		xnat_contrastBolus.totaldose
+xnat:contrastBolus/flowRate                                                                         xnat_contrastBolus4		xnat_contrastBolus.flowrate
+xnat:contrastBolus/flowDuration                                                                     xnat_contrastBolus5		xnat_contrastBolus.flowduration
+xnat:contrastBolus/activeIngredient                                                                 xnat_contrastBolus6		xnat_contrastBolus.activeingredient
+xnat:contrastBolus/concentration                                                                    xnat_contrastBolus7		xnat_contrastBolus.concentration
+xnat:contrastBolus/contrastbolus_info                                                               xnat_contrastBolus8		xnat_contrastBolus.contrastbolus_info
+xnat:contrastBolus/xnat_contrastBolus_id                                                            xnat_contrastBolus9		xnat_contrastBolus.xnat_contrastbolus_id
+xnat:contrastBolus/meta/xft_version                                                                 xnat_contrastBolus_meta_data10		xnat_contrastBolus_meta_data.xft_version
+xnat:contrastBolus/meta/last_modified                                                               xnat_contrastBolus_meta_data11		xnat_contrastBolus_meta_data.last_modified
+xnat:contrastBolus/meta/status                                                                      xnat_contrastBolus_meta_data12		xnat_contrastBolus_meta_data.status
+xnat:contrastBolus/meta/activation_date                                                             xnat_contrastBolus_meta_data13		xnat_contrastBolus_meta_data.activation_date
+xnat:contrastBolus/meta/row_last_modified                                                           xnat_contrastBolus_meta_data14		xnat_contrastBolus_meta_data.row_last_modified
+xnat:contrastBolus/meta/insert_date                                                                 xnat_contrastBolus_meta_data15		xnat_contrastBolus_meta_data.insert_date
+xnat:contrastBolus/meta/activation_user_xdat_user_id                                                xnat_contrastBolus_meta_data16		xnat_contrastBolus_meta_data.activation_user_xdat_user_id
+xnat:contrastBolus/meta/insert_user_xdat_user_id                                                    xnat_contrastBolus_meta_data17		xnat_contrastBolus_meta_data.insert_user_xdat_user_id
+xnat:contrastBolus/meta/origin                                                                      xnat_contrastBolus_meta_data18		xnat_contrastBolus_meta_data.origin
+xnat:contrastBolus/meta/modified                                                                    xnat_contrastBolus_meta_data19		xnat_contrastBolus_meta_data.modified
+xnat:contrastBolus/meta/shareable                                                                   xnat_contrastBolus_meta_data20		xnat_contrastBolus_meta_data.shareable
+xnat:contrastBolus/meta/meta_data_id                                                                xnat_contrastBolus_meta_data21		xnat_contrastBolus_meta_data.meta_data_id

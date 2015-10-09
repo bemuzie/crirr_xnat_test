@@ -1,0 +1,78 @@
+
+
+*********************************************
+
+ac_s_xnat_statisticsData_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:statisticsData/xnat_abstractstatistics_id                                                      xnat_statisticsData0		xnat_abstractStatistics.xnat_abstractstatistics_id
+xnat:statisticsData/mean                                                                            xnat_statisticsData1		xnat_statisticsData.mean
+xnat:statisticsData/snr                                                                             xnat_statisticsData2		xnat_statisticsData.snr
+xnat:statisticsData/min                                                                             xnat_statisticsData3		xnat_statisticsData.min
+xnat:statisticsData/max                                                                             xnat_statisticsData4		xnat_statisticsData.max
+xnat:statisticsData/stddev                                                                          xnat_statisticsData5		xnat_statisticsData.stddev
+xnat:statisticsData/no_of_voxels                                                                    xnat_statisticsData6		xnat_statisticsData.no_of_voxels
+xnat:statisticsData/statisticsdata_info                                                             xnat_statisticsData7		xnat_statisticsData.statisticsdata_info
+xnat:statisticsData/abstractStatistics/extension                                                    xnat_abstractStatistics8		xnat_abstractStatistics.extension
+xnat:statisticsData/abstractStatistics/abstractstatistics_info                                      xnat_abstractStatistics9		xnat_abstractStatistics.abstractstatistics_info
+xnat:statisticsData/abstractStatistics/xnat_abstractStatistics_id                                   xnat_abstractStatistics10		xnat_abstractStatistics.xnat_abstractstatistics_id
+xnat:statisticsData/abstractStatistics/extension_item/element_name                                  xdat_meta_element11		xdat_meta_element.element_name
+xnat:statisticsData/abstractStatistics/extension_item/xdat_meta_element_id                          xdat_meta_element12		xdat_meta_element.xdat_meta_element_id
+xnat:statisticsData/abstractStatistics/meta/xft_version                                             xnat_abstractStatistics_meta_data13		xnat_abstractStatistics_meta_data.xft_version
+xnat:statisticsData/abstractStatistics/meta/last_modified                                           xnat_abstractStatistics_meta_data14		xnat_abstractStatistics_meta_data.last_modified
+xnat:statisticsData/abstractStatistics/meta/status                                                  xnat_abstractStatistics_meta_data15		xnat_abstractStatistics_meta_data.status
+xnat:statisticsData/abstractStatistics/meta/activation_date                                         xnat_abstractStatistics_meta_data16		xnat_abstractStatistics_meta_data.activation_date
+xnat:statisticsData/abstractStatistics/meta/row_last_modified                                       xnat_abstractStatistics_meta_data17		xnat_abstractStatistics_meta_data.row_last_modified
+xnat:statisticsData/abstractStatistics/meta/insert_date                                             xnat_abstractStatistics_meta_data18		xnat_abstractStatistics_meta_data.insert_date
+xnat:statisticsData/abstractStatistics/meta/activation_user_xdat_user_id                            xnat_abstractStatistics_meta_data19		xnat_abstractStatistics_meta_data.activation_user_xdat_user_id
+xnat:statisticsData/abstractStatistics/meta/insert_user_xdat_user_id                                xnat_abstractStatistics_meta_data20		xnat_abstractStatistics_meta_data.insert_user_xdat_user_id
+xnat:statisticsData/abstractStatistics/meta/origin                                                  xnat_abstractStatistics_meta_data21		xnat_abstractStatistics_meta_data.origin
+xnat:statisticsData/abstractStatistics/meta/modified                                                xnat_abstractStatistics_meta_data22		xnat_abstractStatistics_meta_data.modified
+xnat:statisticsData/abstractStatistics/meta/shareable                                               xnat_abstractStatistics_meta_data23		xnat_abstractStatistics_meta_data.shareable
+xnat:statisticsData/abstractStatistics/meta/meta_data_id                                            xnat_abstractStatistics_meta_data24		xnat_abstractStatistics_meta_data.meta_data_id
+xnat:statisticsData/additionalStatistics/additionalStatistics                                       xnat_statisticsData_additionalStatistics25		xnat_statisticsData_additionalStatistics.additionalstatistics
+xnat:statisticsData/additionalStatistics/name                                                       xnat_statisticsData_additionalStatistics26		xnat_statisticsData_additionalStatistics.name
+xnat:statisticsData/additionalStatistics/statisticsdata_additionalstatistics_info                   xnat_statisticsData_additionalStatistics27		xnat_statisticsData_additionalStatistics.statisticsdata_additionalstatistics_info
+xnat:statisticsData/additionalStatistics/xnat_statisticsData_additionalStatistics_id                xnat_statisticsData_additionalStatistics28		xnat_statisticsData_additionalStatistics.xnat_statisticsdata_additionalstatistics_id
+xnat:statisticsData/additionalStatistics/xnat_statisticsdata_xnat_abstractstatistics_id             xnat_statisticsData_additionalStatistics29		xnat_statisticsData_additionalStatistics.xnat_statisticsdata_xnat_abstractstatistics_id
+xnat:statisticsData/additionalStatistics/meta/xft_version                                           xnat_statisticsData_additionalStatistics_meta_data30		xnat_statisticsData_additionalStatistics_meta_data.xft_version
+xnat:statisticsData/additionalStatistics/meta/last_modified                                         xnat_statisticsData_additionalStatistics_meta_data31		xnat_statisticsData_additionalStatistics_meta_data.last_modified
+xnat:statisticsData/additionalStatistics/meta/status                                                xnat_statisticsData_additionalStatistics_meta_data32		xnat_statisticsData_additionalStatistics_meta_data.status
+xnat:statisticsData/additionalStatistics/meta/activation_date                                       xnat_statisticsData_additionalStatistics_meta_data33		xnat_statisticsData_additionalStatistics_meta_data.activation_date
+xnat:statisticsData/additionalStatistics/meta/row_last_modified                                     xnat_statisticsData_additionalStatistics_meta_data34		xnat_statisticsData_additionalStatistics_meta_data.row_last_modified
+xnat:statisticsData/additionalStatistics/meta/insert_date                                           xnat_statisticsData_additionalStatistics_meta_data35		xnat_statisticsData_additionalStatistics_meta_data.insert_date
+xnat:statisticsData/additionalStatistics/meta/activation_user_xdat_user_id                          xnat_statisticsData_additionalStatistics_meta_data36		xnat_statisticsData_additionalStatistics_meta_data.activation_user_xdat_user_id
+xnat:statisticsData/additionalStatistics/meta/insert_user_xdat_user_id                              xnat_statisticsData_additionalStatistics_meta_data37		xnat_statisticsData_additionalStatistics_meta_data.insert_user_xdat_user_id
+xnat:statisticsData/additionalStatistics/meta/origin                                                xnat_statisticsData_additionalStatistics_meta_data38		xnat_statisticsData_additionalStatistics_meta_data.origin
+xnat:statisticsData/additionalStatistics/meta/modified                                              xnat_statisticsData_additionalStatistics_meta_data39		xnat_statisticsData_additionalStatistics_meta_data.modified
+xnat:statisticsData/additionalStatistics/meta/shareable                                             xnat_statisticsData_additionalStatistics_meta_data40		xnat_statisticsData_additionalStatistics_meta_data.shareable
+xnat:statisticsData/additionalStatistics/meta/meta_data_id                                          xnat_statisticsData_additionalStatistics_meta_data41		xnat_statisticsData_additionalStatistics_meta_data.meta_data_id
+xnat:statisticsData/addField/addField                                                               xnat_statisticsData_addField42		xnat_statisticsData_addField.addfield
+xnat:statisticsData/addField/name                                                                   xnat_statisticsData_addField43		xnat_statisticsData_addField.name
+xnat:statisticsData/addField/statisticsdata_addfield_info                                           xnat_statisticsData_addField44		xnat_statisticsData_addField.statisticsdata_addfield_info
+xnat:statisticsData/addField/xnat_statisticsData_addField_id                                        xnat_statisticsData_addField45		xnat_statisticsData_addField.xnat_statisticsdata_addfield_id
+xnat:statisticsData/addField/xnat_statisticsdata_xnat_abstractstatistics_id                         xnat_statisticsData_addField46		xnat_statisticsData_addField.xnat_statisticsdata_xnat_abstractstatistics_id
+xnat:statisticsData/addField/meta/xft_version                                                       xnat_statisticsData_addField_meta_data47		xnat_statisticsData_addField_meta_data.xft_version
+xnat:statisticsData/addField/meta/last_modified                                                     xnat_statisticsData_addField_meta_data48		xnat_statisticsData_addField_meta_data.last_modified
+xnat:statisticsData/addField/meta/status                                                            xnat_statisticsData_addField_meta_data49		xnat_statisticsData_addField_meta_data.status
+xnat:statisticsData/addField/meta/activation_date                                                   xnat_statisticsData_addField_meta_data50		xnat_statisticsData_addField_meta_data.activation_date
+xnat:statisticsData/addField/meta/row_last_modified                                                 xnat_statisticsData_addField_meta_data51		xnat_statisticsData_addField_meta_data.row_last_modified
+xnat:statisticsData/addField/meta/insert_date                                                       xnat_statisticsData_addField_meta_data52		xnat_statisticsData_addField_meta_data.insert_date
+xnat:statisticsData/addField/meta/activation_user_xdat_user_id                                      xnat_statisticsData_addField_meta_data53		xnat_statisticsData_addField_meta_data.activation_user_xdat_user_id
+xnat:statisticsData/addField/meta/insert_user_xdat_user_id                                          xnat_statisticsData_addField_meta_data54		xnat_statisticsData_addField_meta_data.insert_user_xdat_user_id
+xnat:statisticsData/addField/meta/origin                                                            xnat_statisticsData_addField_meta_data55		xnat_statisticsData_addField_meta_data.origin
+xnat:statisticsData/addField/meta/modified                                                          xnat_statisticsData_addField_meta_data56		xnat_statisticsData_addField_meta_data.modified
+xnat:statisticsData/addField/meta/shareable                                                         xnat_statisticsData_addField_meta_data57		xnat_statisticsData_addField_meta_data.shareable
+xnat:statisticsData/addField/meta/meta_data_id                                                      xnat_statisticsData_addField_meta_data58		xnat_statisticsData_addField_meta_data.meta_data_id
+xnat:statisticsData/meta/xft_version                                                                xnat_statisticsData_meta_data59		xnat_statisticsData_meta_data.xft_version
+xnat:statisticsData/meta/last_modified                                                              xnat_statisticsData_meta_data60		xnat_statisticsData_meta_data.last_modified
+xnat:statisticsData/meta/status                                                                     xnat_statisticsData_meta_data61		xnat_statisticsData_meta_data.status
+xnat:statisticsData/meta/activation_date                                                            xnat_statisticsData_meta_data62		xnat_statisticsData_meta_data.activation_date
+xnat:statisticsData/meta/row_last_modified                                                          xnat_statisticsData_meta_data63		xnat_statisticsData_meta_data.row_last_modified
+xnat:statisticsData/meta/insert_date                                                                xnat_statisticsData_meta_data64		xnat_statisticsData_meta_data.insert_date
+xnat:statisticsData/meta/activation_user_xdat_user_id                                               xnat_statisticsData_meta_data65		xnat_statisticsData_meta_data.activation_user_xdat_user_id
+xnat:statisticsData/meta/insert_user_xdat_user_id                                                   xnat_statisticsData_meta_data66		xnat_statisticsData_meta_data.insert_user_xdat_user_id
+xnat:statisticsData/meta/origin                                                                     xnat_statisticsData_meta_data67		xnat_statisticsData_meta_data.origin
+xnat:statisticsData/meta/modified                                                                   xnat_statisticsData_meta_data68		xnat_statisticsData_meta_data.modified
+xnat:statisticsData/meta/shareable                                                                  xnat_statisticsData_meta_data69		xnat_statisticsData_meta_data.shareable
+xnat:statisticsData/meta/meta_data_id                                                               xnat_statisticsData_meta_data70		xnat_statisticsData_meta_data.meta_data_id

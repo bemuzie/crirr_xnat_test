@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>../../../project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>ear</id>
+  <name>Enterprise Application</name>
+  <currentVersion>1.0</currentVersion>
+  <package>@PACKAGE@.ear</package>
+
+  <description>An enterprise application</description>
+  <dependencies>
+    <dependency>
+      <groupId>@ID@</groupId>
+      <artifactId>ejb</artifactId>
+      <type>ejb</type>
+      <version>1.0</version>
+      <properties>
+        <ear.bundle>true</ear.bundle>
+      </properties>
+    </dependency>
+  	
+    <dependency>
+      <groupId>@ID@</groupId>
+      <artifactId>web</artifactId>
+      <type>war</type>
+      <version>1.0</version>
+      <properties>
+        <ear.bundle>true</ear.bundle>
+        <!-- the context root has to match the name of your ear project -->
+        <ear.appxml.war.context-root>ear</ear.appxml.war.context-root>
+      </properties>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/NaughtyTest.java</exclude>
+      </excludes>
+    </unitTest>
+    <resources>
+      <resource>
+        <directory>src/conf</directory>
+        <includes>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+</project>

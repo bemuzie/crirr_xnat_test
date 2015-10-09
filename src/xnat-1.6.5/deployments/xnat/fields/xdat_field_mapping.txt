@@ -1,0 +1,30 @@
+
+
+*********************************************
+
+ac_s_xdat_field_mapping_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:field_mapping/field                                                                            xdat_field_mapping0		xdat_field_mapping.field
+xdat:field_mapping/field_value                                                                      xdat_field_mapping1		xdat_field_mapping.field_value
+xdat:field_mapping/create_element                                                                   xdat_field_mapping2		xdat_field_mapping.create_element
+xdat:field_mapping/read_element                                                                     xdat_field_mapping3		xdat_field_mapping.read_element
+xdat:field_mapping/edit_element                                                                     xdat_field_mapping4		xdat_field_mapping.edit_element
+xdat:field_mapping/delete_element                                                                   xdat_field_mapping5		xdat_field_mapping.delete_element
+xdat:field_mapping/active_element                                                                   xdat_field_mapping6		xdat_field_mapping.active_element
+xdat:field_mapping/comparison_type                                                                  xdat_field_mapping7		xdat_field_mapping.comparison_type
+xdat:field_mapping/field_mapping_info                                                               xdat_field_mapping8		xdat_field_mapping.field_mapping_info
+xdat:field_mapping/xdat_field_mapping_id                                                            xdat_field_mapping9		xdat_field_mapping.xdat_field_mapping_id
+xdat:field_mapping/xdat_field_mapping_set_xdat_field_mapping_set_id                                 xdat_field_mapping10		xdat_field_mapping.xdat_field_mapping_set_xdat_field_mapping_set_id
+xdat:field_mapping/meta/xft_version                                                                 xdat_field_mapping_meta_data11		xdat_field_mapping_meta_data.xft_version
+xdat:field_mapping/meta/last_modified                                                               xdat_field_mapping_meta_data12		xdat_field_mapping_meta_data.last_modified
+xdat:field_mapping/meta/status                                                                      xdat_field_mapping_meta_data13		xdat_field_mapping_meta_data.status
+xdat:field_mapping/meta/activation_date                                                             xdat_field_mapping_meta_data14		xdat_field_mapping_meta_data.activation_date
+xdat:field_mapping/meta/row_last_modified                                                           xdat_field_mapping_meta_data15		xdat_field_mapping_meta_data.row_last_modified
+xdat:field_mapping/meta/insert_date                                                                 xdat_field_mapping_meta_data16		xdat_field_mapping_meta_data.insert_date
+xdat:field_mapping/meta/activation_user_xdat_user_id                                                xdat_field_mapping_meta_data17		xdat_field_mapping_meta_data.activation_user_xdat_user_id
+xdat:field_mapping/meta/insert_user_xdat_user_id                                                    xdat_field_mapping_meta_data18		xdat_field_mapping_meta_data.insert_user_xdat_user_id
+xdat:field_mapping/meta/origin                                                                      xdat_field_mapping_meta_data19		xdat_field_mapping_meta_data.origin
+xdat:field_mapping/meta/modified                                                                    xdat_field_mapping_meta_data20		xdat_field_mapping_meta_data.modified
+xdat:field_mapping/meta/shareable                                                                   xdat_field_mapping_meta_data21		xdat_field_mapping_meta_data.shareable
+xdat:field_mapping/meta/meta_data_id                                                                xdat_field_mapping_meta_data22		xdat_field_mapping_meta_data.meta_data_id

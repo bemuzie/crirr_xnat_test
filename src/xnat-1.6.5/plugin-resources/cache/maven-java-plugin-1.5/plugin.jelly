@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project 
+  xmlns:j="jelly:core"
+  xmlns:ant="jelly:ant"
+  xmlns:define="jelly:define"
+  xmlns:maven="jelly:maven">
+
+  <!-- ================================================================== -->
+  <!-- P R E P A R E  F I L E  S Y S T E M                                -->
+  <!-- ================================================================== -->
+
+  <goal name="java:prepare-filesystem"
+        description="Create the directory structure needed to compile">
+    <ant:mkdir dir="${maven.build.dest}"/>
+  </goal>
+
+  <!-- ================================================================== -->
+  <!-- C O M P I L E                                                      -->
+  <!-- ================================================================== -->
+
+  <goal name="java:compile"
+        description="Compile the project"
+        prereqs="java:prepare-filesystem">
+    <ant:echo>Compiling to ${maven.build.dest}</ant:echo>
+    <j:choose>
+      <j:when test="${sourcesPresent == 'true'}">
+
+        <j:if test="${context.getVariable('maven.compile.target') == null}">
+          <ant:echo>
+==========================================================
+
+  NOTE: Targetting JVM ${java.specification.version}, classes
+  will not run on earlier JVMs
+
+==========================================================
+          </ant:echo>
+        </j:if>
+
+      	<ant:javac
+          destdir="${maven.build.dest}"
+          excludes="**/package.html"
+          debug="${maven.compile.debug}"
+          deprecation="${maven.compile.deprecation}"
+          optimize="${maven.compile.optimize}">
+          <ant:src>
+            <ant:path refid="maven.compile.src.set"/>
+          </ant:src>
+
+          <!--
+           | 
+           | Source Modifications.
+           |
+          -->
+      
+          <j:forEach var="sm" items="${pom.build.sourceModifications}">
+            <ant:available property="classPresent" classname="${sm.className}"/>
+            <j:if test="${classPresent != 'true'}">
+              <j:forEach var="exclude" items="${sm.excludes}">
+                <ant:exclude name="${exclude}"/>
+              </j:forEach>
+              <j:forEach var="include" items="${sm.includes}">
+                <ant:include name="${include}"/>
+              </j:forEach>
+            </j:if>
+          </j:forEach>
+      
+          <j:if test="${context.getVariable('maven.compile.bootclasspath') != null}">
+              <ant:bootclasspath>
+                <ant:pathelement path="${maven.compile.bootclasspath}"/>
+              </ant:bootclasspath>
+          </j:if>
+
+          <j:if test="${context.getVariable('maven.compile.extdirs') != null}">
+              <ant:bootclasspath>
+                <ant:pathelement path="${maven.compile.extdirs}"/>
+              </ant:bootclasspath>
+          </j:if>
+
+          <ant:classpath>
+            <ant:path refid="maven.dependency.classpath"/>
+            <ant:pathelement path="${maven.build.dest}"/>
+          </ant:classpath>
+          <j:if test="${context.getVariable('maven.compile.compilerargs') != null}">
+            <ant:compilerarg line="${maven.compile.compilerargs}" />
+          </j:if>
+          
+          <j:if test="${context.getVariable('maven.compile.encoding') != null}">
+            <ant:setProperty name="encoding" value="${maven.compile.encoding}" />
+          </j:if>
+          
+          <j:if test="${context.getVariable('maven.compile.executable') != null}">
+            <ant:setProperty name="executable" value="${maven.compile.executable}" />
+          </j:if>
+          
+          <j:if test="${context.getVariable('maven.compile.fork') != null}">
+            <ant:setProperty name="fork" value="${maven.compile.fork}" />
+
+            <j:if test="${context.getVariable('maven.compile.memoryInitialSize') != null}">
+              <ant:setProperty name="memoryInitialSize" value="${maven.compile.memoryInitialSize}" />
+            </j:if>
+
+            <j:if test="${context.getVariable('maven.compile.memoryMaximumSize') != null}">
+              <ant:setProperty name="memoryMaximumSize" value="${maven.compile.memoryMaximumSize}" />
+            </j:if>
+
+          </j:if>
+          
+          <j:if test="${context.getVariable('maven.compile.source') != null}">
+            <ant:setProperty name="source" value="${maven.compile.source}" />
+          </j:if>
+
+          <j:if test="${context.getVariable('maven.compile.target') != null}">
+            <ant:setProperty name="target" value="${maven.compile.target}" />
+          </j:if>
+          
+          <j:if test="${context.getVariable('maven.compile.verbose') != null}">
+            <ant:setProperty name="verbose" value="${maven.compile.verbose}" />
+          </j:if>
+
+
+        </ant:javac>
+      </j:when>
+      <j:otherwise>
+        <ant:echo>No java source files to compile.</ant:echo>
+      </j:otherwise>      
+    </j:choose>
+  </goal>
+  
+  <goal name="java:jar"
+        description="Create the deliverable jar file."
+        prereqs="jar:jar">
+        <ant:echo>java:jar is deprecated and will be removed. Please use jar:jar</ant:echo>
+  </goal>
+
+  <!-- ================================================================== -->
+  <!-- J A R  R E S O U R C E S                                           -->
+  <!-- ================================================================== -->
+
+  <goal name="java:jar-resources"
+        description="Copy any resources that must be present in the deployed JAR file">
+        
+    <j:if test="${!pom.build.resources.isEmpty()}">
+      <maven:copy-resources
+        resources="${pom.build.resources}"
+        todir="${maven.build.dest}"/>
+    </j:if>
+  </goal>
+  
+  <define:taglib uri="java">
+    <define:tag name="dependency-handle">
+      <!-- XXX Use this tag to allow this plugin to be loaded into another -->
+      <echo>DEPRECATED: the use of dependency-handle is deprecated. Please use maven:get/set to modify properties of the java plugin</echo>
+    </define:tag>
+  </define:taglib>
+</project>

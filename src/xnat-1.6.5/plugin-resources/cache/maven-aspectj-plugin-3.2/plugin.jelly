@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<!--
+  =============================================================================
+  AspectJ plugin for Maven.
+  =============================================================================
+-->
+
+<project
+  xmlns:j="jelly:core"
+  xmlns:ant="jelly:ant"
+  xmlns:define="jelly:define"
+  xmlns:log="jelly:log"
+  xmlns:maven="jelly:maven"
+  xmlns:util="jelly:util"
+  xmlns:aspectj="aspectj">
+
+  <!--
+  Taglib to compile aspects
+  
+  Parameters:
+    - sourcePathRefid
+    - classpathRefid
+    - destDir
+  -->
+  <define:taglib uri="aspectj">
+
+    <define:tag name="compile">
+
+      <ant:iajc
+          fork="${maven.aspectj.fork}"
+          incremental="${maven.aspectj.incremental}"
+          XnoWeave="${maven.aspectj.noweave}"
+          Xlint="${maven.aspectj.lint}"
+          destDir="${destDir}"
+          sourceRootCopyFilter="${maven.aspectj.sourceRootCopyFilter}"
+          debug="${maven.aspectj.debug}"
+          emacssym="${maven.aspectj.emacssym}"
+          verbose="${maven.aspectj.verbose}"
+          source="${maven.aspectj.source}"
+          time="${maven.aspectj.time}">
+
+        <j:if test="${context.getVariable('maven.aspectj.fork') == true}">
+          <j:if test="${context.getVariable('maven.aspectj.maxmem') != null}">
+            <ant:setProperty name="maxmem" value="${maven.aspectj.maxmem}" />
+          </j:if>
+        </j:if>
+
+        <j:set var="weaveAspectSources" value="true"/>
+        <j:if test="${context.getVariable('maven.aspectj.argfiles') != null}">
+          <ant:argfiles>
+            <util:tokenize var="tokens" delim="," trim="true">${context.getVariable('maven.aspectj.argfiles')}</util:tokenize>
+            <j:forEach var="token" items="${tokens}">
+              <log:info>Using argument file ${token.trim()}</log:info>
+              <j:if test="${token != ''}">
+                <pathelement location="${token.trim()}" />
+              </j:if>
+            </j:forEach>
+          </ant:argfiles>
+          <j:set var="weaveAspectSources" value="false"/>
+        </j:if>
+        <j:if test="${context.getVariable('maven.aspectj.weaveAspectSources') != null}">
+          <j:set var="weaveAspectSources" value="${context.getVariable('maven.aspectj.weaveAspectSources')}"/>
+        </j:if>
+
+        <ant:sourceroots>
+          <ant:path refid="${sourcePathRefid}"/>
+            <j:if test="${aspectSourcesPresent and weaveAspectSources}">
+              <ant:pathelement location="${pom.build.aspectSourceDirectory}"/>
+            </j:if>
+        </ant:sourceroots>
+
+        <ant:classpath>
+          <ant:path refid="${classpathRefid}"/>
+          <ant:pathelement path="${plugin.getDependencyPath('aspectj:aspectjrt')}"/>
+          <ant:pathelement path="${maven.build.dest}"/>
+        </ant:classpath>
+
+        <!-- Look for aspect libraries to use for weaving -->
+        <ant:aspectpath>
+          <j:forEach var="artifact" items="${pom.artifacts}">
+            <j:set var="dep" value="${artifact.dependency}"/>
+            <j:if test="${dep.getProperty('aspectj.weaveWith')=='true'}">
+              <log:info>Weaving with: ${dep.artifactId}</log:info>
+              <ant:pathelement location="${artifact.path}"/>
+            </j:if>
+          </j:forEach>
+        </ant:aspectpath>
+
+        <!-- Look for libraries for weaving into -->
+        <ant:inpath>
+          <j:forEach var="artifact" items="${pom.artifacts}">
+            <j:set var="dep" value="${artifact.dependency}"/>
+            <j:if test="${dep.getProperty('aspectj.weaveInto')=='true'}">
+              <log:info>Weaving into: ${dep.artifactId}</log:info>
+              <ant:pathelement location="${artifact.path}"/>
+            </j:if>
+          </j:forEach>
+        </ant:inpath>
+
+      </ant:iajc>
+      
+
+    </define:tag>
+
+  </define:taglib>
+  
+  <!--
+    ========================================================================
+    Default goal.
+    ========================================================================
+  -->
+  <goal name="aspectj" description="Weave with AspectJ"
+    prereqs="aspectj:test-compile"/>
+
+  <!--
+    ========================================================================
+    Init AspectJ Ant task and global initializations.
+    ========================================================================
+  -->
+  <goal name="aspectj:init">
+
+    <ant:taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+      <ant:classpath>
+        <ant:pathelement path="${plugin.getDependencyPath('aspectj:aspectjtools')}"/>
+      </ant:classpath>
+    </ant:taskdef>
+
+    <j:set var="shouldWeave" value="false"/>
+
+    <!-- Check if there are aspect sources -->
+    <j:choose>
+        <!-- if aspectSourceDirectory is defined in pom -->
+        <j:when test="${pom.build.aspectSourceDirectory != ''}">
+            <ant:available property="aspectSourcesPresent" file="${pom.build.aspectSourceDirectory}" type="dir"/>
+            <j:choose>
+                <!-- if dir exists -->
+                <j:when test="${aspectSourcesPresent == 'true'}">
+                    <log:debug>Aspect sources present in directory: ${pom.build.aspectSourceDirectory}</log:debug>
+                    <j:set var="aspectSourcesPresent" value="true"/>
+                </j:when>
+                <!-- if dir does not exist -->
+                <j:otherwise>
+                    <log:error>Aspect source directory does not exist: ${pom.build.aspectSourceDirectory}</log:error>
+                    <j:set var="aspectSourcesPresent" value="false"/>
+                </j:otherwise>
+            </j:choose>
+        </j:when>
+        <!-- if aspectSourceDirectory is not defined in pom -->
+        <j:otherwise>
+            <log:info>Aspect source directory not defined</log:info>
+            <j:set var="aspectSourcesPresent" value="false"/>
+        </j:otherwise>
+    </j:choose>
+
+    <!-- If there aren't aspect sources check if there are aspect libraries -->
+    <j:if test="${aspectSourcesPresent == 'false'}">
+      <j:forEach var="artifact" items="${pom.artifacts}">
+        <j:set var="dep" value="${artifact.dependency}"/>
+        <j:if test="${dep.getProperty('aspectj.weaveWith')=='true' and dep.type=='jar'}">
+          <j:set var="aspectLibrariesPresent" value="true"/>
+          <j:break/>
+        </j:if>
+        <j:if test="${dep.getProperty('aspectj.weaveInto')=='true' and dep.type=='jar'}">
+          <j:set var="aspectLibrariesPresent" value="true"/>
+          <j:break/>
+        </j:if>
+      </j:forEach>
+    </j:if>
+
+    <j:choose>
+      <j:when test="${(aspectSourcesPresent == 'true') || (aspectLibrariesPresent == 'true')}">
+        <j:set var="shouldWeave" value="true"/>
+      </j:when>
+      <j:otherwise>
+        <log:info>No Aspects to weave</log:info>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+  <!--
+    ========================================================================
+    Weave classes
+    ========================================================================
+  -->
+  <goal name="aspectj:compile" prereqs="aspectj:init"
+    description="Weave classes with AspectJ">
+
+    <j:if test="${shouldWeave == 'true'}">
+
+      <!-- Weave classes -->
+      <aspectj:compile
+        sourcePathRefid="maven.compile.src.set"
+        classpathRefid="maven.dependency.classpath"
+        destDir="${maven.build.dest}"/>
+
+    </j:if>
+
+  </goal>
+  
+  <!--
+    ========================================================================
+    Weave test classes
+    ========================================================================
+  -->
+  <goal name="aspectj:test-compile" prereqs="aspectj:compile"
+    description="Weave tests with AspectJ">
+
+    <j:if test="${(shouldWeave == 'true') and (pom.build.unitTestSourceDirectory != '')}">
+
+      <maven:get var="maven.test.compile.src.set"
+        plugin="maven-test-plugin"
+        property="maven.test.compile.src.set"/>
+
+      <!-- Weave test classes -->
+      <ant:path id="testClasspath">
+        <ant:path refid="maven.dependency.classpath"/>
+        <ant:pathelement path="${plugin.getDependencyPath('junit')}"/>
+      </ant:path>
+
+      <aspectj:compile
+        sourcePathRefid="maven.test.compile.src.set"
+        classpathRefid="testClasspath"
+        destDir="${maven.test.dest}"/>
+
+    </j:if>
+
+  </goal>
+  
+</project>

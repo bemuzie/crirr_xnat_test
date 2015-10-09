@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+
+<!--
+/* ====================================================================
+ *   Copyright 2004 The Apache Software Foundation.
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ * ====================================================================
+ */
+-->
+
+<jsl:stylesheet
+	select="$doc"
+  xmlns:j="jelly:core"
+  xmlns:jsl="jelly:jsl"
+  xmlns:x="jelly:xml"
+  xmlns:u="jelly:util"
+  xmlns:ant="jelly:ant"
+  xmlns:doc="doc"
+  xmlns="dummy"
+  trim="true">
+  
+  <!-- Entry point (first matching template) -->
+  <jsl:template match="/jnlp">
+  	<x:element name="jnlp">
+  		<x:attribute name="spec"> <x:expr select="@spec"/> </x:attribute>
+  		<x:attribute name="codebase"> <x:expr select="@codebase"/> </x:attribute>
+  		<jsl:applyTemplates select="//information"/>
+  		<jsl:applyTemplates select="//security"/>
+  		<jsl:applyTemplates select="//resources"/>
+  		<jsl:applyTemplates select="//application-desc"/>
+  	</x:element>
+  </jsl:template>
+  
+  <!-- Copy information data "as-is" -->
+  <jsl:template match="information">
+    <x:copyOf select="."/>
+  </jsl:template>
+
+  <!-- Copy security data "as-is" -->
+  <jsl:template match="security">
+    <x:copyOf select="."/>
+  </jsl:template>
+
+  <!-- Transform jnlp resources -->         
+  <jsl:template match="resources">
+
+    <resources>
+      <!-- Copy j2se anchor -->
+      <x:copyOf select="j2se"/>
+			
+      <!-- Copy the former "main jar" reference, without main attribute -->
+      <jsl:applyTemplates select="jar[@main]"/>
+			
+      <!-- Copy all the other jars references -->
+      <x:copyOf select="jar[not(@main)]"/>
+			
+      <!-- Add references to all jars found in the ${maven.abbot.dest.jar.dir} dir -->
+      <ant:fileScanner var="scanner">
+        <ant:fileset dir="${maven.abbot.dest.jar.dir}" includes="*.jar"/> 
+      </ant:fileScanner>
+      <j:forEach var="jar" items="${scanner.iterator()}">
+        <x:element name="jar">
+          <!-- Treat "main" jar differently -->
+          <j:if test="${jar.name == context.getVariable('maven.abbot.webstart.main.jar')}">
+            <x:attribute name="main">true</x:attribute>            
+          </j:if>
+          <x:attribute name="href">file:${jar.absolutePath}</x:attribute>
+        </x:element>
+      </j:forEach>
+
+      <!-- Copy all existing sys properties -->
+      <x:copyOf select="property"/>
+
+      <!-- Add some other properties -->
+      <x:element name="property">
+        <x:attribute name="name">maven.abbot.src.dir</x:attribute>
+        <x:attribute name="value">${maven.abbot.src.dir}</x:attribute>
+      </x:element>
+      <j:if test="${context.getVariable('maven.abbot.src.files') != null}">
+        <x:element name="property">
+          <x:attribute name="name">maven.abbot.src.files</x:attribute>
+          <x:attribute name="value">${maven.abbot.src.files}</x:attribute>
+        </x:element>
+      </j:if>
+      <x:element name="property">
+        <x:attribute name="name">maven.abbot.reports.dir</x:attribute>
+        <x:attribute name="value">${maven.abbot.reports.dir}</x:attribute>
+      </x:element>
+      <j:if test="${context.getVariable('maven.abbot.suite.name') != null}">
+        <x:element name="property">
+          <x:attribute name="name">maven.abbot.suite.name</x:attribute>
+          <x:attribute name="value">${maven.abbot.suite.name}</x:attribute>
+        </x:element>
+      </j:if>
+
+      <!-- Add debug properties if debug mode is turned on -->
+      <j:if test="${maven.abbot.debug}">
+        <!-- Note: For some unknown reason, adding the "+TraceSecurity" option
+             hangs Java Web Start (at least on 1.4.2_01) -->
+        <property name="javaws.debug.0" value="+TraceCache"/>    
+        <property name="javaws.debug.1" value="+TraceDiskCache"/>    
+        <property name="javaws.debug.2" value="+TraceDownload"/>    
+        <property name="javaws.debug.3" value="+TraceXMLParsing"/> 
+      </j:if>
+
+    </resources>
+
+  </jsl:template>
+
+  <!-- Copy jar anchor without its main attribute -->
+  <jsl:template match="jar[@main]">
+    <x:element name="jar">
+      <x:attribute name="href"> <x:expr select="@href"/> </x:attribute>
+    </x:element>
+  </jsl:template>
+
+  <!-- Change the main class -->
+  <jsl:template match="application-desc">
+    <application-desc main-class="${maven.abbot.webstart.main.class}">
+    </application-desc>	
+  </jsl:template> 	 
+
+</jsl:stylesheet>

@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<!--
+  =============================================================================
+    AspectWerkz plugin for Maven.
+    
+    Definition: AW supports 2 types of Aspects/Advice/Pointcuts definition: 
+    - xmldef   : Advice are defined as extending *Advice classes (BeforeAdvice,
+                 AroundAdvice, etc). Custom javadoc attributes can be used to 
+                 link code to weave with advices.
+    - attribdef: Advices and pcds are defined purely using custom javadoc
+                 attributes (@Execute, @Aspect, etc).
+  =============================================================================
+-->
+<project 
+  xmlns:ant="jelly:ant"
+  xmlns:j="jelly:core"
+  xmlns:u="jelly:util"
+  xmlns:define="jelly:define"
+  xmlns:aw="aspectwerkz">
+
+  <!--
+     ========================================================================
+       Init.
+     ========================================================================
+  -->
+  <goal name="aspectwerkz:init">
+
+    <ant:mkdir dir="${maven.build.dir}"/>
+
+    <!-- Location of the XML definition file. If "xmldef" mode is used, then 
+         the location of thus file is the location where attributec has 
+         generated its xml file
+         (i.e. ${maven.aspectwerkz.build.definition.file}). If "attribdef"
+         mode is used then this property should point to its source 
+         location. -->
+    <j:choose>
+      <j:when test="${context.getVariable('maven.aspectwerkz.mode') == 'xmldef'}">
+        <j:set var="maven.aspectwerkz.definition.file"
+            value="${maven.aspectwerkz.definition.file.build}"/>
+      </j:when>
+      <j:when test="${context.getVariable('maven.aspectwerkz.mode') == 'attribdef'}">
+        <j:set var="maven.aspectwerkz.definition.file"
+            value="${maven.aspectwerkz.definition.file.src}"/>
+      </j:when>
+      <j:otherwise>
+        <ant:fail>Valid values for [maven.aspectwerkz.mode] are [xmldef] and [attribdef] only.</ant:fail>
+      </j:otherwise>
+    </j:choose>
+
+    <path id="classpath.compile">
+      <ant:path refid="maven.dependency.classpath"/>
+      <ant:pathelement location="${plugin.getDependencyPath('aspectwerkz:aspectwerkz')}"/>
+    </path>    
+
+    <path id="classpath.main">
+      <ant:path refid="classpath.compile"/>
+      <ant:pathelement location="${plugin.getDependencyPath('dom4j:dom4j')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('xml-apis:xml-apis')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('xerces:xerces')}"/>
+      <ant:pathelement location="${plugin.getDependencyPath('trove:trove')}"/>
+    </path>    
+
+    <!-- Check if non-production aspects exist -->
+    <ant:available property="hasNonProductionAspects" 
+        file="${maven.aspectwerkz.src.dir}" type="dir"/>
+    
+  </goal>
+
+  <!--
+     ========================================================================
+       Compile aspect sources.
+     ========================================================================
+  -->
+  <goal name="aspectwerkz:compile" prereqs="aspectwerkz:init,java:compile"
+      description="Compile AspectWerkz java sources">
+
+    <!-- If there are non-production aspect sources, compile them -->
+    <j:if test="${hasNonProductionAspects}">
+
+      <ant:mkdir dir="${maven.aspectwerkz.build.dest}"/>
+
+    	<ant:javac destdir="${maven.aspectwerkz.build.dest}"
+          excludes="**/package.html"
+          debug="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.debug')}"
+          deprecation="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.deprecation')}"
+          target="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.target')}"
+          optimize="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.optimize')}">
+
+        <ant:src path="${maven.aspectwerkz.src.dir}"/>
+          
+        <ant:classpath>
+          <ant:path refid="classpath.compile"/>
+          <ant:pathelement path="${maven.build.dest}"/>
+        </ant:classpath>
+
+        <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs')}">
+          <ant:compilerarg line="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.compilerargs')}"/>
+        </j:if>
+          
+        <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding')}">
+          <ant:setProperty name="encoding" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.encoding')}"/>
+        </j:if>
+          
+        <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable')}">
+          <ant:setProperty name="executable" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.executable')}"/>
+        </j:if>
+          
+        <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork')}">
+          <ant:setProperty name="fork" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.fork')}"/>
+        </j:if>
+          
+        <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}">
+          <ant:setProperty name="source" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.source')}"/>
+        </j:if>
+          
+        <j:if test="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}">
+          <ant:setProperty name="verbose" value="${pom.getPluginContext('maven-java-plugin').getVariable('maven.compile.verbose')}"/>
+        </j:if>
+      </ant:javac>
+
+      <!-- Copy non java source files -->
+      <ant:copy todir="${maven.aspectwerkz.build.dest}">
+        <ant:fileset dir="${maven.aspectwerkz.src.dir}">
+          <ant:exclude name="**/*.java"/>
+          <ant:exclude name="**/*.html"/>
+        </ant:fileset>
+      </ant:copy>
+
+    </j:if>
+          
+  </goal>
+
+  <!--
+     ========================================================================
+       Compile javadoc attributes and generate an XML definition file. Used
+       only in xmldef mode.
+     ========================================================================
+  -->
+  <goal name="aspectwerkz:attributec" prereqs="aspectwerkz:init"
+      description="Compile AspectWerkz javadoc attributes (xml-defined aspects)">
+
+    <j:if test="${context.getVariable('maven.aspectwerkz.mode') == 'xmldef'}">
+
+      <ant:echo>WARNING: aspectwerkz:attributec is not currently working very well...</ant:echo>
+      
+      <!-- TODO: only run attributeC if sources are newer than target
+           XML definition file -->
+             
+      <ant:java dir="${maven.build.dir}" failonerror="true" fork="true"
+          classname="org.codehaus.aspectwerkz.metadata.AttributeC">
+
+        <ant:sysproperty key="aspectwerkz.definition.validate" 
+            value="${maven.aspectwerkz.definition.validate}"/>
+
+        <!-- TODO: Use ${maven.compile.src.set} and ${maven.aspectwerkz.src.dir}.
+             See aspectwerkz:aspectc for an example. However, I need to verify 
+             if attributec supports several input directories first -->
+        <ant:arg file="${maven.aspectwerkz.src.dir}"/>
+
+        <ant:arg file="${maven.aspectwerkz.definition.file}"/>
+        <j:if test="${context.getVariable('maven.aspectwerkz.definition.file.merge') != null}">
+          <ant:arg line="-m ${maven.aspectwerkz.definition.file.merge}"/>
+        </j:if>
+        <j:if test="${context.getVariable('maven.aspectwerkz.uuid') != null}">
+          <ant:arg line="-u ${maven.aspectwerkz.uuid}"/>
+        </j:if>
+
+        <ant:classpath>
+          <ant:path refid="classpath.main"/>
+          <ant:pathelement location="${plugin.getDependencyPath('qdox:qdox')}"/>
+          <ant:pathelement location="${plugin.getDependencyPath('jrexx:jrexx')}"/>
+        </ant:classpath>
+
+      </ant:java>
+
+    </j:if>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Parse files for custom javadoc tags (attribef mode only) and weave
+       them in the bytecode of the aspects themselves. 
+     ========================================================================
+  -->
+  <goal name="aspectwerkz:aspectc" prereqs="aspectwerkz:compile">
+
+    <j:if test="${context.getVariable('maven.aspectwerkz.mode') == 'attribdef'}">
+
+      <!-- TODO: only run aspectc if sources are newer than target
+           XML definition file -->
+
+      <!-- Transforming Ant path structure into a list of dirs that can be used
+           to define an Ant fileset. We're using <pathconvert> to automatically
+           separate dirs with a known delimiter independently of any 
+           platform -->
+      <ant:pathconvert property="compileSrcSetString" pathSep="||||" 
+        refid="maven.compile.src.set"/>
+      <u:tokenize var="srcDirs" delim="||||">${compileSrcSetString}</u:tokenize>
+
+      <!-- Parse all known source directories -->
+      <j:forEach var="srcDir" items="${srcDirs}">
+        <aw:aspectc javaSrc="${srcDir}" classSrc="${maven.build.dest}"/>
+      </j:forEach>
+
+      <!-- Parse non-production aspects if source directory has been defined -->
+      <j:if test="${hasNonProductionAspects}">
+        <aw:aspectc javaSrc="${maven.aspectwerkz.src.dir}"
+            classSrc="${maven.aspectwerkz.build.dest}"/>
+      </j:if>
+
+      <!-- AspectC currently has a bug in that it creates a java.lang.Object 
+           class file in the output directory. Until this is fixed, we need to
+           remove that files. Otherwise, AspectWerkc will try to instrument it, 
+           which will lead to an error... -->
+      <ant:delete file="${maven.aspectwerkz.aspectc.build.dir}/java/lang/Object.class"/>
+
+    </j:if>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Weave aspects at build time (offline mode). Works for both "xmldef"
+       and "attribdef" modes.
+     ========================================================================
+  -->
+  <goal name="aspectwerkz:weave" 
+      prereqs="aspectwerkz:attributec,aspectwerkz:aspectc"
+      description="Weave aspects (offline mode)">
+
+    <!-- TODO: Add support for extension classes -->
+
+    <!-- Create a path for the -cp parameter of the AspectWerkzC class -->
+    <ant:path id="aspectwerkzc.cp">
+      <!-- Search for aspect libraries to weave to the source code. These are
+           defined as dependencies in project.xml -->
+      <j:forEach var="artifact" items="${pom.artifacts}"> 
+        <j:set var="dep" value="${artifact.dependency}"/> 
+        <j:if test="${dep.getProperty('aspectwerkz.library') == 'true'}">
+          <ant:pathelement location="${artifact.path}"/>
+        </j:if>
+      </j:forEach>
+    </ant:path>
+    <ant:property name="aspectwerkzcp" refid="aspectwerkzc.cp"/>
+
+    <ant:java dir="${maven.build.dir}" failonerror="true" fork="true"
+        classname="org.codehaus.aspectwerkz.compiler.AspectWerkzC">
+
+      <j:if test="${context.getVariable('maven.aspectwerkz.verbose') == 'true'}">
+        <ant:sysproperty key="aspectwerkz.transform.verbose" value="true"/>
+      </j:if>
+
+      <ant:sysproperty key="aspectwerkz.classloader.preprocessor" 
+          value="${maven.aspectwerkz.classloader.preprocessor}"/>
+        
+      <ant:sysproperty key="aspectwerkz.transform.filter" 
+          value="${maven.aspectwerkz.transform.filter}"/>
+
+      <ant:sysproperty key="aspectwerkz.definition.file" 
+          value="${maven.aspectwerkz.definition.file}"/>
+
+      <ant:arg value="-verify"/>
+      <ant:arg value="-haltOnError"/>
+
+      <j:if test="${!empty(aspectwerkzcp)}">
+        <ant:arg value="-cp"/>
+        <ant:arg path="${aspectwerkzcp}"/>
+      </j:if>
+
+      <!-- If using the attribdef mode, weave classes generated by aspectc -->
+      <j:if test="${context.getVariable('maven.aspectwerkz.mode') == 'attribdef'}">
+        <ant:arg file="${maven.aspectwerkz.aspectc.build.dir}"/>
+      </j:if>
+
+      <!-- TODO: Add support for xmldef mode -->
+
+      <ant:classpath>
+        <ant:path refid="classpath.main"/>
+        <ant:pathelement location="${plugin.getDependencyPath('ant:ant')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('aspectwerkz:aspectwerkz-core')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('bcel:bcel')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('jrexx:jrexx')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('commons-jexl:commons-jexl')}"/>
+      </ant:classpath>      
+  
+    </ant:java>
+
+    <!-- Copy weaved classes to target directory -->
+    <ant:mkdir dir="${maven.aspectwerkz.weave.build.dir}"/>
+    <j:if test="${context.getVariable('maven.aspectwerkz.mode') == 'attribdef'}">
+      <ant:copy todir="${maven.aspectwerkz.weave.build.dir}">
+        <ant:fileset dir="${maven.aspectwerkz.aspectc.build.dir}"/>
+      </ant:copy>
+    </j:if>
+
+  </goal>
+    
+  <!--
+     ========================================================================
+       Custom tag library for factorizing common actions that need to be
+       executed several times in this script.
+     ========================================================================
+  -->
+  <define:taglib uri="aspectwerkz">
+
+    <!--
+        @param javaSrc source directory that will be parsed
+        @param classSrc path where compiled sources are located 
+    -->
+    <define:tag name="aspectc">
+
+      <ant:echo>Parsing [${javaSrc}] using [${classSrc}] ...</ant:echo>
+
+      <ant:mkdir dir="${maven.aspectwerkz.aspectc.build.dir}"/>
+      
+      <ant:java dir="${maven.build.dir}" failonerror="true" fork="true"
+          classname="org.codehaus.aspectwerkz.attribdef.definition.AspectC">
+
+        <j:if test="${context.getVariable('maven.aspectwerkz.verbose') == 'true'}">
+          <ant:arg value="-verbose"/>
+        </j:if>
+
+        <!-- Path to source dir -->
+        <ant:arg file="${javaSrc}"/>
+
+        <!-- Path to classes dir -->
+        <ant:arg file="${classSrc}"/>
+
+        <!-- (optional) Path to where aspectc result will be put -->
+        <ant:arg file="${maven.aspectwerkz.aspectc.build.dir}"/>
+
+        <ant:classpath>
+          <ant:path refid="classpath.main"/>
+          <ant:pathelement location="${plugin.getDependencyPath('aspectwerkz:aspectwerkz-core')}"/>
+          <ant:pathelement location="${plugin.getDependencyPath('qdox:qdox')}"/>
+          <ant:pathelement location="${plugin.getDependencyPath('bcel:bcel')}"/>
+        </ant:classpath>
+         
+      </ant:java>
+
+    </define:tag>
+
+  </define:taglib>
+
+</project>

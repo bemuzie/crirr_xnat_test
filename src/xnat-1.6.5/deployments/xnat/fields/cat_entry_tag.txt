@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_cat_entry_tag_r
+(ACTIVE - MULTIPLE - ROOT)
+
+cat:entry_tag/tag                                                                                   cat_entry_tag0		cat_entry_tag.tag
+cat:entry_tag/entry_tag_info                                                                        cat_entry_tag1		cat_entry_tag.entry_tag_info
+cat:entry_tag/cat_entry_tag_id                                                                      cat_entry_tag2		cat_entry_tag.cat_entry_tag_id
+cat:entry_tag/tags_tag_cat_entry_cat_entry_id                                                       cat_entry_tag3		cat_entry_tag.tags_tag_cat_entry_cat_entry_id
+cat:entry_tag/meta/xft_version                                                                      cat_entry_tag_meta_data4		cat_entry_tag_meta_data.xft_version
+cat:entry_tag/meta/last_modified                                                                    cat_entry_tag_meta_data5		cat_entry_tag_meta_data.last_modified
+cat:entry_tag/meta/status                                                                           cat_entry_tag_meta_data6		cat_entry_tag_meta_data.status
+cat:entry_tag/meta/activation_date                                                                  cat_entry_tag_meta_data7		cat_entry_tag_meta_data.activation_date
+cat:entry_tag/meta/row_last_modified                                                                cat_entry_tag_meta_data8		cat_entry_tag_meta_data.row_last_modified
+cat:entry_tag/meta/insert_date                                                                      cat_entry_tag_meta_data9		cat_entry_tag_meta_data.insert_date
+cat:entry_tag/meta/activation_user_xdat_user_id                                                     cat_entry_tag_meta_data10		cat_entry_tag_meta_data.activation_user_xdat_user_id
+cat:entry_tag/meta/insert_user_xdat_user_id                                                         cat_entry_tag_meta_data11		cat_entry_tag_meta_data.insert_user_xdat_user_id
+cat:entry_tag/meta/origin                                                                           cat_entry_tag_meta_data12		cat_entry_tag_meta_data.origin
+cat:entry_tag/meta/modified                                                                         cat_entry_tag_meta_data13		cat_entry_tag_meta_data.modified
+cat:entry_tag/meta/shareable                                                                        cat_entry_tag_meta_data14		cat_entry_tag_meta_data.shareable
+cat:entry_tag/meta/meta_data_id                                                                     cat_entry_tag_meta_data15		cat_entry_tag_meta_data.meta_data_id

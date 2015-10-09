@@ -1,0 +1,350 @@
+<?xml version="1.0"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project 
+  xmlns:j="jelly:core" 
+  xmlns:ant="jelly:ant" 
+  xmlns:maven="jelly:maven"
+  xmlns:java="java"
+  xmlns:test="test"
+  xmlns:doc="doc"
+  xmlns:u="jelly:util">
+
+  <!--
+     ========================================================================
+       Initialize the Clover plugin.
+     ========================================================================
+  -->
+  <goal name="clover:init">
+
+    <!-- Create an Ant <path> id that contains the Clover jar. If the user has
+         defined the maven.clover.jar property then this path will contain his
+         version of the clover jar. Otherwise use the version defined as a 
+         dependency in this plugin's project.xml. -->
+    <ant:path id="clover.classpath">
+      <j:choose>
+        <j:when test="${context.getVariable('maven.clover.jar') != null}">
+          <ant:pathelement path="${maven.clover.jar}"/>
+        </j:when>
+        <j:otherwise>
+          <ant:pathelement path="${plugin.getDependencyPath('clover:clover-ant')}"/>
+        </j:otherwise>
+      </j:choose>
+    </ant:path>
+
+    <ant:taskdef resource="clovertasks"/>
+    <ant:typedef resource="clovertypes"/>
+
+    <j:set var="cloverDatabase" 
+        value="${maven.clover.database.dir}/clover_coverage.db"/>
+
+    <j:set var="cloverReportDirectory" value="${maven.docs.dest}/clover"/>
+
+    <!-- Allow users to override the version of the Clover jar to use  -->
+    <maven:addPath id="maven.dependency.classpath" refid="clover.classpath"/>
+
+    <ant:mkdir dir="${maven.clover.build.classes}"/>
+    <ant:mkdir dir="${maven.clover.database.dir}"/>
+    <ant:mkdir dir="${cloverReportDirectory}"/>
+
+    <!-- Add the Clover license to the classpath. -->
+    <j:if test="${!empty(context.getVariable('maven.clover.license.path'))}">
+      <j:invokeStatic className="java.lang.System" method="setProperty">
+        <j:arg type="java.lang.String" value="clover.license.path"/>
+        <j:arg type="java.lang.String" value="${maven.clover.license.path}"/>
+      </j:invokeStatic>
+    </j:if>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Generate test coverage reports with Clover.
+     ========================================================================
+  -->
+  <goal name="clover"
+        description="Generate test coverage reports with Clover"
+        prereqs="clover:test,clover:report"/>
+ 
+  <!--
+     ========================================================================
+       Prepare for Clover. Any goal that executes after this goal and that
+       runs the <javac> Ant task will result in sources being Clovered.
+       Clover sets the Ant build.compiler property that tells the <javac>
+       task which compiler to compile java sources with.
+       
+       This goal also modifies some properties from the test plugin. You'll
+       need to call clover:off to reset them as they were initially.
+     ========================================================================
+  -->
+  <goal name="clover:on" prereqs="clover:init"
+      description="Activates Clover">
+
+    <!-- Save properties so that they can be reset afterwards -->
+    <maven:get var="ignoreTestFailureOld" plugin="maven-test-plugin"
+        property="maven.test.failure.ignore"/>
+    <maven:get var="junitForkOld" plugin="maven-test-plugin"
+        property="maven.junit.fork"/>
+
+    <!-- Make sure that the report is generated whether the tests pass or 
+         not -->
+    <maven:set plugin="maven-test-plugin" property="maven.test.failure.ignore"
+        value="true"/>
+
+    <!-- We tell the test plugin to run tests in a forked JVM. Due to a 
+         limitation in Clover, test coverage data are flushed upon JVM 
+         shutdown. Running test in a forked JVM allows to write properly the
+         results before the goal finishes and thus it is possible to generate
+         Clover reports in the same Maven session. -->
+    <maven:set plugin="maven-test-plugin" property="maven.junit.fork"
+        value="true"/>
+
+    <echo>Setting Clover compiler</echo>
+
+    <!-- Transforming Ant path structure into a list of dirs that can be used
+         to define an Ant fileset. We're using <pathconvert> to automatically
+         separate dirs with a known delimiter independently of any platform -->
+    <ant:pathconvert property="compileSrcSetString" pathSep="||||" 
+        refid="maven.compile.src.set"/>
+    <u:tokenize var="srcDirs" delim="||||">${compileSrcSetString}</u:tokenize>
+
+    <ant:clover-setup 
+        initstring="${cloverDatabase}"
+        flushpolicy="interval"
+        flushinterval="500">
+
+      <j:forEach var="srcDir" items="${srcDirs}">
+        <ant:fileset dir="${srcDir}">
+          <ant:include name="**/*.java"/>
+        </ant:fileset>
+      </j:forEach>
+
+      <!-- Conditionally instrument test code -->
+      <j:if test="${context.getVariable('maven.clover.instrument.tests') == 'true'}">
+
+        <ant:pathconvert property="testSrcSetString" pathSep="||||" 
+            refid="maven.test.compile.src.set"/>
+        <u:tokenize var="testDirs" delim="||||">${testSrcSetString}</u:tokenize>
+
+        <j:forEach var="testDir" items="${testDirs}">
+          <ant:fileset dir="${testDir}">
+            <ant:include name="**/*.java"/>
+          </ant:fileset>
+        </j:forEach>
+
+      </j:if>
+
+    </ant:clover-setup>
+
+    <echo>Now using primary build.compiler : ${build.compiler}</echo>
+
+    <!-- Ensure that Clovered classes are generated in a directory different than the one 
+         used by the Java and Test plugins for runtime classes. This is to prevent shipping
+         Clovered classes by mistake. -->
+    <j:set var="mavenBuildDestOld" value="${context.parent.getVariable('maven.build.dest')}"/>
+    <j:set var="maven.build.dest" value="${maven.clover.build.classes}" scope="parent" />
+	
+  </goal>
+
+  <!--
+     ========================================================================
+       Restore properties of the test plugin the same way they were before
+       the call to clover:on.
+     ========================================================================
+  -->
+  <goal name="clover:off" description="Deactivates Clover">
+
+    <j:set var="maven.build.dest" value="${mavenBuildDestTestOld}" scope="parent" />
+    ${context.removeVariable('build.compiler')}
+
+    <j:if test="${ignoreTestFailureOld != null}">
+      <maven:set plugin="maven-test-plugin" property="maven.test.failure.ignore"
+          value="${ignoreTestFailureOld}"/>      
+    </j:if>
+    <maven:set plugin="maven-test-plugin" property="maven.junit.fork"
+        value="${junitForkOld}"/>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Execute unit tests on Clovered code and thus generate Clover database 
+       data.
+     ========================================================================
+  -->
+  <goal name="clover:test"
+      description="Compile project code with Clover and executes the unit tests">
+
+    <!-- Only run clover if there are tests to execute -->
+    <j:choose>
+      <j:when test="${unitTestSourcesPresent == 'true'}">
+        <attainGoal name="clover:on"/>
+        <attainGoal name="test:test"/>
+        <attainGoal name="clover:off"/>
+      </j:when>
+      <j:otherwise>
+        <ant:echo>No tests to run Clover on</ant:echo>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Execute unit tests and Clover on a single class and generate a Swing
+       clover report. Need to pass the "testcase" property 
+       (maven -Dtestcase=myclass).
+     ========================================================================
+  -->
+  <goal name="clover:test-single"
+      description="Compile code with Clover and execute a single unit test">
+
+    <j:choose>
+      <j:when test="${unitTestSourcesPresent == 'true'}">
+        <attainGoal name="clover:on"/>
+        <attainGoal name="test:single"/>
+        <attainGoal name="clover:swing-report-internal"/>
+        <attainGoal name="clover:off"/>
+      </j:when>
+      <j:otherwise>
+        <ant:echo>No tests to run Clover on</ant:echo>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Generate test coverage reports. It decides what kind of reports should
+       be generated.
+     ========================================================================
+  -->
+  <goal name="clover:report" prereqs="clover:init" 
+      description="Generates the Clover reports">
+
+    <!-- Skip reports if no coverage database has been created. -->
+    <u:file var="cloverDatabaseAsFile" name="${cloverDatabase}"/>
+    <j:choose>
+      <j:when test="${cloverDatabaseAsFile.exists()}">       
+
+        <j:if test="${context.getVariable('maven.clover.report.xml') == 'true'}">
+          <attainGoal name="clover:xml-report-internal"/>
+        </j:if>
+        <j:if test="${context.getVariable('maven.clover.report.html') == 'true'}">
+          <attainGoal name="clover:html-report-internal"/>
+        </j:if>
+        <j:if test="${context.getVariable('maven.clover.report.swing') == 'true'}">
+          <attainGoal name="clover:swing-report-internal"/>
+        </j:if>
+        
+      </j:when>
+      <j:otherwise>
+        <ant:echo>No Clover database found, skipping report generation</ant:echo>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Generate XML test coverage report.
+     ========================================================================
+  -->
+  <goal name="clover:xml-report-internal">
+    <ant:clover-report>
+      <current outfile="${maven.build.dir}/clover.xml" 
+      	title="${pom.name} - ${pom.currentVersion}">
+        <format type="xml" orderBy="${maven.clover.orderBy}"/>
+      </current>
+    </ant:clover-report>
+  </goal>
+  <goal 
+    name="clover:xml-report" 
+    description="Generate XML test coverage reports with Clover"
+    prereqs="clover:test,clover:xml-report-internal"/>
+
+  <!--
+     ========================================================================
+       Generate HTML test coverage report.
+     ========================================================================
+  -->
+  <goal name="clover:html-report-internal">
+    <ant:clover-report>
+      <current 
+      	outfile="${cloverReportDirectory}" 
+      	title="${pom.name} - ${pom.currentVersion}">
+        <format type="html" orderBy="${maven.clover.orderBy}"/>
+      </current>
+    </ant:clover-report>
+  </goal>
+  <goal 
+    name="clover:html-report" 
+    description="Generate HTML test coverage reports with Clover"
+    prereqs="clover:test,clover:html-report-internal"/>
+
+  <!--
+     ========================================================================
+       Generate Swing test coverage report.
+     ========================================================================
+  -->
+  <goal name="clover:swing-report-internal">
+    <clover-view initString="${clover.initstring}"/>
+  </goal>
+  <goal
+    name="clover:swing-report"
+    description="Generate Swing test coverage reports with Clover"
+    prereqs="clover:test,clover:swing-report-internal"/>
+
+  <!--
+     ========================================================================
+       Register the Clover plugin for site generation.
+     ========================================================================
+  -->
+  <goal name="maven-clover-plugin:register">
+    <j:if test="${sourcesPresent == 'true'}">
+      <doc:registerReport 
+        name="Clover" 
+        pluginName="maven-clover-plugin" 
+        link="clover/index"
+        description="Clover test coverage report."/>
+    </j:if>
+  </goal>
+  
+  <!--
+     ========================================================================
+       Deregister the Clover plugin from site generation.
+     ========================================================================
+  -->
+  <goal name="maven-clover-plugin:deregister">
+    <j:if test="${sourcesPresent == 'true'}">
+      <doc:deregisterReport name="Clover"/>
+    </j:if>
+  </goal>
+  
+  <!--
+     ========================================================================
+       Goal that is executed during the site generation
+     ========================================================================
+  -->
+  <goal name="maven-clover-plugin:report">
+    <attainGoal name="clover"/>
+  </goal>
+
+</project>

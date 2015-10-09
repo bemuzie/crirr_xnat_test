@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <name>Maven NSIS Plug-in</name>
+  <groupId>maven-nsis-plugin</groupId>
+  <artifactId>maven-nsis-plugin</artifactId>
+  <currentVersion>1.1</currentVersion>
+  <organization/>
+  <description>A plugin to generate Win32 installer programs using NSIS</description>
+  <shortDescription>NSIS Plugin for Maven</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/nsis/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/MPNSIS</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/nsis/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/nsis/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/nsis/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/nsis/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>MAVEN_NSIS_1_0</tag>
+    </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_NSIS_1_1</tag>
+    </version>
+  </versions>
+  <branches/>
+  <mailingLists/>
+  <developers>
+    <developer>
+      <name>dIon Gillard</name>
+      <id>dion</id>
+      <email>dion@multitask.com.au</email>
+      <organization>Multitask Consulting</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <properties/>
+</project>

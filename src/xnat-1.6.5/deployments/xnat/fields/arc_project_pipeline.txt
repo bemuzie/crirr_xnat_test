@@ -1,0 +1,69 @@
+
+
+*********************************************
+
+ac_s_arc_project_pipeline_r
+(ACTIVE - MULTIPLE - ROOT)
+
+arc:project_pipeline/arc_pipelinedata_id                                                            arc_project_pipeline0		arc_pipelineData.arc_pipelinedata_id
+arc:project_pipeline/stepId                                                                         arc_project_pipeline1		arc_project_pipeline.stepid
+arc:project_pipeline/dependent                                                                      arc_project_pipeline2		arc_project_pipeline.dependent
+arc:project_pipeline/project_pipeline_info                                                          arc_project_pipeline3		arc_project_pipeline.project_pipeline_info
+arc:project_pipeline/pipelines_pipeline_arc_project_arc_project_id                                  arc_project_pipeline4		arc_project_pipeline.pipelines_pipeline_arc_project_arc_project_id
+arc:project_pipeline/pipelineData/displayText                                                       arc_pipelineData5		arc_pipelineData.displaytext
+arc:project_pipeline/pipelineData/name                                                              arc_pipelineData6		arc_pipelineData.name
+arc:project_pipeline/pipelineData/location                                                          arc_pipelineData7		arc_pipelineData.location
+arc:project_pipeline/pipelineData/description                                                       arc_pipelineData8		arc_pipelineData.description
+arc:project_pipeline/pipelineData/customwebpage                                                     arc_pipelineData9		arc_pipelineData.customwebpage
+arc:project_pipeline/pipelineData/extension                                                         arc_pipelineData10		arc_pipelineData.extension
+arc:project_pipeline/pipelineData/pipelinedata_info                                                 arc_pipelineData11		arc_pipelineData.pipelinedata_info
+arc:project_pipeline/pipelineData/arc_pipelineData_id                                               arc_pipelineData12		arc_pipelineData.arc_pipelinedata_id
+arc:project_pipeline/pipelineData/parameters/parameter/schemaLink                                   arc_pipelineParameterData13		arc_pipelineParameterData.schemalink
+arc:project_pipeline/pipelineData/parameters/parameter/csvValues                                    arc_pipelineParameterData14		arc_pipelineParameterData.csvvalues
+arc:project_pipeline/pipelineData/parameters/parameter/csvValues/selected                           arc_pipelineParameterData15		arc_pipelineParameterData.csvvalues_selected
+arc:project_pipeline/pipelineData/parameters/parameter/description                                  arc_pipelineParameterData16		arc_pipelineParameterData.description
+arc:project_pipeline/pipelineData/parameters/parameter/name                                         arc_pipelineParameterData17		arc_pipelineParameterData.name
+arc:project_pipeline/pipelineData/parameters/parameter/multipleValues                               arc_pipelineParameterData18		arc_pipelineParameterData.multiplevalues
+arc:project_pipeline/pipelineData/parameters/parameter/editable                                     arc_pipelineParameterData19		arc_pipelineParameterData.editable
+arc:project_pipeline/pipelineData/parameters/parameter/batchParam                                   arc_pipelineParameterData20		arc_pipelineParameterData.batchparam
+arc:project_pipeline/pipelineData/parameters/parameter/pipelineparameterdata_info                   arc_pipelineParameterData21		arc_pipelineParameterData.pipelineparameterdata_info
+arc:project_pipeline/pipelineData/parameters/parameter/arc_pipelineParameterData_id                 arc_pipelineParameterData22		arc_pipelineParameterData.arc_pipelineparameterdata_id
+arc:project_pipeline/pipelineData/parameters/parameter/parameters_parameter_arc_pipeli_arc_pipelinedata_id	arc_pipelineParameterData23		arc_pipelineParameterData.parameters_parameter_arc_pipeli_arc_pipelinedata_id
+arc:project_pipeline/pipelineData/parameters/parameter/meta/xft_version                             arc_pipelineParameterData_meta_data24		arc_pipelineParameterData_meta_data.xft_version
+arc:project_pipeline/pipelineData/parameters/parameter/meta/last_modified                           arc_pipelineParameterData_meta_data25		arc_pipelineParameterData_meta_data.last_modified
+arc:project_pipeline/pipelineData/parameters/parameter/meta/status                                  arc_pipelineParameterData_meta_data26		arc_pipelineParameterData_meta_data.status
+arc:project_pipeline/pipelineData/parameters/parameter/meta/activation_date                         arc_pipelineParameterData_meta_data27		arc_pipelineParameterData_meta_data.activation_date
+arc:project_pipeline/pipelineData/parameters/parameter/meta/row_last_modified                       arc_pipelineParameterData_meta_data28		arc_pipelineParameterData_meta_data.row_last_modified
+arc:project_pipeline/pipelineData/parameters/parameter/meta/insert_date                             arc_pipelineParameterData_meta_data29		arc_pipelineParameterData_meta_data.insert_date
+arc:project_pipeline/pipelineData/parameters/parameter/meta/activation_user_xdat_user_id            arc_pipelineParameterData_meta_data30		arc_pipelineParameterData_meta_data.activation_user_xdat_user_id
+arc:project_pipeline/pipelineData/parameters/parameter/meta/insert_user_xdat_user_id                arc_pipelineParameterData_meta_data31		arc_pipelineParameterData_meta_data.insert_user_xdat_user_id
+arc:project_pipeline/pipelineData/parameters/parameter/meta/origin                                  arc_pipelineParameterData_meta_data32		arc_pipelineParameterData_meta_data.origin
+arc:project_pipeline/pipelineData/parameters/parameter/meta/modified                                arc_pipelineParameterData_meta_data33		arc_pipelineParameterData_meta_data.modified
+arc:project_pipeline/pipelineData/parameters/parameter/meta/shareable                               arc_pipelineParameterData_meta_data34		arc_pipelineParameterData_meta_data.shareable
+arc:project_pipeline/pipelineData/parameters/parameter/meta/meta_data_id                            arc_pipelineParameterData_meta_data35		arc_pipelineParameterData_meta_data.meta_data_id
+arc:project_pipeline/pipelineData/extension_item/element_name                                       xdat_meta_element36		xdat_meta_element.element_name
+arc:project_pipeline/pipelineData/extension_item/xdat_meta_element_id                               xdat_meta_element37		xdat_meta_element.xdat_meta_element_id
+arc:project_pipeline/pipelineData/meta/xft_version                                                  arc_pipelineData_meta_data38		arc_pipelineData_meta_data.xft_version
+arc:project_pipeline/pipelineData/meta/last_modified                                                arc_pipelineData_meta_data39		arc_pipelineData_meta_data.last_modified
+arc:project_pipeline/pipelineData/meta/status                                                       arc_pipelineData_meta_data40		arc_pipelineData_meta_data.status
+arc:project_pipeline/pipelineData/meta/activation_date                                              arc_pipelineData_meta_data41		arc_pipelineData_meta_data.activation_date
+arc:project_pipeline/pipelineData/meta/row_last_modified                                            arc_pipelineData_meta_data42		arc_pipelineData_meta_data.row_last_modified
+arc:project_pipeline/pipelineData/meta/insert_date                                                  arc_pipelineData_meta_data43		arc_pipelineData_meta_data.insert_date
+arc:project_pipeline/pipelineData/meta/activation_user_xdat_user_id                                 arc_pipelineData_meta_data44		arc_pipelineData_meta_data.activation_user_xdat_user_id
+arc:project_pipeline/pipelineData/meta/insert_user_xdat_user_id                                     arc_pipelineData_meta_data45		arc_pipelineData_meta_data.insert_user_xdat_user_id
+arc:project_pipeline/pipelineData/meta/origin                                                       arc_pipelineData_meta_data46		arc_pipelineData_meta_data.origin
+arc:project_pipeline/pipelineData/meta/modified                                                     arc_pipelineData_meta_data47		arc_pipelineData_meta_data.modified
+arc:project_pipeline/pipelineData/meta/shareable                                                    arc_pipelineData_meta_data48		arc_pipelineData_meta_data.shareable
+arc:project_pipeline/pipelineData/meta/meta_data_id                                                 arc_pipelineData_meta_data49		arc_pipelineData_meta_data.meta_data_id
+arc:project_pipeline/meta/xft_version                                                               arc_project_pipeline_meta_data50		arc_project_pipeline_meta_data.xft_version
+arc:project_pipeline/meta/last_modified                                                             arc_project_pipeline_meta_data51		arc_project_pipeline_meta_data.last_modified
+arc:project_pipeline/meta/status                                                                    arc_project_pipeline_meta_data52		arc_project_pipeline_meta_data.status
+arc:project_pipeline/meta/activation_date                                                           arc_project_pipeline_meta_data53		arc_project_pipeline_meta_data.activation_date
+arc:project_pipeline/meta/row_last_modified                                                         arc_project_pipeline_meta_data54		arc_project_pipeline_meta_data.row_last_modified
+arc:project_pipeline/meta/insert_date                                                               arc_project_pipeline_meta_data55		arc_project_pipeline_meta_data.insert_date
+arc:project_pipeline/meta/activation_user_xdat_user_id                                              arc_project_pipeline_meta_data56		arc_project_pipeline_meta_data.activation_user_xdat_user_id
+arc:project_pipeline/meta/insert_user_xdat_user_id                                                  arc_project_pipeline_meta_data57		arc_project_pipeline_meta_data.insert_user_xdat_user_id
+arc:project_pipeline/meta/origin                                                                    arc_project_pipeline_meta_data58		arc_project_pipeline_meta_data.origin
+arc:project_pipeline/meta/modified                                                                  arc_project_pipeline_meta_data59		arc_project_pipeline_meta_data.modified
+arc:project_pipeline/meta/shareable                                                                 arc_project_pipeline_meta_data60		arc_project_pipeline_meta_data.shareable
+arc:project_pipeline/meta/meta_data_id                                                              arc_project_pipeline_meta_data61		arc_project_pipeline_meta_data.meta_data_id

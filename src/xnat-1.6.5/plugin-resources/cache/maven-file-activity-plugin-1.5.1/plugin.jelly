@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project
+  xmlns:ant="jelly:ant"
+  xmlns:changelog="changelog"
+  xmlns:doc="doc"
+  xmlns:j="jelly:core"
+  xmlns:maven="jelly:maven"
+  xmlns:util="jelly:util">
+
+  <goal name="maven-file-activity-plugin:register">
+    <j:if test="${context.getVariable('maven.mode.online') == null}">
+      <j:set var="maven.mode.online" value="true" />
+    </j:if>
+    <j:if test="${maven.mode.online}">
+      <doc:registerReport 
+        name="File Activity" 
+        pluginName="maven-file-activity-plugin" 
+        link="file-activity-report"
+        description="Report on file activity."/>
+    </j:if>
+  </goal>
+  
+  <goal name="maven-file-activity-plugin:deregister">
+    <doc:deregisterReport name="File Activity"/>
+  </goal>
+
+  <!-- ================================================================== -->
+  <!-- F I L E  A C T I V I T Y  R E P O R T                              -->
+  <!-- ================================================================== -->
+  
+  <!--
+  
+  I want to be able to do <goal name="${plugin.artifactId}:report"/> so I have
+  to teach werkz to look in the context for the name attribute as well.
+  This will simplify things and make them consistent as we can easily
+  generate the skeleton for a report plugin.
+  
+  -->
+  
+  <goal name="maven-file-activity-plugin:report"
+        description="Generate developer and file activity reports">
+
+    <j:if test="${context.getVariable('maven.mode.online') == null}">
+      <j:set var="maven.mode.online" value="true" />
+    </j:if>
+
+    <maven:pluginVar var="factory" plugin="maven-changelog-plugin" property="maven.changelog.factory" />
+
+    <j:choose>
+      <j:when test="${maven.mode.online}">
+        <j:set var="_connection">${pom.repository.connection}</j:set>
+        <j:if test="${empty(_connection)}">
+          <j:set var="_connection">${pom.repository.developerConnection}</j:set>
+        </j:if>
+        <j:if test="${!empty(_connection)}">
+          <echo>Generating the file activity report</echo>
+          
+          <!--
+           |
+           | Now we only want to generate the change log if it hasn't
+           | already been generated.
+           |
+          -->
+          
+          <util:available file="${maven.build.dir}/changelog.xml">
+            <j:set var="changelogPresent" value="true"/>
+          </util:available>
+
+          <maven:get var="maven.changelog.range" plugin="maven-changelog-plugin" property="maven.changelog.range"/>
+          <j:if test="${changelogPresent != 'true'}">
+            <changelog:changelog
+              basedir="${maven.changelog.basedir}"
+              developers="${pom.developers}"
+              factory="${factory}"
+              output="${maven.build.dir}/changelog.xml"
+              outputEncoding="${maven.docs.outputencoding}"
+              range="${maven.changelog.range}"
+              repositoryConnection="${_connection}"
+              dateFormat="${maven.changelog.dateformat}"
+            />
+          </j:if>
+
+          <doc:jsl
+            input="${maven.build.dir}/changelog.xml"
+            output="file-activity-report.xml"
+            stylesheet="${plugin.resources}/${plugin.artifactId}.jsl"
+            encoding="${maven.docs.outputencoding}"
+            outputMode="xml"
+            prettyPrint="true"
+          />
+
+        </j:if>
+      </j:when>
+
+      <j:otherwise>
+        <ant:echo>The Activity report is only available in online mode.</ant:echo>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+</project>

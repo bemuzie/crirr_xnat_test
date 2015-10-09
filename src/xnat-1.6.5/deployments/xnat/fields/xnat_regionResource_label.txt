@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_xnat_regionResource_label_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:regionResource_label/label                                                                     xnat_regionResource_label0		xnat_regionResource_label.label
+xnat:regionResource_label/id                                                                        xnat_regionResource_label1		xnat_regionResource_label.id
+xnat:regionResource_label/hemisphere                                                                xnat_regionResource_label2		xnat_regionResource_label.hemisphere
+xnat:regionResource_label/regionresource_label_info                                                 xnat_regionResource_label3		xnat_regionResource_label.regionresource_label_info
+xnat:regionResource_label/xnat_regionResource_label_id                                              xnat_regionResource_label4		xnat_regionResource_label.xnat_regionresource_label_id
+xnat:regionResource_label/subregionlabels_label_xnat_regi_xnat_regionresource_id                    xnat_regionResource_label5		xnat_regionResource_label.subregionlabels_label_xnat_regi_xnat_regionresource_id
+xnat:regionResource_label/meta/xft_version                                                          xnat_regionResource_label_meta_data6		xnat_regionResource_label_meta_data.xft_version
+xnat:regionResource_label/meta/last_modified                                                        xnat_regionResource_label_meta_data7		xnat_regionResource_label_meta_data.last_modified
+xnat:regionResource_label/meta/status                                                               xnat_regionResource_label_meta_data8		xnat_regionResource_label_meta_data.status
+xnat:regionResource_label/meta/activation_date                                                      xnat_regionResource_label_meta_data9		xnat_regionResource_label_meta_data.activation_date
+xnat:regionResource_label/meta/row_last_modified                                                    xnat_regionResource_label_meta_data10		xnat_regionResource_label_meta_data.row_last_modified
+xnat:regionResource_label/meta/insert_date                                                          xnat_regionResource_label_meta_data11		xnat_regionResource_label_meta_data.insert_date
+xnat:regionResource_label/meta/activation_user_xdat_user_id                                         xnat_regionResource_label_meta_data12		xnat_regionResource_label_meta_data.activation_user_xdat_user_id
+xnat:regionResource_label/meta/insert_user_xdat_user_id                                             xnat_regionResource_label_meta_data13		xnat_regionResource_label_meta_data.insert_user_xdat_user_id
+xnat:regionResource_label/meta/origin                                                               xnat_regionResource_label_meta_data14		xnat_regionResource_label_meta_data.origin
+xnat:regionResource_label/meta/modified                                                             xnat_regionResource_label_meta_data15		xnat_regionResource_label_meta_data.modified
+xnat:regionResource_label/meta/shareable                                                            xnat_regionResource_label_meta_data16		xnat_regionResource_label_meta_data.shareable
+xnat:regionResource_label/meta/meta_data_id                                                         xnat_regionResource_label_meta_data17		xnat_regionResource_label_meta_data.meta_data_id

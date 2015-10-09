@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<!-- 
+/*
+ * Copyright 2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<project
+  xmlns:j="jelly:core"
+  xmlns:ant="jelly:ant"
+  xmlns:x="jelly:xml">
+
+  <goal name="jetty" description="Run Jetty" prereqs="jetty:run"/>
+
+  <goal name="jetty:prepare-filesystem">
+
+      <ant:mkdir dir="${maven.build.dir}/jetty"/>
+
+  </goal>
+  
+  <goal name="jetty:config" prereqs="jetty:prepare-filesystem"
+      description="Generate a Jetty configuration file">
+
+    <!-- Only generate if the maven.jetty.config.xml property is not set. This
+         allows for custom fine-grained configurations -->
+    <j:if test="${context.getVariable('maven.jetty.config.xml') == null}">
+
+      <j:set var="maven.jetty.config.xml"
+          value="${maven.build.dir}/jetty.xml"/>
+          
+      <j:file name="${maven.jetty.config.xml}" prettyPrint="true" 
+          xmlns="jetty">
+
+        <x:doctype name="Configure" publicId="-//Mort Bay Consulting//DTD Configure 1.2//EN" systemId="http://jetty.mortbay.org/configure_1_2.dtd"/>
+
+        <Configure class="org.mortbay.jetty.Server">
+          <Call name="addListener">
+            <Arg>
+              <New class="org.mortbay.http.SocketListener">
+                 <Set name="Port">${maven.jetty.port}</Set>
+              </New>
+            </Arg>
+          </Call>
+
+          <!-- If current project is a WAR project add the war -->
+          <j:if test="${context.getVariable('maven.jetty.project.type') == 'war'}">
+            <Call name="addWebApplication">
+              <!-- Note: We need to go through a variable. Otherwise 
+                   outputting directly <Arg>/${dep.artifactId}/*</Arg>
+                   leads to a space between the "/" and the context 
+                   name -->
+              <j:set var="context" value="/${pom.artifactId}/*"/>
+              <Arg>${context}</Arg>
+              <j:set var="artifact" value="${pom.getPluginContext('maven-war-plugin').getVariable('maven.war.build.dir')}/${pom.getPluginContext('maven-war-plugin').getVariable('maven.war.final.name')}"/>
+              <Arg>${artifact}</Arg>
+            </Call>
+          </j:if>          
+                     
+          <!-- Add dependencies to Jetty config. -->
+          <j:forEach var="lib" items="${pom.artifacts}">
+            <j:set var="dep" value="${lib.dependency}"/>      
+            <j:if test="${dep.getProperty('jetty.bundle')=='true'}">
+
+              <!-- Handle WARs -->
+              <j:if test="${dep.type == 'war'}">
+
+                <Call name="addWebApplication">
+                  <!-- Note: We need to go through a variable. Otherwise 
+                       outputting directly <Arg>/${dep.artifactId}/*</Arg>
+                       leads to a space between the "/" and the context 
+                       name -->
+                  <j:set var="context" value="/${dep.artifactId}/*"/>
+                  <Arg>${context}</Arg>
+                  <Arg>${lib.path}</Arg>
+                </Call>
+
+              </j:if>
+              
+            </j:if>
+          </j:forEach>
+
+        </Configure>
+        
+      </j:file>
+
+    </j:if>
+    
+  </goal>
+  
+  <goal name="jetty:run" description="Run Jetty" prereqs="jetty:config">
+
+    <ant:java classname="org.mortbay.jetty.Server" fork="true">
+      <ant:arg value="${maven.jetty.config.xml}"/>      
+      <ant:classpath>
+        <ant:pathelement location="${plugin.getDependencyPath('jetty:org.mortbay.jetty')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('servletapi:servletapi')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('tomcat:jasper-compiler')}"/>
+        <ant:pathelement location="${plugin.getDependencyPath('tomcat:jasper-runtime')}"/>
+      </ant:classpath>
+    </ant:java>
+
+  </goal>
+
+  <goal name="jetty:run-war" prereqs="war:war"
+      description="Run Jetty on the current war project">
+
+    <j:set var="maven.jetty.project.type" value="war"/>
+    <attainGoal name="jetty:run"/>        
+      
+  </goal>
+  
+</project>

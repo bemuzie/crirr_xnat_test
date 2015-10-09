@@ -1,0 +1,1 @@
+#! /bin/sh# ----------------------------------------------------------------------------# Default JBoss shutdown shell script. It calls the default script found# in JBOSS_HOME/bin.# ----------------------------------------------------------------------------@maven.jboss.home@/bin/shutdown.sh @maven.jboss.hostname@

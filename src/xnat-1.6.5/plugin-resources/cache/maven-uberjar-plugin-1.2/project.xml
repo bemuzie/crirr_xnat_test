@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <!-- the version of maven's project object model -->
+
+  <pomVersion>3</pomVersion>
+  <!-- a unique name for this project -->
+
+  <id>maven-uberjar-plugin</id>
+  <!-- a short but descriptive name for the project -->
+
+  <name>Maven Uberjar Plugin</name>
+  <!-- The version of the project under development, e.g.
+       1.1, 1.2, 2.0-dev -->
+
+  <currentVersion>1.2</currentVersion>
+  <!-- a short description of what the project does -->
+
+  <shortDescription>Uberjar packages your project as well as its dependencies into a single jar file. In addition, bootstrap code is added that enables a main class to be invoked by simply typing: java -jar your.jar</shortDescription>
+  <!-- the project home page -->
+
+  <url>http://maven.apache.org/reference/plugins/uberjar/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/BrowseProject.jspa?id=10340</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/uberjar/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/uberjar/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/uberjar/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/uberjar/</url>
+  </repository>
+  <!-- any mailing lists for the project -->
+
+  <versions>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_UBERJAR_1_1</tag>
+    </version>
+    <version>
+      <id>1.2</id>
+      <name>1.2</name>
+      <tag>MAVEN_UBERJAR_1_2</tag>
+    </version>
+  </versions>
+  <mailingLists/>
+  <!-- who the developers are for the project -->
+
+  <developers>
+    <developer>
+      <name>Jason van Zyl</name>
+      <id>jvanzyl</id>
+      <email>jason@zenplex.com</email>
+      <organization>Zenplex</organization>
+      <roles>
+        <role>Architect</role>
+        <role>Release Manager</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Bob McWhirter</name>
+      <id>werken</id>
+      <email>bob@werken.com</email>
+      <organization>The Werken Company</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Pete Kazmier</name>
+      <id>kaz</id>
+      <email>pete-apache-dev@kazmier.com</email>
+      <organization/>
+      <roles>
+        <role>Documentation</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <!-- jar files the project is dependent on -->
+
+  <dependencies>
+    <dependency>
+      <groupId>velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.4-dev</version>
+      <url>http://jakarta.apache.org/velocity/</url>
+    </dependency>
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-velocity</artifactId>
+      <version>20030303.205659</version>
+    </dependency>
+    <dependency>
+      <groupId>classworlds</groupId>
+      <artifactId>classworlds</artifactId>
+      <version>1.0-rc2</version>
+      <url>http://classworlds.codehaus.org</url>
+    </dependency>
+  </dependencies>
+</project>

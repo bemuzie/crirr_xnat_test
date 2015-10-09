@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_volumetricRegion_subregion_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:volumetricRegion_subregion/name                                                                xnat_volumetricRegion_subregion0		xnat_volumetricRegion_subregion.name
+xnat:volumetricRegion_subregion/voxels                                                              xnat_volumetricRegion_subregion1		xnat_volumetricRegion_subregion.voxels
+xnat:volumetricRegion_subregion/volumetricregion_subregion_info                                     xnat_volumetricRegion_subregion2		xnat_volumetricRegion_subregion.volumetricregion_subregion_info
+xnat:volumetricRegion_subregion/xnat_volumetricRegion_subregion_id                                  xnat_volumetricRegion_subregion3		xnat_volumetricRegion_subregion.xnat_volumetricregion_subregion_id
+xnat:volumetricRegion_subregion/subregions_subregion_xnat_volum_xnat_volumetricregion_id            xnat_volumetricRegion_subregion4		xnat_volumetricRegion_subregion.subregions_subregion_xnat_volum_xnat_volumetricregion_id
+xnat:volumetricRegion_subregion/meta/xft_version                                                    xnat_volumetricRegion_subregion_meta_data5		xnat_volumetricRegion_subregion_meta_data.xft_version
+xnat:volumetricRegion_subregion/meta/last_modified                                                  xnat_volumetricRegion_subregion_meta_data6		xnat_volumetricRegion_subregion_meta_data.last_modified
+xnat:volumetricRegion_subregion/meta/status                                                         xnat_volumetricRegion_subregion_meta_data7		xnat_volumetricRegion_subregion_meta_data.status
+xnat:volumetricRegion_subregion/meta/activation_date                                                xnat_volumetricRegion_subregion_meta_data8		xnat_volumetricRegion_subregion_meta_data.activation_date
+xnat:volumetricRegion_subregion/meta/row_last_modified                                              xnat_volumetricRegion_subregion_meta_data9		xnat_volumetricRegion_subregion_meta_data.row_last_modified
+xnat:volumetricRegion_subregion/meta/insert_date                                                    xnat_volumetricRegion_subregion_meta_data10		xnat_volumetricRegion_subregion_meta_data.insert_date
+xnat:volumetricRegion_subregion/meta/activation_user_xdat_user_id                                   xnat_volumetricRegion_subregion_meta_data11		xnat_volumetricRegion_subregion_meta_data.activation_user_xdat_user_id
+xnat:volumetricRegion_subregion/meta/insert_user_xdat_user_id                                       xnat_volumetricRegion_subregion_meta_data12		xnat_volumetricRegion_subregion_meta_data.insert_user_xdat_user_id
+xnat:volumetricRegion_subregion/meta/origin                                                         xnat_volumetricRegion_subregion_meta_data13		xnat_volumetricRegion_subregion_meta_data.origin
+xnat:volumetricRegion_subregion/meta/modified                                                       xnat_volumetricRegion_subregion_meta_data14		xnat_volumetricRegion_subregion_meta_data.modified
+xnat:volumetricRegion_subregion/meta/shareable                                                      xnat_volumetricRegion_subregion_meta_data15		xnat_volumetricRegion_subregion_meta_data.shareable
+xnat:volumetricRegion_subregion/meta/meta_data_id                                                   xnat_volumetricRegion_subregion_meta_data16		xnat_volumetricRegion_subregion_meta_data.meta_data_id

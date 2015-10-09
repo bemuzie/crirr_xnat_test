@@ -1,0 +1,23 @@
+
+
+*********************************************
+
+ac_s_cat_catalog_tag_r
+(ACTIVE - MULTIPLE - ROOT)
+
+cat:catalog_tag/tag                                                                                 cat_catalog_tag0		cat_catalog_tag.tag
+cat:catalog_tag/catalog_tag_info                                                                    cat_catalog_tag1		cat_catalog_tag.catalog_tag_info
+cat:catalog_tag/cat_catalog_tag_id                                                                  cat_catalog_tag2		cat_catalog_tag.cat_catalog_tag_id
+cat:catalog_tag/tags_tag_cat_catalog_cat_catalog_id                                                 cat_catalog_tag3		cat_catalog_tag.tags_tag_cat_catalog_cat_catalog_id
+cat:catalog_tag/meta/xft_version                                                                    cat_catalog_tag_meta_data4		cat_catalog_tag_meta_data.xft_version
+cat:catalog_tag/meta/last_modified                                                                  cat_catalog_tag_meta_data5		cat_catalog_tag_meta_data.last_modified
+cat:catalog_tag/meta/status                                                                         cat_catalog_tag_meta_data6		cat_catalog_tag_meta_data.status
+cat:catalog_tag/meta/activation_date                                                                cat_catalog_tag_meta_data7		cat_catalog_tag_meta_data.activation_date
+cat:catalog_tag/meta/row_last_modified                                                              cat_catalog_tag_meta_data8		cat_catalog_tag_meta_data.row_last_modified
+cat:catalog_tag/meta/insert_date                                                                    cat_catalog_tag_meta_data9		cat_catalog_tag_meta_data.insert_date
+cat:catalog_tag/meta/activation_user_xdat_user_id                                                   cat_catalog_tag_meta_data10		cat_catalog_tag_meta_data.activation_user_xdat_user_id
+cat:catalog_tag/meta/insert_user_xdat_user_id                                                       cat_catalog_tag_meta_data11		cat_catalog_tag_meta_data.insert_user_xdat_user_id
+cat:catalog_tag/meta/origin                                                                         cat_catalog_tag_meta_data12		cat_catalog_tag_meta_data.origin
+cat:catalog_tag/meta/modified                                                                       cat_catalog_tag_meta_data13		cat_catalog_tag_meta_data.modified
+cat:catalog_tag/meta/shareable                                                                      cat_catalog_tag_meta_data14		cat_catalog_tag_meta_data.shareable
+cat:catalog_tag/meta/meta_data_id                                                                   cat_catalog_tag_meta_data15		cat_catalog_tag_meta_data.meta_data_id

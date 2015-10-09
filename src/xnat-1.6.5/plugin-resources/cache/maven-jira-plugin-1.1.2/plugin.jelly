@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project 
+  xmlns:j="jelly:core" 
+  xmlns:define="jelly:define"
+  xmlns:jira="jira"
+  xmlns:maven="jelly:maven"
+  xmlns:doc="doc">
+  
+  <goal name="maven-jira-plugin:register">
+    <doc:registerReport 
+      name="Jira Report" 
+      pluginName="maven-jira-plugin"
+      link="jira"
+      description="Report all issues defined in Jira."/>
+  </goal>
+  
+  <goal name="maven-jira-plugin:deregister">
+    <doc:deregisterReport name="Jira Report"/>
+  </goal>
+  
+  <define:taglib uri="jira">
+    <define:jellybean
+      name="jira"
+      className="org.apache.maven.jira.JiraDownloader"
+      method="doExecute"
+      />
+  </define:taglib>
+  
+  <goal
+    name="maven-jira-plugin:report"
+    description="Generate report with all entries defined in Jira">
+    <mkdir dir="${maven.build.dir}/jira"/>
+    
+    <jira:jira
+      project="${pom}"
+      output="${maven.build.dir}/jira/jira-results.xml"
+      nbEntries="${maven.jira.nbentries}"
+      />
+    
+    <doc:jslFile
+      input="${maven.build.dir}/jira/jira-results.xml"
+      output="${maven.gen.docs}/jira.xml"
+      stylesheet="${plugin.resources}/jira.jsl"
+      outputMode="xml"
+      prettyPrint="true"
+      />
+    
+    <copy todir="${maven.docs.dest}/images/jira" overwrite="yes" filtering="yes">
+      <fileset dir="${plugin.resources}/images">
+        <include name="**/*.gif"/>
+      </fileset>
+    </copy>
+  </goal> 
+
+</project>

@@ -1,0 +1,77 @@
+
+
+*********************************************
+
+ac_s_val_protocolData_scan_check_r
+(ACTIVE - MULTIPLE - ROOT)
+
+val:protocolData_scan_check/additionalval_val_additionalval_id                                      val_protocolData_scan_check0		val_protocolData_scan_check.additionalval_val_additionalval_id
+val:protocolData_scan_check/SCAN_ID                                                                 val_protocolData_scan_check1		val_protocolData_scan_check.scan_id
+val:protocolData_scan_check/status                                                                  val_protocolData_scan_check2		val_protocolData_scan_check.status
+val:protocolData_scan_check/protocoldata_scan_check_info                                            val_protocolData_scan_check3		val_protocolData_scan_check.protocoldata_scan_check_info
+val:protocolData_scan_check/val_protocolData_scan_check_id                                          val_protocolData_scan_check4		val_protocolData_scan_check.val_protocoldata_scan_check_id
+val:protocolData_scan_check/scans_scan_check_val_protocolda_id                                      val_protocolData_scan_check5		val_protocolData_scan_check.scans_scan_check_val_protocolda_id
+val:protocolData_scan_check/conditions/condition/verified                                           val_protocolData_scan_check_condition6		val_protocolData_scan_check_condition.verified
+val:protocolData_scan_check/conditions/condition/diagnosis                                          val_protocolData_scan_check_condition7		val_protocolData_scan_check_condition.diagnosis
+val:protocolData_scan_check/conditions/condition/ID                                                 val_protocolData_scan_check_condition8		val_protocolData_scan_check_condition.id
+val:protocolData_scan_check/conditions/condition/status                                             val_protocolData_scan_check_condition9		val_protocolData_scan_check_condition.status
+val:protocolData_scan_check/conditions/condition/xmlpath                                            val_protocolData_scan_check_condition10		val_protocolData_scan_check_condition.xmlpath
+val:protocolData_scan_check/conditions/condition/protocoldata_scan_check_condition_info             val_protocolData_scan_check_condition11		val_protocolData_scan_check_condition.protocoldata_scan_check_condition_info
+val:protocolData_scan_check/conditions/condition/val_protocolData_scan_check_condition_id           val_protocolData_scan_check_condition12		val_protocolData_scan_check_condition.val_protocoldata_scan_check_condition_id
+val:protocolData_scan_check/conditions/condition/conditions_condition_val_protoc_val_protocoldata_scan_check_id	val_protocolData_scan_check_condition13		val_protocolData_scan_check_condition.conditions_condition_val_protoc_val_protocoldata_scan_check_id
+val:protocolData_scan_check/conditions/condition/meta/xft_version                                   val_protocolData_scan_check_condition_meta_data14		val_protocolData_scan_check_condition_meta_data.xft_version
+val:protocolData_scan_check/conditions/condition/meta/last_modified                                 val_protocolData_scan_check_condition_meta_data15		val_protocolData_scan_check_condition_meta_data.last_modified
+val:protocolData_scan_check/conditions/condition/meta/status                                        val_protocolData_scan_check_condition_meta_data16		val_protocolData_scan_check_condition_meta_data.status
+val:protocolData_scan_check/conditions/condition/meta/activation_date                               val_protocolData_scan_check_condition_meta_data17		val_protocolData_scan_check_condition_meta_data.activation_date
+val:protocolData_scan_check/conditions/condition/meta/row_last_modified                             val_protocolData_scan_check_condition_meta_data18		val_protocolData_scan_check_condition_meta_data.row_last_modified
+val:protocolData_scan_check/conditions/condition/meta/insert_date                                   val_protocolData_scan_check_condition_meta_data19		val_protocolData_scan_check_condition_meta_data.insert_date
+val:protocolData_scan_check/conditions/condition/meta/activation_user_xdat_user_id                  val_protocolData_scan_check_condition_meta_data20		val_protocolData_scan_check_condition_meta_data.activation_user_xdat_user_id
+val:protocolData_scan_check/conditions/condition/meta/insert_user_xdat_user_id                      val_protocolData_scan_check_condition_meta_data21		val_protocolData_scan_check_condition_meta_data.insert_user_xdat_user_id
+val:protocolData_scan_check/conditions/condition/meta/origin                                        val_protocolData_scan_check_condition_meta_data22		val_protocolData_scan_check_condition_meta_data.origin
+val:protocolData_scan_check/conditions/condition/meta/modified                                      val_protocolData_scan_check_condition_meta_data23		val_protocolData_scan_check_condition_meta_data.modified
+val:protocolData_scan_check/conditions/condition/meta/shareable                                     val_protocolData_scan_check_condition_meta_data24		val_protocolData_scan_check_condition_meta_data.shareable
+val:protocolData_scan_check/conditions/condition/meta/meta_data_id                                  val_protocolData_scan_check_condition_meta_data25		val_protocolData_scan_check_condition_meta_data.meta_data_id
+val:protocolData_scan_check/comments/comment/comment                                                val_protocolData_scan_check_comment26		val_protocolData_scan_check_comment.comment
+val:protocolData_scan_check/comments/comment/username                                               val_protocolData_scan_check_comment27		val_protocolData_scan_check_comment.username
+val:protocolData_scan_check/comments/comment/dateTime                                               val_protocolData_scan_check_comment28		val_protocolData_scan_check_comment.datetime
+val:protocolData_scan_check/comments/comment/protocoldata_scan_check_comment_info                   val_protocolData_scan_check_comment29		val_protocolData_scan_check_comment.protocoldata_scan_check_comment_info
+val:protocolData_scan_check/comments/comment/val_protocolData_scan_check_comment_id                 val_protocolData_scan_check_comment30		val_protocolData_scan_check_comment.val_protocoldata_scan_check_comment_id
+val:protocolData_scan_check/comments/comment/comments_comment_val_protocolda_val_protocoldata_scan_check_id	val_protocolData_scan_check_comment31		val_protocolData_scan_check_comment.comments_comment_val_protocolda_val_protocoldata_scan_check_id
+val:protocolData_scan_check/comments/comment/meta/xft_version                                       val_protocolData_scan_check_comment_meta_data32		val_protocolData_scan_check_comment_meta_data.xft_version
+val:protocolData_scan_check/comments/comment/meta/last_modified                                     val_protocolData_scan_check_comment_meta_data33		val_protocolData_scan_check_comment_meta_data.last_modified
+val:protocolData_scan_check/comments/comment/meta/status                                            val_protocolData_scan_check_comment_meta_data34		val_protocolData_scan_check_comment_meta_data.status
+val:protocolData_scan_check/comments/comment/meta/activation_date                                   val_protocolData_scan_check_comment_meta_data35		val_protocolData_scan_check_comment_meta_data.activation_date
+val:protocolData_scan_check/comments/comment/meta/row_last_modified                                 val_protocolData_scan_check_comment_meta_data36		val_protocolData_scan_check_comment_meta_data.row_last_modified
+val:protocolData_scan_check/comments/comment/meta/insert_date                                       val_protocolData_scan_check_comment_meta_data37		val_protocolData_scan_check_comment_meta_data.insert_date
+val:protocolData_scan_check/comments/comment/meta/activation_user_xdat_user_id                      val_protocolData_scan_check_comment_meta_data38		val_protocolData_scan_check_comment_meta_data.activation_user_xdat_user_id
+val:protocolData_scan_check/comments/comment/meta/insert_user_xdat_user_id                          val_protocolData_scan_check_comment_meta_data39		val_protocolData_scan_check_comment_meta_data.insert_user_xdat_user_id
+val:protocolData_scan_check/comments/comment/meta/origin                                            val_protocolData_scan_check_comment_meta_data40		val_protocolData_scan_check_comment_meta_data.origin
+val:protocolData_scan_check/comments/comment/meta/modified                                          val_protocolData_scan_check_comment_meta_data41		val_protocolData_scan_check_comment_meta_data.modified
+val:protocolData_scan_check/comments/comment/meta/shareable                                         val_protocolData_scan_check_comment_meta_data42		val_protocolData_scan_check_comment_meta_data.shareable
+val:protocolData_scan_check/comments/comment/meta/meta_data_id                                      val_protocolData_scan_check_comment_meta_data43		val_protocolData_scan_check_comment_meta_data.meta_data_id
+val:protocolData_scan_check/additionalVal/additionalval_info                                        val_additionalVal44		val_additionalVal.additionalval_info
+val:protocolData_scan_check/additionalVal/val_additionalVal_id                                      val_additionalVal45		val_additionalVal.val_additionalval_id
+val:protocolData_scan_check/additionalVal/meta/xft_version                                          val_additionalVal_meta_data46		val_additionalVal_meta_data.xft_version
+val:protocolData_scan_check/additionalVal/meta/last_modified                                        val_additionalVal_meta_data47		val_additionalVal_meta_data.last_modified
+val:protocolData_scan_check/additionalVal/meta/status                                               val_additionalVal_meta_data48		val_additionalVal_meta_data.status
+val:protocolData_scan_check/additionalVal/meta/activation_date                                      val_additionalVal_meta_data49		val_additionalVal_meta_data.activation_date
+val:protocolData_scan_check/additionalVal/meta/row_last_modified                                    val_additionalVal_meta_data50		val_additionalVal_meta_data.row_last_modified
+val:protocolData_scan_check/additionalVal/meta/insert_date                                          val_additionalVal_meta_data51		val_additionalVal_meta_data.insert_date
+val:protocolData_scan_check/additionalVal/meta/activation_user_xdat_user_id                         val_additionalVal_meta_data52		val_additionalVal_meta_data.activation_user_xdat_user_id
+val:protocolData_scan_check/additionalVal/meta/insert_user_xdat_user_id                             val_additionalVal_meta_data53		val_additionalVal_meta_data.insert_user_xdat_user_id
+val:protocolData_scan_check/additionalVal/meta/origin                                               val_additionalVal_meta_data54		val_additionalVal_meta_data.origin
+val:protocolData_scan_check/additionalVal/meta/modified                                             val_additionalVal_meta_data55		val_additionalVal_meta_data.modified
+val:protocolData_scan_check/additionalVal/meta/shareable                                            val_additionalVal_meta_data56		val_additionalVal_meta_data.shareable
+val:protocolData_scan_check/additionalVal/meta/meta_data_id                                         val_additionalVal_meta_data57		val_additionalVal_meta_data.meta_data_id
+val:protocolData_scan_check/meta/xft_version                                                        val_protocolData_scan_check_meta_data58		val_protocolData_scan_check_meta_data.xft_version
+val:protocolData_scan_check/meta/last_modified                                                      val_protocolData_scan_check_meta_data59		val_protocolData_scan_check_meta_data.last_modified
+val:protocolData_scan_check/meta/status                                                             val_protocolData_scan_check_meta_data60		val_protocolData_scan_check_meta_data.status
+val:protocolData_scan_check/meta/activation_date                                                    val_protocolData_scan_check_meta_data61		val_protocolData_scan_check_meta_data.activation_date
+val:protocolData_scan_check/meta/row_last_modified                                                  val_protocolData_scan_check_meta_data62		val_protocolData_scan_check_meta_data.row_last_modified
+val:protocolData_scan_check/meta/insert_date                                                        val_protocolData_scan_check_meta_data63		val_protocolData_scan_check_meta_data.insert_date
+val:protocolData_scan_check/meta/activation_user_xdat_user_id                                       val_protocolData_scan_check_meta_data64		val_protocolData_scan_check_meta_data.activation_user_xdat_user_id
+val:protocolData_scan_check/meta/insert_user_xdat_user_id                                           val_protocolData_scan_check_meta_data65		val_protocolData_scan_check_meta_data.insert_user_xdat_user_id
+val:protocolData_scan_check/meta/origin                                                             val_protocolData_scan_check_meta_data66		val_protocolData_scan_check_meta_data.origin
+val:protocolData_scan_check/meta/modified                                                           val_protocolData_scan_check_meta_data67		val_protocolData_scan_check_meta_data.modified
+val:protocolData_scan_check/meta/shareable                                                          val_protocolData_scan_check_meta_data68		val_protocolData_scan_check_meta_data.shareable
+val:protocolData_scan_check/meta/meta_data_id                                                       val_protocolData_scan_check_meta_data69		val_protocolData_scan_check_meta_data.meta_data_id

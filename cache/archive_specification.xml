@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arc:ArchiveSpecification site_id="XNAT" site_admin_email="administrator@xnat.org" site_url="http://xnatdev.xnat.org" smtp_host="mail.server" require_login="1" enable_new_registrations="0" enable_csrf_token="1" xmlns:arc="http://nrg.wustl.edu/arc" xmlns:ext="http://nrg.wustl.edu/ext" xmlns:val="http://nrg.wustl.edu/val" xmlns:pipe="http://nrg.wustl.edu/pipe" xmlns:wrk="http://nrg.wustl.edu/workflow" xmlns:scr="http://nrg.wustl.edu/scr" xmlns:xdat="http://nrg.wustl.edu/security" xmlns:cat="http://nrg.wustl.edu/catalog" xmlns:prov="http://www.nbirn.net/prov" xmlns:xnat="http://nrg.wustl.edu/xnat" xmlns:xnat_a="http://nrg.wustl.edu/xnat_assessments" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nrg.wustl.edu/workflow pipeline/workflow.xsd http://nrg.wustl.edu/catalog catalog/catalog.xsd http://nrg.wustl.edu/pipe pipeline/repository.xsd http://nrg.wustl.edu/scr screening/screeningAssessment.xsd http://nrg.wustl.edu/ext ext/ext.xsd http://nrg.wustl.edu/arc project/project.xsd http://nrg.wustl.edu/val validation/protocolValidation.xsd http://nrg.wustl.edu/xnat xnat/xnat.xsd http://nrg.wustl.edu/xnat_assessments assessments/assessments.xsd http://www.nbirn.net/prov birn/birnprov.xsd http://nrg.wustl.edu/security security/security.xsd">
+<arc:globalPaths>
+<arc:archivePath>/data/xnat/archive/</arc:archivePath>
+<arc:prearchivePath>/data/xnat/prearchive/</arc:prearchivePath>
+<arc:cachePath>/data/xnat/cache/</arc:cachePath>
+<arc:buildPath>/data/xnat/build/</arc:buildPath>
+<arc:ftpPath>/data/xnat/ftp/</arc:ftpPath>
+<arc:pipelinePath>/data/xnat/pipeline/</arc:pipelinePath>
+</arc:globalPaths>
+<arc:projects>
+<arc:project id="example1" current_arc="arc001" prearchive_code="4">
+<arc:paths>
+<arc:archivePath>/data/xnat/archive/example1/</arc:archivePath>
+<arc:prearchivePath>/data/xnat/prearchive/example1/</arc:prearchivePath>
+<arc:cachePath>/data/xnat/cache/example1/</arc:cachePath>
+<arc:buildPath>/data/xnat/build/example1/</arc:buildPath>
+</arc:paths>
+</arc:project>
+</arc:projects>
+<arc:emailSpecifications new_user_registration="1" pipeline="1" project_access="1" transfer="1" page_email="1"/>
+<arc:notification_types>
+<arc:notification_type email_addresses="admin &lt;administrator@xnat.org&gt;">Update</arc:notification_type>
+<arc:notification_type email_addresses="admin &lt;administrator@xnat.org&gt;">Error</arc:notification_type>
+<arc:notification_type email_addresses="admin &lt;administrator@xnat.org&gt;">Issue</arc:notification_type>
+<arc:notification_type email_addresses="admin &lt;administrator@xnat.org&gt;">NewUser</arc:notification_type>
+</arc:notification_types>
+<arc:dcm dcm_host="xnatdev.xnat.org" dcm_port="8104" dcm_ae="XNAT" applet_link="1"/>
+</arc:ArchiveSpecification>

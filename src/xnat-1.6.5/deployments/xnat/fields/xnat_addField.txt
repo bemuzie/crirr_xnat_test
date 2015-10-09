@@ -1,0 +1,27 @@
+
+
+*********************************************
+
+ac_s_xnat_addField_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:addField/addField                                                                              xnat_addField0		xnat_addField.addfield
+xnat:addField/name                                                                                  xnat_addField1		xnat_addField.name
+xnat:addField/addfield_info                                                                         xnat_addField2		xnat_addField.addfield_info
+xnat:addField/xnat_addField_id                                                                      xnat_addField3		xnat_addField.xnat_addfield_id
+xnat:addField/parameters_addparam_xnat_mrscan_xnat_imagescandata_id                                 xnat_addField4		xnat_addField.parameters_addparam_xnat_mrscan_xnat_imagescandata_id
+xnat:addField/parameters_addparam_xnat_recons_xnat_reconstructedimagedata_id                        xnat_addField5		xnat_addField.parameters_addparam_xnat_recons_xnat_reconstructedimagedata_id
+xnat:addField/parameters_addparam_xnat_petsca_xnat_imagescandata_id                                 xnat_addField6		xnat_addField.parameters_addparam_xnat_petsca_xnat_imagescandata_id
+xnat:addField/parameters_addparam_xnat_imagea_id                                                    xnat_addField7		xnat_addField.parameters_addparam_xnat_imagea_id
+xnat:addField/meta/xft_version                                                                      xnat_addField_meta_data8		xnat_addField_meta_data.xft_version
+xnat:addField/meta/last_modified                                                                    xnat_addField_meta_data9		xnat_addField_meta_data.last_modified
+xnat:addField/meta/status                                                                           xnat_addField_meta_data10		xnat_addField_meta_data.status
+xnat:addField/meta/activation_date                                                                  xnat_addField_meta_data11		xnat_addField_meta_data.activation_date
+xnat:addField/meta/row_last_modified                                                                xnat_addField_meta_data12		xnat_addField_meta_data.row_last_modified
+xnat:addField/meta/insert_date                                                                      xnat_addField_meta_data13		xnat_addField_meta_data.insert_date
+xnat:addField/meta/activation_user_xdat_user_id                                                     xnat_addField_meta_data14		xnat_addField_meta_data.activation_user_xdat_user_id
+xnat:addField/meta/insert_user_xdat_user_id                                                         xnat_addField_meta_data15		xnat_addField_meta_data.insert_user_xdat_user_id
+xnat:addField/meta/origin                                                                           xnat_addField_meta_data16		xnat_addField_meta_data.origin
+xnat:addField/meta/modified                                                                         xnat_addField_meta_data17		xnat_addField_meta_data.modified
+xnat:addField/meta/shareable                                                                        xnat_addField_meta_data18		xnat_addField_meta_data.shareable
+xnat:addField/meta/meta_data_id                                                                     xnat_addField_meta_data19		xnat_addField_meta_data.meta_data_id

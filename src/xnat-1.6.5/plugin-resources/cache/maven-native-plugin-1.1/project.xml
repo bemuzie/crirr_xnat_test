@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-native-plugin</id>
+  <name>Maven Native Plug-in</name>
+  <currentVersion>1.1</currentVersion>
+  <description>Plugin for native compilation c,c++, fortran</description>
+  <shortDescription>Native plugin</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/native/</url>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/native/</siteDirectory>
+  <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10451</issueTrackingUrl>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/native/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/native/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/native/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>MAVEN_NATIVE_1_0</tag>
+    </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_NATIVE_1_1</tag>
+    </version>
+  </versions>
+  <developers>
+    <developer>
+      <name>Kasper Nielsen</name>
+      <id>knielsen</id>
+      <email>apache@kav.dk</email>
+      <organization>it.edu</organization>
+      <roles>
+        <role>Architect</role>
+      </roles>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Joachim Bader</name>
+      <email>info@joachim-bader.de</email>
+      <organization>proveo.de</organization>
+      <url>http://www.joachim-bader.de</url>
+      <timezone>+1</timezone>
+    </contributor>
+  </contributors>
+  <dependencies>
+    <dependency>
+      <groupId>ant-contrib</groupId>
+      <artifactId>cpptasks</artifactId>
+      <version>20030309.134440</version>
+    </dependency>
+    <dependency>
+      <groupId>bcel</groupId>
+      <artifactId>bcel</artifactId>
+      <version>5.0</version>
+    </dependency>
+  </dependencies>
+</project>

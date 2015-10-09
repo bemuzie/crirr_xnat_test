@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_statisticsData_addField_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:statisticsData_addField/addField                                                               xnat_statisticsData_addField0		xnat_statisticsData_addField.addfield
+xnat:statisticsData_addField/name                                                                   xnat_statisticsData_addField1		xnat_statisticsData_addField.name
+xnat:statisticsData_addField/statisticsdata_addfield_info                                           xnat_statisticsData_addField2		xnat_statisticsData_addField.statisticsdata_addfield_info
+xnat:statisticsData_addField/xnat_statisticsData_addField_id                                        xnat_statisticsData_addField3		xnat_statisticsData_addField.xnat_statisticsdata_addfield_id
+xnat:statisticsData_addField/xnat_statisticsdata_xnat_abstractstatistics_id                         xnat_statisticsData_addField4		xnat_statisticsData_addField.xnat_statisticsdata_xnat_abstractstatistics_id
+xnat:statisticsData_addField/meta/xft_version                                                       xnat_statisticsData_addField_meta_data5		xnat_statisticsData_addField_meta_data.xft_version
+xnat:statisticsData_addField/meta/last_modified                                                     xnat_statisticsData_addField_meta_data6		xnat_statisticsData_addField_meta_data.last_modified
+xnat:statisticsData_addField/meta/status                                                            xnat_statisticsData_addField_meta_data7		xnat_statisticsData_addField_meta_data.status
+xnat:statisticsData_addField/meta/activation_date                                                   xnat_statisticsData_addField_meta_data8		xnat_statisticsData_addField_meta_data.activation_date
+xnat:statisticsData_addField/meta/row_last_modified                                                 xnat_statisticsData_addField_meta_data9		xnat_statisticsData_addField_meta_data.row_last_modified
+xnat:statisticsData_addField/meta/insert_date                                                       xnat_statisticsData_addField_meta_data10		xnat_statisticsData_addField_meta_data.insert_date
+xnat:statisticsData_addField/meta/activation_user_xdat_user_id                                      xnat_statisticsData_addField_meta_data11		xnat_statisticsData_addField_meta_data.activation_user_xdat_user_id
+xnat:statisticsData_addField/meta/insert_user_xdat_user_id                                          xnat_statisticsData_addField_meta_data12		xnat_statisticsData_addField_meta_data.insert_user_xdat_user_id
+xnat:statisticsData_addField/meta/origin                                                            xnat_statisticsData_addField_meta_data13		xnat_statisticsData_addField_meta_data.origin
+xnat:statisticsData_addField/meta/modified                                                          xnat_statisticsData_addField_meta_data14		xnat_statisticsData_addField_meta_data.modified
+xnat:statisticsData_addField/meta/shareable                                                         xnat_statisticsData_addField_meta_data15		xnat_statisticsData_addField_meta_data.shareable
+xnat:statisticsData_addField/meta/meta_data_id                                                      xnat_statisticsData_addField_meta_data16		xnat_statisticsData_addField_meta_data.meta_data_id

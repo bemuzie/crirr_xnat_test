@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<!--
+  =============================================================================
+    JBoss plugin for Maven. Contains JBoss related goals useful for
+    packaging and deploying applications.
+  =============================================================================
+-->
+<project 
+  xmlns:ant="jelly:ant"
+  xmlns:j="jelly:core"
+  xmlns:util="jelly:util"
+  xmlns:jmx="jmx"
+  xmlns:define="jelly:define"
+  xmlns:artifact="artifact">
+
+  <!--
+     ========================================================================
+       Default goal.
+     ========================================================================
+  -->
+  <goal name="jboss" 
+    description="Creates a specific JBoss server configuration"
+    prereqs="jboss:configure"/>
+
+  <!--
+     ========================================================================
+       Initializations.
+     ========================================================================
+  -->
+  <goal name="jboss:init">
+
+    <!-- Check if the maven.jboss.home mandatory property is set and point
+         to a valid location -->
+    <ant:condition property="jbosshomepresent" value="true">
+      <ant:and>
+        <ant:isset property="maven.jboss.home"/>
+        <ant:available file="${maven.jboss.home}" type="dir"/>
+      </ant:and>     
+    </ant:condition>
+    <j:if test="${jbosshomepresent != 'true'}">
+      <fail>You need to set the maven.jboss.home property and make it point to a valid location. It currently points to [${maven.jboss.home}].</fail>
+    </j:if>
+
+    <ant:echo>Using JBoss from [${maven.jboss.home}]</ant:echo>
+    <ant:echo>Using JBoss ${maven.jboss.version}</ant:echo>
+    
+    <ant:property name="maven.jboss.build.deploy.dir"
+      value="${maven.jboss.build.dir}/${maven.jboss.conf.name}/deploy"/>
+    <ant:property name="maven.jboss.build.lib.dir"
+      value="${maven.jboss.build.dir}/${maven.jboss.conf.name}/lib"/>
+    <ant:property name="maven.jboss.build.conf.dir"
+      value="${maven.jboss.build.dir}/${maven.jboss.conf.name}/conf"/>
+    <ant:property name="maven.jboss.build.bin.dir"
+      value="${maven.jboss.build.dir}/bin"/>
+
+    <!-- Define the URL that points to our custom jboss server configuration.
+         Construct a URL valid on any OS -->
+    <util:file var="jbossfile"
+      name="${maven.jboss.build.dir}/${maven.jboss.conf.name}"/>
+    <j:set var="jbossurl" value="${jbossfile.toURL()}"/>
+               
+    <!-- Filters used in the default jboss scripts run/shutdown -->
+    <ant:filter token="maven.jboss.home" value="${maven.jboss.home}"/>
+    <ant:filter token="jboss.server.home.dir" 
+      value="${maven.jboss.build.dir}/${maven.jboss.conf.name}"/>
+    <ant:filter token="jboss.server.home.url"
+      value="${jbossurl}"/>
+    <ant:filter token="maven.jboss.conf.name" value="${maven.jboss.conf.name}"/>
+    <ant:filter token="maven.jboss.version" value="${maven.jboss.version}"/>
+    <ant:filter token="maven.jboss.hostname" value="${maven.jboss.hostname}"/>
+    
+    <j:choose>
+      <j:when test="${systemScope['os.name'].startsWith('Windows')}">
+        <j:set var="isWindows" value="true"/>
+        <ant:echo>The operating system is Windows</ant:echo>
+      </j:when>
+      <j:otherwise>
+        <ant:echo>The operating system is Unix</ant:echo>
+      </j:otherwise>
+    </j:choose>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Creates a custom JBoss server configuration directory structure
+       (with no J2EE modules deployed).
+     ========================================================================
+  -->
+  <goal name="jboss:configure" 
+    description="Creates a specific JBoss server configuration"
+    prereqs="jboss:init">
+
+    <!-- Copy the JBoss lib jars from an existing JBoss default server
+         configuration to our specific configuration -->
+    <ant:copy todir="${maven.jboss.build.lib.dir}">
+      <ant:fileset dir="${maven.jboss.default.lib.dir}"
+        includes="${maven.jboss.default.lib.includes}"
+        excludes="${maven.jboss.default.lib.excludes}"/>
+    </ant:copy>
+
+    <!-- Copy user-specific lib jars defined in project.xml and tagged with
+         <jboss.lib.bundle> -->
+    <j:forEach var="lib" items="${pom.artifacts}">
+      <j:set var="dep" value="${lib.dependency}"/>
+      <j:if test="${dep.getProperty('jboss.lib.bundle') == 'true'}">
+        <ant:echo>Bundling: (${dep.groupId}, ${dep.artifactId}, ${dep.type})</ant:echo>
+        <ant:copy todir="${maven.jboss.build.lib.dir}" file="${lib.path}"/>
+      </j:if>
+    </j:forEach>
+
+    <!-- Copy the JBoss default conf files from an existing JBoss
+    	 server configuration to our specific configuration -->
+    <ant:copy todir="${maven.jboss.build.conf.dir}">
+      <ant:fileset dir="${maven.jboss.default.conf.dir}"
+        includes="${maven.jboss.default.conf.includes}"
+        excludes="${maven.jboss.default.conf.excludes}"/>
+    </ant:copy>
+
+    <!-- Copy the JBoss default deploy files from an existing JBoss
+    	 server configuration to our specific configuration -->
+    <ant:copy todir="${maven.jboss.build.deploy.dir}">
+      <ant:fileset dir="${maven.jboss.default.deploy.dir}"
+        includes="${maven.jboss.default.deploy.includes}"
+        excludes="${maven.jboss.default.deploy.excludes}"/>
+    </ant:copy>
+    	 
+    <!-- Copy the application-specific JBoss conf files to our 
+         specific configuration (if any) -->
+    <j:if test="${context.getVariable('maven.jboss.conf.dir') != null}">
+      <ant:copy todir="${maven.jboss.build.conf.dir}" overwrite="true">
+        <ant:fileset dir="${maven.jboss.conf.dir}"/>
+      </ant:copy>
+    </j:if>
+
+    <!-- Copy the application-specific JBoss deploy files to our 
+         specific configuration (if any) -->
+    <j:if test="${context.getVariable('maven.jboss.deploy.dir') != null}">
+      <ant:copy todir="${maven.jboss.build.deploy.dir}" overwrite="true">
+        <ant:fileset dir="${maven.jboss.deploy.dir}"/>
+      </ant:copy>
+    </j:if>
+
+    <!-- Copy the application-specific conf files to our 
+         specific configuration (if any) -->
+    <j:if test="${context.getVariable('maven.jboss.appconf.dir') != null}">
+      <ant:copy todir="${maven.jboss.build.conf.dir}">
+        <ant:fileset dir="${maven.jboss.appconf.dir}"/>
+      </ant:copy>
+    </j:if>
+
+    <!-- Copy the jboss scripts to start/stop/etc -->
+    <j:choose>
+      <j:when test="${isWindows}">
+        <ant:copy todir="${maven.jboss.build.bin.dir}" filtering="on">
+          <ant:fileset dir="${maven.jboss.script.dir}">
+            <ant:include name="*.bat"/>
+            <ant:exclude name="shutdown*"/>
+          </ant:fileset>
+        </ant:copy>
+        <ant:copy tofile="${maven.jboss.build.bin.dir}/shutdown.bat" 
+          file="${maven.jboss.script.dir}/shutdown.${maven.jboss.version}.bat"
+          filtering="on"/>
+      </j:when>
+      <j:otherwise>
+        <ant:copy todir="${maven.jboss.build.bin.dir}" filtering="on">
+          <ant:fileset dir="${maven.jboss.script.dir}">
+            <ant:exclude name="*.bat"/>
+            <ant:exclude name="shutdown*"/>
+          </ant:fileset>
+        </ant:copy>
+        <ant:copy tofile="${maven.jboss.build.bin.dir}/shutdown"
+          file="${maven.jboss.script.dir}/shutdown.${maven.jboss.version}"
+          filtering="on"/>
+      </j:otherwise>
+    </j:choose>
+   
+  </goal>
+
+  <!--
+     ========================================================================
+       Package J2EE modules in the custom JBoss server configuration 
+       directory structure.
+     ========================================================================
+  -->
+  <goal name="jboss:package" 
+    description="Creates a specific JBoss server configuration"
+    prereqs="jboss:init,jboss:configure">
+
+    <j:forEach var="lib" items="${pom.artifacts}">
+      <j:set var="dep" value="${lib.dependency}"/>
+      <j:if test="${dep.getProperty('jboss.bundle') == 'true'}">
+        <ant:echo>Bundling: (${dep.groupId}, ${dep.artifactId}, ${dep.type})</ant:echo>
+        <ant:copy todir="${maven.jboss.build.deploy.dir}" file="${lib.path}"/>
+      </j:if>
+    </j:forEach>
+    
+  </goal>
+
+  <!--
+     ========================================================================
+       Generates the zipped JBoss configuration.
+     ========================================================================
+  -->
+  <goal name="jboss:dist" prereqs="jboss:package"
+    description="Generate zipped JBoss configuration">
+
+    <!-- Generate the distributable -->
+    <ant:zip destfile="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.zip">
+      <ant:zipfileset dir="${maven.jboss.build.dir}" prefix="${pom.artifactId}">
+        <ant:exclude name="**/tmp/**"/>
+        <ant:exclude name="**/log/**"/>        
+      </ant:zipfileset>
+    </ant:zip>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Install the produced zip artifact to the local repository
+     ========================================================================
+  -->
+  <goal name="jboss:install" prereqs="jboss:dist"
+    description="Install the zip into the local repository">
+
+     <artifact:install
+        artifact="${maven.build.dir}/${pom.artifactId}-${pom.currentVersion}.zip"
+        type="zip"
+        project="${pom}"/>     
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Start JBoss using our specific server configuration.
+     ========================================================================
+  -->
+  <goal name="jboss:start" prereqs="jboss:init"
+    description="Starts JBoss with our specific server configuration">
+
+    <j:choose>
+
+      <j:when test="${isWindows}">
+        <ant:exec dir="${maven.jboss.home}/bin" executable="cmd.exe">
+          <ant:arg line="/c ${maven.jboss.build.bin.dir}/run.bat"/>
+        </ant:exec>        
+      </j:when>
+
+      <j:otherwise>
+        <ant:exec dir="${maven.jboss.home}/bin" executable="sh">
+          <ant:arg line="${maven.jboss.build.bin.dir}/run"/>
+        </ant:exec>        
+      </j:otherwise>
+
+    </j:choose>
+          
+  </goal>
+
+  <!--
+     ========================================================================
+       Stop JBoss.
+     ========================================================================
+  -->
+  <goal name="jboss:stop" prereqs="jboss:init" 
+    description="Stops JBoss">
+
+    <j:choose>
+
+      <j:when test="${isWindows}">
+        <ant:exec dir="${maven.jboss.build.bin.dir}" executable="cmd.exe">
+          <ant:arg line="/c shutdown.bat"/>
+        </ant:exec>        
+      </j:when>
+
+      <j:otherwise>
+        <ant:exec dir="${maven.jboss.home}/bin" executable="sh">
+          <ant:arg line="${maven.jboss.build.bin.dir}/shutdown"/>
+        </ant:exec>        
+      </j:otherwise>
+
+    </j:choose>
+
+  </goal>
+
+  <!--
+     ========================================================================
+       Various deploy/undeploy goals.
+       
+       Note: The war plugin's war:webapp goal will create an exploded warfile
+       at ${maven.build.dir}/${pom.artifactId}. If you want to deploy
+       that then it really should be ${maven.build.dir}/${pom.artifactId}.war.
+       Thus, in your project.properties, you should set maven.war.webapp.dir
+       to ${maven.build.dir}/${pom.artifactId}.war. In an ideal world that
+       would be the default value. I'm not sure why it isn't and I don't
+       want to change it because someone may be relying on the existing
+       behavior.
+       
+       You have been warned!         
+     ========================================================================
+  -->
+  <goal name="jboss:deploy-exploded-warfile" prereqs="war:webapp"
+    description="Invoke the 'war:webapp' goal and deploy the result. Note that 'maven.war.webapp.dir' *must* end with '.war' for this to work correctly.">
+    <jmx:deploy jmx.deploy.file='${context.getVariable("maven.war.webapp.dir")}'/>
+  </goal>
+  
+  <goal name="jboss:undeploy-exploded-warfile"
+    description="Undeploy the result of the 'war:webapp' goal. Note that 'maven.war.webapp.dir' *must* end with '.war' for this to work correctly.">
+    <jmx:undeploy jmx.deploy.file='${context.getVariable("maven.war.webapp.dir")}'/>
+  </goal>
+   
+  <goal name="jboss:deploy-warfile" prereqs="war:war"
+    description="Invoke the 'war' goal and deploy the result"> 
+    <jmx:deploy jmx.deploy.file='${maven.build.dir}/${maven.war.final.name}'/>
+  </goal>
+  
+  <goal name="jboss:undeploy-warfile" prereqs="war:init"
+    description="Undeploy the result of the 'war' goal">
+    <jmx:undeploy jmx.deploy.file='${maven.build.dir}/${maven.war.final.name}'/>
+  </goal>
+   
+  <!-- Once maven has a goal that will build a jarfile of EJBs, this should
+       list it as a prereq -->
+  <goal name="jboss:deploy-ejb"
+    description="Deploy ${maven.final.name}.jar">
+    <jmx:deploy jmx.deploy.file='${maven.build.dir}/${maven.final.name}.jar'/>
+  </goal>
+ 
+  <goal name="jboss:undeploy-ejb"
+    description="Undeploy ${maven.final.name}.jar">
+    <jmx:undeploy jmx.deploy.file='${maven.build.dir}/${maven.final.name}.jar'/>
+  </goal>
+  
+  <!-- Once maven has a goal that will build an earfile of EJBs, this should
+       list it as a prereq -->
+  <goal name="jboss:deploy-ear"
+    description="Deploy ${maven.final.name}.ear">
+    <jmx:deploy jmx.deploy.file='${maven.build.dir}/${maven.final.name}.ear'/>
+  </goal>
+
+  <goal name="jboss:undeploy-ear"
+    description="Undeploy ${maven.final.name}.ear">
+    <jmx:undeploy jmx.deploy.file='${maven.build.dir}/${maven.final.name}.ear'/>
+  </goal>
+  
+  <!--
+     ========================================================================
+       JMX tags to deploy and undeploy "things"
+     ========================================================================
+  -->
+  <define:taglib uri="jmx">
+
+    <define:tag name="deploy">
+      <j:set var="undeployURL" value="maven.jboss.jmx.url.undeploy.${maven.jboss.version}"/>
+      <j:set var="maven.jboss.jmx.url.undeploy"
+        value='${pom.getPluginContext("maven-jboss-plugin").getVariable(undeployURL)}'/>
+      <get dest="deploy.log"
+        src="${maven.jboss.jmx.url.undeploy}file:${jmx.deploy.file}"/>
+
+      <j:set var="deployURL" value="maven.jboss.jmx.url.deploy.${maven.jboss.version}"/>
+      <j:set var="maven.jboss.jmx.url.deploy"
+        value='${pom.getPluginContext("maven-jboss-plugin").getVariable(deployURL)}'/>
+      <get dest="deploy.log"
+        src="${maven.jboss.jmx.url.deploy}file:${jmx.deploy.file}"/>
+    </define:tag>
+
+    <define:tag name="undeploy">
+      <j:set var="undeployURL" value="maven.jboss.jmx.url.undeploy.${maven.jboss.version}"/>
+      <j:set var="maven.jboss.jmx.url.undeploy"
+        value='${pom.getPluginContext("maven-jboss-plugin").getVariable(undeployURL)}'/>
+      <get dest="deploy.log"
+        src="${maven.jboss.jmx.url.undeploy}file:${jmx.deploy.file}"/>
+    </define:tag>
+  </define:taglib>
+
+</project>

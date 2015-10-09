@@ -1,0 +1,41 @@
+
+
+*********************************************
+
+ac_s_xdat_role_type_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:role_type/role_name                                                                            xdat_role_type0		xdat_role_type.role_name
+xdat:role_type/description                                                                          xdat_role_type1		xdat_role_type.description
+xdat:role_type/sequence                                                                             xdat_role_type2		xdat_role_type.sequence
+xdat:role_type/role_type_info                                                                       xdat_role_type3		xdat_role_type.role_type_info
+xdat:role_type/roles_role_xdat_security_xdat_security_id                                            xdat_role_type4		xdat_role_type.roles_role_xdat_security_xdat_security_id
+xdat:role_type/allowed_actions/allowed_action/action_name                                           xdat_action_type5		xdat_action_type.action_name
+xdat:role_type/allowed_actions/allowed_action/display_name                                          xdat_action_type6		xdat_action_type.display_name
+xdat:role_type/allowed_actions/allowed_action/sequence                                              xdat_action_type7		xdat_action_type.sequence
+xdat:role_type/allowed_actions/allowed_action/action_type_info                                      xdat_action_type8		xdat_action_type.action_type_info
+xdat:role_type/allowed_actions/allowed_action/actions_action_xdat_security_xdat_security_id         xdat_action_type9		xdat_action_type.actions_action_xdat_security_xdat_security_id
+xdat:role_type/allowed_actions/allowed_action/meta/xft_version                                      xdat_action_type_meta_data10		xdat_action_type_meta_data.xft_version
+xdat:role_type/allowed_actions/allowed_action/meta/last_modified                                    xdat_action_type_meta_data11		xdat_action_type_meta_data.last_modified
+xdat:role_type/allowed_actions/allowed_action/meta/status                                           xdat_action_type_meta_data12		xdat_action_type_meta_data.status
+xdat:role_type/allowed_actions/allowed_action/meta/activation_date                                  xdat_action_type_meta_data13		xdat_action_type_meta_data.activation_date
+xdat:role_type/allowed_actions/allowed_action/meta/row_last_modified                                xdat_action_type_meta_data14		xdat_action_type_meta_data.row_last_modified
+xdat:role_type/allowed_actions/allowed_action/meta/insert_date                                      xdat_action_type_meta_data15		xdat_action_type_meta_data.insert_date
+xdat:role_type/allowed_actions/allowed_action/meta/activation_user_xdat_user_id                     xdat_action_type_meta_data16		xdat_action_type_meta_data.activation_user_xdat_user_id
+xdat:role_type/allowed_actions/allowed_action/meta/insert_user_xdat_user_id                         xdat_action_type_meta_data17		xdat_action_type_meta_data.insert_user_xdat_user_id
+xdat:role_type/allowed_actions/allowed_action/meta/origin                                           xdat_action_type_meta_data18		xdat_action_type_meta_data.origin
+xdat:role_type/allowed_actions/allowed_action/meta/modified                                         xdat_action_type_meta_data19		xdat_action_type_meta_data.modified
+xdat:role_type/allowed_actions/allowed_action/meta/shareable                                        xdat_action_type_meta_data20		xdat_action_type_meta_data.shareable
+xdat:role_type/allowed_actions/allowed_action/meta/meta_data_id                                     xdat_action_type_meta_data21		xdat_action_type_meta_data.meta_data_id
+xdat:role_type/meta/xft_version                                                                     xdat_role_type_meta_data22		xdat_role_type_meta_data.xft_version
+xdat:role_type/meta/last_modified                                                                   xdat_role_type_meta_data23		xdat_role_type_meta_data.last_modified
+xdat:role_type/meta/status                                                                          xdat_role_type_meta_data24		xdat_role_type_meta_data.status
+xdat:role_type/meta/activation_date                                                                 xdat_role_type_meta_data25		xdat_role_type_meta_data.activation_date
+xdat:role_type/meta/row_last_modified                                                               xdat_role_type_meta_data26		xdat_role_type_meta_data.row_last_modified
+xdat:role_type/meta/insert_date                                                                     xdat_role_type_meta_data27		xdat_role_type_meta_data.insert_date
+xdat:role_type/meta/activation_user_xdat_user_id                                                    xdat_role_type_meta_data28		xdat_role_type_meta_data.activation_user_xdat_user_id
+xdat:role_type/meta/insert_user_xdat_user_id                                                        xdat_role_type_meta_data29		xdat_role_type_meta_data.insert_user_xdat_user_id
+xdat:role_type/meta/origin                                                                          xdat_role_type_meta_data30		xdat_role_type_meta_data.origin
+xdat:role_type/meta/modified                                                                        xdat_role_type_meta_data31		xdat_role_type_meta_data.modified
+xdat:role_type/meta/shareable                                                                       xdat_role_type_meta_data32		xdat_role_type_meta_data.shareable
+xdat:role_type/meta/meta_data_id                                                                    xdat_role_type_meta_data33		xdat_role_type_meta_data.meta_data_id

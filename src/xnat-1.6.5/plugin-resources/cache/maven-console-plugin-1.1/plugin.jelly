@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project 
+  xmlns:j="jelly:core" 
+  xmlns:i="jelly:interaction" 
+  xmlns:log="jelly:log"
+  xmlns:util="jelly:util">
+
+  <goal name="console" description="Run the Maven console">
+    <attainGoal name="console:help"/>
+    <j:set var="lastGoal" value="${maven.console.first}"/>
+    <j:set var="followOn" value="true"/>
+    <j:while test="${followOn}">
+      <log:info/>
+      <i:ask question="${pom.artifactId} ${pom.currentVersion} >" answer="goal" default="${lastGoal}"/>
+      <j:choose>
+        <j:when test="${goal.indexOf('=') != '-1'}">
+          <util:tokenize var="propertyPieces" delim="=">${goal}</util:tokenize>
+          <log:info>Setting property ${propertyPieces[0]} to ${propertyPieces[1]}</log:info>
+          <j:set var="${propertyPieces[0]}" value="${propertyPieces[1]}" scope="parent" />
+        </j:when>
+        <j:when test="${goal=='help'}">
+          <attainGoal name="console:help"/>
+        </j:when>
+        <j:when test="${goal=='list'}">
+          <attainGoal name="console:listGoals"/>
+        </j:when>
+        <j:when test="${goal=='quit'}">
+          <j:set var="followOn" value="false"/>
+        </j:when>
+        <j:otherwise>
+          <j:catch var="ex">
+            <util:tokenize var="goals" delim=" ,;">${goal}</util:tokenize>
+            <j:forEach var="partGoal" items="${goals}">
+              <attainGoal name="${partGoal}"/>
+            </j:forEach>
+            <j:set var="lastGoal" value="${goal}"/>
+          </j:catch>
+          <j:if test="${ex != null}">
+            ${pom.getContext().removeVariable("maven.test.failure")}
+<log:info>${ex}</log:info>
+          </j:if>
+        </j:otherwise>
+      </j:choose>
+      <j:if test="${followOn=='false'}">
+<log:info>Bye !</log:info>
+      </j:if>
+    </j:while>
+  </goal>
+
+  <goal name="console:listGoals" description="List all available goals">
+    <j:set var="proj" value="${org.apache.commons.jelly.werkz.Project}"/>
+    <j:forEach var="listGoal" items="${proj.goals}" trim="false">
+<log:info>${listGoal.name}</log:info>
+    </j:forEach>
+  </goal>
+
+  <goal name="console:help" description="Print the help message.">
+    <log:info>
+The following commands are available:
+
+    list - list all available goals
+    help - this message
+    &lt;goalname&gt; - attain a goal
+    quit - quits the console
+
+    </log:info>
+  </goal>
+</project>

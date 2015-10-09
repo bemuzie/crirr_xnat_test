@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_wrk_xnatExecutionEnvironment_parameter_r
+(ACTIVE - MULTIPLE - ROOT)
+
+wrk:xnatExecutionEnvironment_parameter/parameter                                                    wrk_xnatExecutionEnvironment_parameter0		wrk_xnatExecutionEnvironment_parameter.parameter
+wrk:xnatExecutionEnvironment_parameter/name                                                         wrk_xnatExecutionEnvironment_parameter1		wrk_xnatExecutionEnvironment_parameter.name
+wrk:xnatExecutionEnvironment_parameter/xnatexecutionenvironment_parameter_info                      wrk_xnatExecutionEnvironment_parameter2		wrk_xnatExecutionEnvironment_parameter.xnatexecutionenvironment_parameter_info
+wrk:xnatExecutionEnvironment_parameter/wrk_xnatExecutionEnvironment_parameter_id                    wrk_xnatExecutionEnvironment_parameter3		wrk_xnatExecutionEnvironment_parameter.wrk_xnatexecutionenvironment_parameter_id
+wrk:xnatExecutionEnvironment_parameter/parameters_parameter_wrk_xnatex_wrk_abstractexecutionenvironmen	wrk_xnatExecutionEnvironment_parameter4		wrk_xnatExecutionEnvironment_parameter.parameters_parameter_wrk_xnatex_wrk_abstractexecutionenvironmen
+wrk:xnatExecutionEnvironment_parameter/meta/xft_version                                             wrk_xnatExecutionEnvironment_parameter_meta_data5		wrk_xnatExecutionEnvironment_parameter_meta_data.xft_version
+wrk:xnatExecutionEnvironment_parameter/meta/last_modified                                           wrk_xnatExecutionEnvironment_parameter_meta_data6		wrk_xnatExecutionEnvironment_parameter_meta_data.last_modified
+wrk:xnatExecutionEnvironment_parameter/meta/status                                                  wrk_xnatExecutionEnvironment_parameter_meta_data7		wrk_xnatExecutionEnvironment_parameter_meta_data.status
+wrk:xnatExecutionEnvironment_parameter/meta/activation_date                                         wrk_xnatExecutionEnvironment_parameter_meta_data8		wrk_xnatExecutionEnvironment_parameter_meta_data.activation_date
+wrk:xnatExecutionEnvironment_parameter/meta/row_last_modified                                       wrk_xnatExecutionEnvironment_parameter_meta_data9		wrk_xnatExecutionEnvironment_parameter_meta_data.row_last_modified
+wrk:xnatExecutionEnvironment_parameter/meta/insert_date                                             wrk_xnatExecutionEnvironment_parameter_meta_data10		wrk_xnatExecutionEnvironment_parameter_meta_data.insert_date
+wrk:xnatExecutionEnvironment_parameter/meta/activation_user_xdat_user_id                            wrk_xnatExecutionEnvironment_parameter_meta_data11		wrk_xnatExecutionEnvironment_parameter_meta_data.activation_user_xdat_user_id
+wrk:xnatExecutionEnvironment_parameter/meta/insert_user_xdat_user_id                                wrk_xnatExecutionEnvironment_parameter_meta_data12		wrk_xnatExecutionEnvironment_parameter_meta_data.insert_user_xdat_user_id
+wrk:xnatExecutionEnvironment_parameter/meta/origin                                                  wrk_xnatExecutionEnvironment_parameter_meta_data13		wrk_xnatExecutionEnvironment_parameter_meta_data.origin
+wrk:xnatExecutionEnvironment_parameter/meta/modified                                                wrk_xnatExecutionEnvironment_parameter_meta_data14		wrk_xnatExecutionEnvironment_parameter_meta_data.modified
+wrk:xnatExecutionEnvironment_parameter/meta/shareable                                               wrk_xnatExecutionEnvironment_parameter_meta_data15		wrk_xnatExecutionEnvironment_parameter_meta_data.shareable
+wrk:xnatExecutionEnvironment_parameter/meta/meta_data_id                                            wrk_xnatExecutionEnvironment_parameter_meta_data16		wrk_xnatExecutionEnvironment_parameter_meta_data.meta_data_id

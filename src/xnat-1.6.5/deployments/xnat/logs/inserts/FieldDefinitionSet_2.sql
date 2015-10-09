@@ -1,0 +1,6 @@
+
+INSERT INTO xnat_fieldDefinitionGroup_meta_data (xft_version,status,activation_user_xdat_user_id,activation_date,row_last_modified,insert_date,modified,insert_user_xdat_user_id,meta_data_id,shareable) VALUES ('3','active',1,'2015-10-06 14:54:32.573','2015-10-06 14:54:32.551','2015-10-06 14:54:32.551',0,1,2,1);
+INSERT INTO xnat_fieldDefinitionGroup (fielddefinitiongroup_info,project_specific,xnat_fielddefinitiongroup_id,description,data_type,id) VALUES (2,0,2,'Family Data','xnat:subjectData','Family');
+INSERT INTO xnat_fieldDefinitionGroup_field_meta_data (xft_version,status,activation_user_xdat_user_id,activation_date,row_last_modified,insert_date,modified,insert_user_xdat_user_id,meta_data_id,shareable) VALUES ('3','active',1,'2015-10-06 14:54:32.593','2015-10-06 14:54:32.551','2015-10-06 14:54:32.551',0,1,4,1);
+INSERT INTO xnat_fieldDefinitionGroup_field (name,xmlpath,fielddefinitiongroup_field_info,xnat_fielddefinitiongroup_field_id,datatype,required,type,fields_field_xnat_fielddefiniti_xnat_fielddefinitiongroup_id) VALUES ('family','xnat:subjectData/fields/field[name=family]/field',4,4,'integer',0,'custom',2);
+UPDATE xnat_fieldDefinitionGroup_meta_data SET last_modified='2015-10-06 14:54:32.623', modified=1 WHERE meta_data_id=2 ;

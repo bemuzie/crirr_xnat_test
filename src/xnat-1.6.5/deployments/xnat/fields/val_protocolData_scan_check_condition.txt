@@ -1,0 +1,27 @@
+
+
+*********************************************
+
+ac_s_val_protocolData_scan_check_condition_r
+(ACTIVE - MULTIPLE - ROOT)
+
+val:protocolData_scan_check_condition/verified                                                      val_protocolData_scan_check_condition0		val_protocolData_scan_check_condition.verified
+val:protocolData_scan_check_condition/diagnosis                                                     val_protocolData_scan_check_condition1		val_protocolData_scan_check_condition.diagnosis
+val:protocolData_scan_check_condition/ID                                                            val_protocolData_scan_check_condition2		val_protocolData_scan_check_condition.id
+val:protocolData_scan_check_condition/status                                                        val_protocolData_scan_check_condition3		val_protocolData_scan_check_condition.status
+val:protocolData_scan_check_condition/xmlpath                                                       val_protocolData_scan_check_condition4		val_protocolData_scan_check_condition.xmlpath
+val:protocolData_scan_check_condition/protocoldata_scan_check_condition_info                        val_protocolData_scan_check_condition5		val_protocolData_scan_check_condition.protocoldata_scan_check_condition_info
+val:protocolData_scan_check_condition/val_protocolData_scan_check_condition_id                      val_protocolData_scan_check_condition6		val_protocolData_scan_check_condition.val_protocoldata_scan_check_condition_id
+val:protocolData_scan_check_condition/conditions_condition_val_protoc_val_protocoldata_scan_check_id	val_protocolData_scan_check_condition7		val_protocolData_scan_check_condition.conditions_condition_val_protoc_val_protocoldata_scan_check_id
+val:protocolData_scan_check_condition/meta/xft_version                                              val_protocolData_scan_check_condition_meta_data8		val_protocolData_scan_check_condition_meta_data.xft_version
+val:protocolData_scan_check_condition/meta/last_modified                                            val_protocolData_scan_check_condition_meta_data9		val_protocolData_scan_check_condition_meta_data.last_modified
+val:protocolData_scan_check_condition/meta/status                                                   val_protocolData_scan_check_condition_meta_data10		val_protocolData_scan_check_condition_meta_data.status
+val:protocolData_scan_check_condition/meta/activation_date                                          val_protocolData_scan_check_condition_meta_data11		val_protocolData_scan_check_condition_meta_data.activation_date
+val:protocolData_scan_check_condition/meta/row_last_modified                                        val_protocolData_scan_check_condition_meta_data12		val_protocolData_scan_check_condition_meta_data.row_last_modified
+val:protocolData_scan_check_condition/meta/insert_date                                              val_protocolData_scan_check_condition_meta_data13		val_protocolData_scan_check_condition_meta_data.insert_date
+val:protocolData_scan_check_condition/meta/activation_user_xdat_user_id                             val_protocolData_scan_check_condition_meta_data14		val_protocolData_scan_check_condition_meta_data.activation_user_xdat_user_id
+val:protocolData_scan_check_condition/meta/insert_user_xdat_user_id                                 val_protocolData_scan_check_condition_meta_data15		val_protocolData_scan_check_condition_meta_data.insert_user_xdat_user_id
+val:protocolData_scan_check_condition/meta/origin                                                   val_protocolData_scan_check_condition_meta_data16		val_protocolData_scan_check_condition_meta_data.origin
+val:protocolData_scan_check_condition/meta/modified                                                 val_protocolData_scan_check_condition_meta_data17		val_protocolData_scan_check_condition_meta_data.modified
+val:protocolData_scan_check_condition/meta/shareable                                                val_protocolData_scan_check_condition_meta_data18		val_protocolData_scan_check_condition_meta_data.shareable
+val:protocolData_scan_check_condition/meta/meta_data_id                                             val_protocolData_scan_check_condition_meta_data19		val_protocolData_scan_check_condition_meta_data.meta_data_id

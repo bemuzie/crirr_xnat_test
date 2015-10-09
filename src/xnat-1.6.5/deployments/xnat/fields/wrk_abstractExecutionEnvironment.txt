@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_wrk_abstractExecutionEnvironment_r
+(ACTIVE - MULTIPLE - ROOT)
+
+wrk:abstractExecutionEnvironment/extension                                                          wrk_abstractExecutionEnvironment0		wrk_abstractExecutionEnvironment.extension
+wrk:abstractExecutionEnvironment/abstractexecutionenvironment_info                                  wrk_abstractExecutionEnvironment1		wrk_abstractExecutionEnvironment.abstractexecutionenvironment_info
+wrk:abstractExecutionEnvironment/wrk_abstractExecutionEnvironment_id                                wrk_abstractExecutionEnvironment2		wrk_abstractExecutionEnvironment.wrk_abstractexecutionenvironment_id
+wrk:abstractExecutionEnvironment/extension_item/element_name                                        xdat_meta_element3		xdat_meta_element.element_name
+wrk:abstractExecutionEnvironment/extension_item/xdat_meta_element_id                                xdat_meta_element4		xdat_meta_element.xdat_meta_element_id
+wrk:abstractExecutionEnvironment/meta/xft_version                                                   wrk_abstractExecutionEnvironment_meta_data5		wrk_abstractExecutionEnvironment_meta_data.xft_version
+wrk:abstractExecutionEnvironment/meta/last_modified                                                 wrk_abstractExecutionEnvironment_meta_data6		wrk_abstractExecutionEnvironment_meta_data.last_modified
+wrk:abstractExecutionEnvironment/meta/status                                                        wrk_abstractExecutionEnvironment_meta_data7		wrk_abstractExecutionEnvironment_meta_data.status
+wrk:abstractExecutionEnvironment/meta/activation_date                                               wrk_abstractExecutionEnvironment_meta_data8		wrk_abstractExecutionEnvironment_meta_data.activation_date
+wrk:abstractExecutionEnvironment/meta/row_last_modified                                             wrk_abstractExecutionEnvironment_meta_data9		wrk_abstractExecutionEnvironment_meta_data.row_last_modified
+wrk:abstractExecutionEnvironment/meta/insert_date                                                   wrk_abstractExecutionEnvironment_meta_data10		wrk_abstractExecutionEnvironment_meta_data.insert_date
+wrk:abstractExecutionEnvironment/meta/activation_user_xdat_user_id                                  wrk_abstractExecutionEnvironment_meta_data11		wrk_abstractExecutionEnvironment_meta_data.activation_user_xdat_user_id
+wrk:abstractExecutionEnvironment/meta/insert_user_xdat_user_id                                      wrk_abstractExecutionEnvironment_meta_data12		wrk_abstractExecutionEnvironment_meta_data.insert_user_xdat_user_id
+wrk:abstractExecutionEnvironment/meta/origin                                                        wrk_abstractExecutionEnvironment_meta_data13		wrk_abstractExecutionEnvironment_meta_data.origin
+wrk:abstractExecutionEnvironment/meta/modified                                                      wrk_abstractExecutionEnvironment_meta_data14		wrk_abstractExecutionEnvironment_meta_data.modified
+wrk:abstractExecutionEnvironment/meta/shareable                                                     wrk_abstractExecutionEnvironment_meta_data15		wrk_abstractExecutionEnvironment_meta_data.shareable
+wrk:abstractExecutionEnvironment/meta/meta_data_id                                                  wrk_abstractExecutionEnvironment_meta_data16		wrk_abstractExecutionEnvironment_meta_data.meta_data_id

@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xnat_fieldDefinitionGroup_field_possibleValue_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:fieldDefinitionGroup_field_possibleValue/possibleValue                                         xnat_fieldDefinitionGroup_field_possibleValue0		xnat_fieldDefinitionGroup_field_possibleValue.possiblevalue
+xnat:fieldDefinitionGroup_field_possibleValue/display                                               xnat_fieldDefinitionGroup_field_possibleValue1		xnat_fieldDefinitionGroup_field_possibleValue.display
+xnat:fieldDefinitionGroup_field_possibleValue/fielddefinitiongroup_field_possiblevalue_info         xnat_fieldDefinitionGroup_field_possibleValue2		xnat_fieldDefinitionGroup_field_possibleValue.fielddefinitiongroup_field_possiblevalue_info
+xnat:fieldDefinitionGroup_field_possibleValue/xnat_fieldDefinitionGroup_field_possibleValue_id      xnat_fieldDefinitionGroup_field_possibleValue3		xnat_fieldDefinitionGroup_field_possibleValue.xnat_fielddefinitiongroup_field_possiblevalue_id
+xnat:fieldDefinitionGroup_field_possibleValue/possiblevalues_possiblevalue_xn_xnat_fielddefinitiongroup_field	xnat_fieldDefinitionGroup_field_possibleValue4		xnat_fieldDefinitionGroup_field_possibleValue.possiblevalues_possiblevalue_xn_xnat_fielddefinitiongroup_field
+xnat:fieldDefinitionGroup_field_possibleValue/meta/xft_version                                      xnat_fieldDefinitionGroup_field_possibleValue_meta_data5		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.xft_version
+xnat:fieldDefinitionGroup_field_possibleValue/meta/last_modified                                    xnat_fieldDefinitionGroup_field_possibleValue_meta_data6		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.last_modified
+xnat:fieldDefinitionGroup_field_possibleValue/meta/status                                           xnat_fieldDefinitionGroup_field_possibleValue_meta_data7		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.status
+xnat:fieldDefinitionGroup_field_possibleValue/meta/activation_date                                  xnat_fieldDefinitionGroup_field_possibleValue_meta_data8		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.activation_date
+xnat:fieldDefinitionGroup_field_possibleValue/meta/row_last_modified                                xnat_fieldDefinitionGroup_field_possibleValue_meta_data9		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.row_last_modified
+xnat:fieldDefinitionGroup_field_possibleValue/meta/insert_date                                      xnat_fieldDefinitionGroup_field_possibleValue_meta_data10		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.insert_date
+xnat:fieldDefinitionGroup_field_possibleValue/meta/activation_user_xdat_user_id                     xnat_fieldDefinitionGroup_field_possibleValue_meta_data11		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.activation_user_xdat_user_id
+xnat:fieldDefinitionGroup_field_possibleValue/meta/insert_user_xdat_user_id                         xnat_fieldDefinitionGroup_field_possibleValue_meta_data12		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.insert_user_xdat_user_id
+xnat:fieldDefinitionGroup_field_possibleValue/meta/origin                                           xnat_fieldDefinitionGroup_field_possibleValue_meta_data13		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.origin
+xnat:fieldDefinitionGroup_field_possibleValue/meta/modified                                         xnat_fieldDefinitionGroup_field_possibleValue_meta_data14		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.modified
+xnat:fieldDefinitionGroup_field_possibleValue/meta/shareable                                        xnat_fieldDefinitionGroup_field_possibleValue_meta_data15		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.shareable
+xnat:fieldDefinitionGroup_field_possibleValue/meta/meta_data_id                                     xnat_fieldDefinitionGroup_field_possibleValue_meta_data16		xnat_fieldDefinitionGroup_field_possibleValue_meta_data.meta_data_id

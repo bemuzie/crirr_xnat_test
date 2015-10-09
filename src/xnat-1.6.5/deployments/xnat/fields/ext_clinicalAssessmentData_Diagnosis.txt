@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_ext_clinicalAssessmentData_Diagnosis_r
+(ACTIVE - MULTIPLE - ROOT)
+
+ext:clinicalAssessmentData_Diagnosis/Diagnosis                                                      ext_clinicalAssessmentData_Diagnosis0		ext_clinicalAssessmentData_Diagnosis.diagnosis
+ext:clinicalAssessmentData_Diagnosis/type                                                           ext_clinicalAssessmentData_Diagnosis1		ext_clinicalAssessmentData_Diagnosis.type
+ext:clinicalAssessmentData_Diagnosis/number                                                         ext_clinicalAssessmentData_Diagnosis2		ext_clinicalAssessmentData_Diagnosis.number
+ext:clinicalAssessmentData_Diagnosis/clinicalassessmentdata_diagnosis_info                          ext_clinicalAssessmentData_Diagnosis3		ext_clinicalAssessmentData_Diagnosis.clinicalassessmentdata_diagnosis_info
+ext:clinicalAssessmentData_Diagnosis/ext_clinicalAssessmentData_Diagnosis_id                        ext_clinicalAssessmentData_Diagnosis4		ext_clinicalAssessmentData_Diagnosis.ext_clinicalassessmentdata_diagnosis_id
+ext:clinicalAssessmentData_Diagnosis/ext_clinicalassessmentdata_id                                  ext_clinicalAssessmentData_Diagnosis5		ext_clinicalAssessmentData_Diagnosis.ext_clinicalassessmentdata_id
+ext:clinicalAssessmentData_Diagnosis/meta/xft_version                                               ext_clinicalAssessmentData_Diagnosis_meta_data6		ext_clinicalAssessmentData_Diagnosis_meta_data.xft_version
+ext:clinicalAssessmentData_Diagnosis/meta/last_modified                                             ext_clinicalAssessmentData_Diagnosis_meta_data7		ext_clinicalAssessmentData_Diagnosis_meta_data.last_modified
+ext:clinicalAssessmentData_Diagnosis/meta/status                                                    ext_clinicalAssessmentData_Diagnosis_meta_data8		ext_clinicalAssessmentData_Diagnosis_meta_data.status
+ext:clinicalAssessmentData_Diagnosis/meta/activation_date                                           ext_clinicalAssessmentData_Diagnosis_meta_data9		ext_clinicalAssessmentData_Diagnosis_meta_data.activation_date
+ext:clinicalAssessmentData_Diagnosis/meta/row_last_modified                                         ext_clinicalAssessmentData_Diagnosis_meta_data10		ext_clinicalAssessmentData_Diagnosis_meta_data.row_last_modified
+ext:clinicalAssessmentData_Diagnosis/meta/insert_date                                               ext_clinicalAssessmentData_Diagnosis_meta_data11		ext_clinicalAssessmentData_Diagnosis_meta_data.insert_date
+ext:clinicalAssessmentData_Diagnosis/meta/activation_user_xdat_user_id                              ext_clinicalAssessmentData_Diagnosis_meta_data12		ext_clinicalAssessmentData_Diagnosis_meta_data.activation_user_xdat_user_id
+ext:clinicalAssessmentData_Diagnosis/meta/insert_user_xdat_user_id                                  ext_clinicalAssessmentData_Diagnosis_meta_data13		ext_clinicalAssessmentData_Diagnosis_meta_data.insert_user_xdat_user_id
+ext:clinicalAssessmentData_Diagnosis/meta/origin                                                    ext_clinicalAssessmentData_Diagnosis_meta_data14		ext_clinicalAssessmentData_Diagnosis_meta_data.origin
+ext:clinicalAssessmentData_Diagnosis/meta/modified                                                  ext_clinicalAssessmentData_Diagnosis_meta_data15		ext_clinicalAssessmentData_Diagnosis_meta_data.modified
+ext:clinicalAssessmentData_Diagnosis/meta/shareable                                                 ext_clinicalAssessmentData_Diagnosis_meta_data16		ext_clinicalAssessmentData_Diagnosis_meta_data.shareable
+ext:clinicalAssessmentData_Diagnosis/meta/meta_data_id                                              ext_clinicalAssessmentData_Diagnosis_meta_data17		ext_clinicalAssessmentData_Diagnosis_meta_data.meta_data_id

@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_arc_fieldSpecification_r
+(ACTIVE - MULTIPLE - ROOT)
+
+arc:fieldSpecification/fieldSpecification                                                           arc_fieldSpecification0		arc_fieldSpecification.fieldspecification
+arc:fieldSpecification/name                                                                         arc_fieldSpecification1		arc_fieldSpecification.name
+arc:fieldSpecification/fieldspecification_info                                                      arc_fieldSpecification2		arc_fieldSpecification.fieldspecification_info
+arc:fieldSpecification/arc_fieldSpecification_id                                                    arc_fieldSpecification3		arc_fieldSpecification.arc_fieldspecification_id
+arc:fieldSpecification/fieldspecifications_fieldspecif_arc_archivespecification_id                  arc_fieldSpecification4		arc_fieldSpecification.fieldspecifications_fieldspecif_arc_archivespecification_id
+arc:fieldSpecification/fieldspecifications_fieldspecif_arc_project_id                               arc_fieldSpecification5		arc_fieldSpecification.fieldspecifications_fieldspecif_arc_project_id
+arc:fieldSpecification/meta/xft_version                                                             arc_fieldSpecification_meta_data6		arc_fieldSpecification_meta_data.xft_version
+arc:fieldSpecification/meta/last_modified                                                           arc_fieldSpecification_meta_data7		arc_fieldSpecification_meta_data.last_modified
+arc:fieldSpecification/meta/status                                                                  arc_fieldSpecification_meta_data8		arc_fieldSpecification_meta_data.status
+arc:fieldSpecification/meta/activation_date                                                         arc_fieldSpecification_meta_data9		arc_fieldSpecification_meta_data.activation_date
+arc:fieldSpecification/meta/row_last_modified                                                       arc_fieldSpecification_meta_data10		arc_fieldSpecification_meta_data.row_last_modified
+arc:fieldSpecification/meta/insert_date                                                             arc_fieldSpecification_meta_data11		arc_fieldSpecification_meta_data.insert_date
+arc:fieldSpecification/meta/activation_user_xdat_user_id                                            arc_fieldSpecification_meta_data12		arc_fieldSpecification_meta_data.activation_user_xdat_user_id
+arc:fieldSpecification/meta/insert_user_xdat_user_id                                                arc_fieldSpecification_meta_data13		arc_fieldSpecification_meta_data.insert_user_xdat_user_id
+arc:fieldSpecification/meta/origin                                                                  arc_fieldSpecification_meta_data14		arc_fieldSpecification_meta_data.origin
+arc:fieldSpecification/meta/modified                                                                arc_fieldSpecification_meta_data15		arc_fieldSpecification_meta_data.modified
+arc:fieldSpecification/meta/shareable                                                               arc_fieldSpecification_meta_data16		arc_fieldSpecification_meta_data.shareable
+arc:fieldSpecification/meta/meta_data_id                                                            arc_fieldSpecification_meta_data17		arc_fieldSpecification_meta_data.meta_data_id

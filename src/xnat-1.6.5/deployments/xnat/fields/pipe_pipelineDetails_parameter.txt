@@ -1,0 +1,26 @@
+
+
+*********************************************
+
+ac_s_pipe_pipelineDetails_parameter_r
+(ACTIVE - MULTIPLE - ROOT)
+
+pipe:pipelineDetails_parameter/name                                                                 pipe_pipelineDetails_parameter0		pipe_pipelineDetails_parameter.name
+pipe:pipelineDetails_parameter/values/schemaLink                                                    pipe_pipelineDetails_parameter1		pipe_pipelineDetails_parameter.values_schemalink
+pipe:pipelineDetails_parameter/values/csvValues                                                     pipe_pipelineDetails_parameter2		pipe_pipelineDetails_parameter.values_csvvalues
+pipe:pipelineDetails_parameter/description                                                          pipe_pipelineDetails_parameter3		pipe_pipelineDetails_parameter.description
+pipe:pipelineDetails_parameter/pipelinedetails_parameter_info                                       pipe_pipelineDetails_parameter4		pipe_pipelineDetails_parameter.pipelinedetails_parameter_info
+pipe:pipelineDetails_parameter/pipe_pipelineDetails_parameter_id                                    pipe_pipelineDetails_parameter5		pipe_pipelineDetails_parameter.pipe_pipelinedetails_parameter_id
+pipe:pipelineDetails_parameter/parameters_parameter_pipe_pipel_path                                 pipe_pipelineDetails_parameter6		pipe_pipelineDetails_parameter.parameters_parameter_pipe_pipel_path
+pipe:pipelineDetails_parameter/meta/xft_version                                                     pipe_pipelineDetails_parameter_meta_data7		pipe_pipelineDetails_parameter_meta_data.xft_version
+pipe:pipelineDetails_parameter/meta/last_modified                                                   pipe_pipelineDetails_parameter_meta_data8		pipe_pipelineDetails_parameter_meta_data.last_modified
+pipe:pipelineDetails_parameter/meta/status                                                          pipe_pipelineDetails_parameter_meta_data9		pipe_pipelineDetails_parameter_meta_data.status
+pipe:pipelineDetails_parameter/meta/activation_date                                                 pipe_pipelineDetails_parameter_meta_data10		pipe_pipelineDetails_parameter_meta_data.activation_date
+pipe:pipelineDetails_parameter/meta/row_last_modified                                               pipe_pipelineDetails_parameter_meta_data11		pipe_pipelineDetails_parameter_meta_data.row_last_modified
+pipe:pipelineDetails_parameter/meta/insert_date                                                     pipe_pipelineDetails_parameter_meta_data12		pipe_pipelineDetails_parameter_meta_data.insert_date
+pipe:pipelineDetails_parameter/meta/activation_user_xdat_user_id                                    pipe_pipelineDetails_parameter_meta_data13		pipe_pipelineDetails_parameter_meta_data.activation_user_xdat_user_id
+pipe:pipelineDetails_parameter/meta/insert_user_xdat_user_id                                        pipe_pipelineDetails_parameter_meta_data14		pipe_pipelineDetails_parameter_meta_data.insert_user_xdat_user_id
+pipe:pipelineDetails_parameter/meta/origin                                                          pipe_pipelineDetails_parameter_meta_data15		pipe_pipelineDetails_parameter_meta_data.origin
+pipe:pipelineDetails_parameter/meta/modified                                                        pipe_pipelineDetails_parameter_meta_data16		pipe_pipelineDetails_parameter_meta_data.modified
+pipe:pipelineDetails_parameter/meta/shareable                                                       pipe_pipelineDetails_parameter_meta_data17		pipe_pipelineDetails_parameter_meta_data.shareable
+pipe:pipelineDetails_parameter/meta/meta_data_id                                                    pipe_pipelineDetails_parameter_meta_data18		pipe_pipelineDetails_parameter_meta_data.meta_data_id

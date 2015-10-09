@@ -1,0 +1,66 @@
+
+
+*********************************************
+
+ac_s_xnat_otherQcScanData_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:otherQcScanData/xnat_qcscandata_id                                                             xnat_otherQcScanData0		xnat_qcScanData.xnat_qcscandata_id
+xnat:otherQcScanData/other                                                                          xnat_otherQcScanData1		xnat_otherQcScanData.other
+xnat:otherQcScanData/otherqcscandata_info                                                           xnat_otherQcScanData2		xnat_otherQcScanData.otherqcscandata_info
+xnat:otherQcScanData/qcScanData/imageScan_ID                                                        xnat_qcScanData3		xnat_qcScanData.imagescan_id
+xnat:otherQcScanData/qcScanData/rater                                                               xnat_qcScanData4		xnat_qcScanData.rater
+xnat:otherQcScanData/qcScanData/coverage                                                            xnat_qcScanData5		xnat_qcScanData.coverage
+xnat:otherQcScanData/qcScanData/motion                                                              xnat_qcScanData6		xnat_qcScanData.motion
+xnat:otherQcScanData/qcScanData/otherImageArtifacts                                                 xnat_qcScanData7		xnat_qcScanData.otherimageartifacts
+xnat:otherQcScanData/qcScanData/comments                                                            xnat_qcScanData8		xnat_qcScanData.comments
+xnat:otherQcScanData/qcScanData/pass                                                                xnat_qcScanData9		xnat_qcScanData.pass
+xnat:otherQcScanData/qcScanData/rating                                                              xnat_qcScanData10		xnat_qcScanData.rating
+xnat:otherQcScanData/qcScanData/rating/scale                                                        xnat_qcScanData11		xnat_qcScanData.rating_scale
+xnat:otherQcScanData/qcScanData/extension                                                           xnat_qcScanData12		xnat_qcScanData.extension
+xnat:otherQcScanData/qcScanData/qcscandata_info                                                     xnat_qcScanData13		xnat_qcScanData.qcscandata_info
+xnat:otherQcScanData/qcScanData/xnat_qcScanData_id                                                  xnat_qcScanData14		xnat_qcScanData.xnat_qcscandata_id
+xnat:otherQcScanData/qcScanData/scans_scan_xnat_qcmanualassesso_id                                  xnat_qcScanData15		xnat_qcScanData.scans_scan_xnat_qcmanualassesso_id
+xnat:otherQcScanData/qcScanData/fields/field/field                                                  xnat_qcScanData_field16		xnat_qcScanData_field.field
+xnat:otherQcScanData/qcScanData/fields/field/name                                                   xnat_qcScanData_field17		xnat_qcScanData_field.name
+xnat:otherQcScanData/qcScanData/fields/field/qcscandata_field_info                                  xnat_qcScanData_field18		xnat_qcScanData_field.qcscandata_field_info
+xnat:otherQcScanData/qcScanData/fields/field/xnat_qcScanData_field_id                               xnat_qcScanData_field19		xnat_qcScanData_field.xnat_qcscandata_field_id
+xnat:otherQcScanData/qcScanData/fields/field/fields_field_xnat_qcscandata_xnat_qcscandata_id        xnat_qcScanData_field20		xnat_qcScanData_field.fields_field_xnat_qcscandata_xnat_qcscandata_id
+xnat:otherQcScanData/qcScanData/fields/field/meta/xft_version                                       xnat_qcScanData_field_meta_data21		xnat_qcScanData_field_meta_data.xft_version
+xnat:otherQcScanData/qcScanData/fields/field/meta/last_modified                                     xnat_qcScanData_field_meta_data22		xnat_qcScanData_field_meta_data.last_modified
+xnat:otherQcScanData/qcScanData/fields/field/meta/status                                            xnat_qcScanData_field_meta_data23		xnat_qcScanData_field_meta_data.status
+xnat:otherQcScanData/qcScanData/fields/field/meta/activation_date                                   xnat_qcScanData_field_meta_data24		xnat_qcScanData_field_meta_data.activation_date
+xnat:otherQcScanData/qcScanData/fields/field/meta/row_last_modified                                 xnat_qcScanData_field_meta_data25		xnat_qcScanData_field_meta_data.row_last_modified
+xnat:otherQcScanData/qcScanData/fields/field/meta/insert_date                                       xnat_qcScanData_field_meta_data26		xnat_qcScanData_field_meta_data.insert_date
+xnat:otherQcScanData/qcScanData/fields/field/meta/activation_user_xdat_user_id                      xnat_qcScanData_field_meta_data27		xnat_qcScanData_field_meta_data.activation_user_xdat_user_id
+xnat:otherQcScanData/qcScanData/fields/field/meta/insert_user_xdat_user_id                          xnat_qcScanData_field_meta_data28		xnat_qcScanData_field_meta_data.insert_user_xdat_user_id
+xnat:otherQcScanData/qcScanData/fields/field/meta/origin                                            xnat_qcScanData_field_meta_data29		xnat_qcScanData_field_meta_data.origin
+xnat:otherQcScanData/qcScanData/fields/field/meta/modified                                          xnat_qcScanData_field_meta_data30		xnat_qcScanData_field_meta_data.modified
+xnat:otherQcScanData/qcScanData/fields/field/meta/shareable                                         xnat_qcScanData_field_meta_data31		xnat_qcScanData_field_meta_data.shareable
+xnat:otherQcScanData/qcScanData/fields/field/meta/meta_data_id                                      xnat_qcScanData_field_meta_data32		xnat_qcScanData_field_meta_data.meta_data_id
+xnat:otherQcScanData/qcScanData/extension_item/element_name                                         xdat_meta_element33		xdat_meta_element.element_name
+xnat:otherQcScanData/qcScanData/extension_item/xdat_meta_element_id                                 xdat_meta_element34		xdat_meta_element.xdat_meta_element_id
+xnat:otherQcScanData/qcScanData/meta/xft_version                                                    xnat_qcScanData_meta_data35		xnat_qcScanData_meta_data.xft_version
+xnat:otherQcScanData/qcScanData/meta/last_modified                                                  xnat_qcScanData_meta_data36		xnat_qcScanData_meta_data.last_modified
+xnat:otherQcScanData/qcScanData/meta/status                                                         xnat_qcScanData_meta_data37		xnat_qcScanData_meta_data.status
+xnat:otherQcScanData/qcScanData/meta/activation_date                                                xnat_qcScanData_meta_data38		xnat_qcScanData_meta_data.activation_date
+xnat:otherQcScanData/qcScanData/meta/row_last_modified                                              xnat_qcScanData_meta_data39		xnat_qcScanData_meta_data.row_last_modified
+xnat:otherQcScanData/qcScanData/meta/insert_date                                                    xnat_qcScanData_meta_data40		xnat_qcScanData_meta_data.insert_date
+xnat:otherQcScanData/qcScanData/meta/activation_user_xdat_user_id                                   xnat_qcScanData_meta_data41		xnat_qcScanData_meta_data.activation_user_xdat_user_id
+xnat:otherQcScanData/qcScanData/meta/insert_user_xdat_user_id                                       xnat_qcScanData_meta_data42		xnat_qcScanData_meta_data.insert_user_xdat_user_id
+xnat:otherQcScanData/qcScanData/meta/origin                                                         xnat_qcScanData_meta_data43		xnat_qcScanData_meta_data.origin
+xnat:otherQcScanData/qcScanData/meta/modified                                                       xnat_qcScanData_meta_data44		xnat_qcScanData_meta_data.modified
+xnat:otherQcScanData/qcScanData/meta/shareable                                                      xnat_qcScanData_meta_data45		xnat_qcScanData_meta_data.shareable
+xnat:otherQcScanData/qcScanData/meta/meta_data_id                                                   xnat_qcScanData_meta_data46		xnat_qcScanData_meta_data.meta_data_id
+xnat:otherQcScanData/meta/xft_version                                                               xnat_otherQcScanData_meta_data47		xnat_otherQcScanData_meta_data.xft_version
+xnat:otherQcScanData/meta/last_modified                                                             xnat_otherQcScanData_meta_data48		xnat_otherQcScanData_meta_data.last_modified
+xnat:otherQcScanData/meta/status                                                                    xnat_otherQcScanData_meta_data49		xnat_otherQcScanData_meta_data.status
+xnat:otherQcScanData/meta/activation_date                                                           xnat_otherQcScanData_meta_data50		xnat_otherQcScanData_meta_data.activation_date
+xnat:otherQcScanData/meta/row_last_modified                                                         xnat_otherQcScanData_meta_data51		xnat_otherQcScanData_meta_data.row_last_modified
+xnat:otherQcScanData/meta/insert_date                                                               xnat_otherQcScanData_meta_data52		xnat_otherQcScanData_meta_data.insert_date
+xnat:otherQcScanData/meta/activation_user_xdat_user_id                                              xnat_otherQcScanData_meta_data53		xnat_otherQcScanData_meta_data.activation_user_xdat_user_id
+xnat:otherQcScanData/meta/insert_user_xdat_user_id                                                  xnat_otherQcScanData_meta_data54		xnat_otherQcScanData_meta_data.insert_user_xdat_user_id
+xnat:otherQcScanData/meta/origin                                                                    xnat_otherQcScanData_meta_data55		xnat_otherQcScanData_meta_data.origin
+xnat:otherQcScanData/meta/modified                                                                  xnat_otherQcScanData_meta_data56		xnat_otherQcScanData_meta_data.modified
+xnat:otherQcScanData/meta/shareable                                                                 xnat_otherQcScanData_meta_data57		xnat_otherQcScanData_meta_data.shareable
+xnat:otherQcScanData/meta/meta_data_id                                                              xnat_otherQcScanData_meta_data58		xnat_otherQcScanData_meta_data.meta_data_id

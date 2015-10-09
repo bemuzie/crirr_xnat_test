@@ -1,0 +1,72 @@
+
+
+*********************************************
+
+ac_s_xnat_publicationResource_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:publicationResource/xnat_abstractresource_id                                                   xnat_publicationResource0		xnat_abstractResource.xnat_abstractresource_id
+xnat:publicationResource/title                                                                      xnat_publicationResource1		xnat_publicationResource.title
+xnat:publicationResource/citation                                                                   xnat_publicationResource2		xnat_publicationResource.citation
+xnat:publicationResource/abstract                                                                   xnat_publicationResource3		xnat_publicationResource.abstract
+xnat:publicationResource/commentary                                                                 xnat_publicationResource4		xnat_publicationResource.commentary
+xnat:publicationResource/isPrimary                                                                  xnat_publicationResource5		xnat_publicationResource.isprimary
+xnat:publicationResource/doi                                                                        xnat_publicationResource6		xnat_publicationResource.doi
+xnat:publicationResource/pubmed                                                                     xnat_publicationResource7		xnat_publicationResource.pubmed
+xnat:publicationResource/medline                                                                    xnat_publicationResource8		xnat_publicationResource.medline
+xnat:publicationResource/uri                                                                        xnat_publicationResource9		xnat_publicationResource.uri
+xnat:publicationResource/other                                                                      xnat_publicationResource10		xnat_publicationResource.other
+xnat:publicationResource/type                                                                       xnat_publicationResource11		xnat_publicationResource.type
+xnat:publicationResource/publicationresource_info                                                   xnat_publicationResource12		xnat_publicationResource.publicationresource_info
+xnat:publicationResource/publications_publication_xnat_p_id                                         xnat_publicationResource13		xnat_publicationResource.publications_publication_xnat_p_id
+xnat:publicationResource/abstractResource/note                                                      xnat_abstractResource14		xnat_abstractResource.note
+xnat:publicationResource/abstractResource/label                                                     xnat_abstractResource15		xnat_abstractResource.label
+xnat:publicationResource/abstractResource/file_count                                                xnat_abstractResource16		xnat_abstractResource.file_count
+xnat:publicationResource/abstractResource/file_size                                                 xnat_abstractResource17		xnat_abstractResource.file_size
+xnat:publicationResource/abstractResource/extension                                                 xnat_abstractResource18		xnat_abstractResource.extension
+xnat:publicationResource/abstractResource/abstractresource_info                                     xnat_abstractResource19		xnat_abstractResource.abstractresource_info
+xnat:publicationResource/abstractResource/xnat_abstractResource_id                                  xnat_abstractResource20		xnat_abstractResource.xnat_abstractresource_id
+xnat:publicationResource/abstractResource/xnat_imagescandata_xnat_imagescandata_id                  xnat_abstractResource21		xnat_abstractResource.xnat_imagescandata_xnat_imagescandata_id
+xnat:publicationResource/abstractResource/tags/tag/tag                                              xnat_abstractResource_tag22		xnat_abstractResource_tag.tag
+xnat:publicationResource/abstractResource/tags/tag/name                                             xnat_abstractResource_tag23		xnat_abstractResource_tag.name
+xnat:publicationResource/abstractResource/tags/tag/abstractresource_tag_info                        xnat_abstractResource_tag24		xnat_abstractResource_tag.abstractresource_tag_info
+xnat:publicationResource/abstractResource/tags/tag/xnat_abstractResource_tag_id                     xnat_abstractResource_tag25		xnat_abstractResource_tag.xnat_abstractresource_tag_id
+xnat:publicationResource/abstractResource/tags/tag/tags_tag_xnat_abstractresource_xnat_abstractresource_id	xnat_abstractResource_tag26		xnat_abstractResource_tag.tags_tag_xnat_abstractresource_xnat_abstractresource_id
+xnat:publicationResource/abstractResource/tags/tag/meta/xft_version                                 xnat_abstractResource_tag_meta_data27		xnat_abstractResource_tag_meta_data.xft_version
+xnat:publicationResource/abstractResource/tags/tag/meta/last_modified                               xnat_abstractResource_tag_meta_data28		xnat_abstractResource_tag_meta_data.last_modified
+xnat:publicationResource/abstractResource/tags/tag/meta/status                                      xnat_abstractResource_tag_meta_data29		xnat_abstractResource_tag_meta_data.status
+xnat:publicationResource/abstractResource/tags/tag/meta/activation_date                             xnat_abstractResource_tag_meta_data30		xnat_abstractResource_tag_meta_data.activation_date
+xnat:publicationResource/abstractResource/tags/tag/meta/row_last_modified                           xnat_abstractResource_tag_meta_data31		xnat_abstractResource_tag_meta_data.row_last_modified
+xnat:publicationResource/abstractResource/tags/tag/meta/insert_date                                 xnat_abstractResource_tag_meta_data32		xnat_abstractResource_tag_meta_data.insert_date
+xnat:publicationResource/abstractResource/tags/tag/meta/activation_user_xdat_user_id                xnat_abstractResource_tag_meta_data33		xnat_abstractResource_tag_meta_data.activation_user_xdat_user_id
+xnat:publicationResource/abstractResource/tags/tag/meta/insert_user_xdat_user_id                    xnat_abstractResource_tag_meta_data34		xnat_abstractResource_tag_meta_data.insert_user_xdat_user_id
+xnat:publicationResource/abstractResource/tags/tag/meta/origin                                      xnat_abstractResource_tag_meta_data35		xnat_abstractResource_tag_meta_data.origin
+xnat:publicationResource/abstractResource/tags/tag/meta/modified                                    xnat_abstractResource_tag_meta_data36		xnat_abstractResource_tag_meta_data.modified
+xnat:publicationResource/abstractResource/tags/tag/meta/shareable                                   xnat_abstractResource_tag_meta_data37		xnat_abstractResource_tag_meta_data.shareable
+xnat:publicationResource/abstractResource/tags/tag/meta/meta_data_id                                xnat_abstractResource_tag_meta_data38		xnat_abstractResource_tag_meta_data.meta_data_id
+xnat:publicationResource/abstractResource/extension_item/element_name                               xdat_meta_element39		xdat_meta_element.element_name
+xnat:publicationResource/abstractResource/extension_item/xdat_meta_element_id                       xdat_meta_element40		xdat_meta_element.xdat_meta_element_id
+xnat:publicationResource/abstractResource/meta/xft_version                                          xnat_abstractResource_meta_data41		xnat_abstractResource_meta_data.xft_version
+xnat:publicationResource/abstractResource/meta/last_modified                                        xnat_abstractResource_meta_data42		xnat_abstractResource_meta_data.last_modified
+xnat:publicationResource/abstractResource/meta/status                                               xnat_abstractResource_meta_data43		xnat_abstractResource_meta_data.status
+xnat:publicationResource/abstractResource/meta/activation_date                                      xnat_abstractResource_meta_data44		xnat_abstractResource_meta_data.activation_date
+xnat:publicationResource/abstractResource/meta/row_last_modified                                    xnat_abstractResource_meta_data45		xnat_abstractResource_meta_data.row_last_modified
+xnat:publicationResource/abstractResource/meta/insert_date                                          xnat_abstractResource_meta_data46		xnat_abstractResource_meta_data.insert_date
+xnat:publicationResource/abstractResource/meta/activation_user_xdat_user_id                         xnat_abstractResource_meta_data47		xnat_abstractResource_meta_data.activation_user_xdat_user_id
+xnat:publicationResource/abstractResource/meta/insert_user_xdat_user_id                             xnat_abstractResource_meta_data48		xnat_abstractResource_meta_data.insert_user_xdat_user_id
+xnat:publicationResource/abstractResource/meta/origin                                               xnat_abstractResource_meta_data49		xnat_abstractResource_meta_data.origin
+xnat:publicationResource/abstractResource/meta/modified                                             xnat_abstractResource_meta_data50		xnat_abstractResource_meta_data.modified
+xnat:publicationResource/abstractResource/meta/shareable                                            xnat_abstractResource_meta_data51		xnat_abstractResource_meta_data.shareable
+xnat:publicationResource/abstractResource/meta/meta_data_id                                         xnat_abstractResource_meta_data52		xnat_abstractResource_meta_data.meta_data_id
+xnat:publicationResource/meta/xft_version                                                           xnat_publicationResource_meta_data53		xnat_publicationResource_meta_data.xft_version
+xnat:publicationResource/meta/last_modified                                                         xnat_publicationResource_meta_data54		xnat_publicationResource_meta_data.last_modified
+xnat:publicationResource/meta/status                                                                xnat_publicationResource_meta_data55		xnat_publicationResource_meta_data.status
+xnat:publicationResource/meta/activation_date                                                       xnat_publicationResource_meta_data56		xnat_publicationResource_meta_data.activation_date
+xnat:publicationResource/meta/row_last_modified                                                     xnat_publicationResource_meta_data57		xnat_publicationResource_meta_data.row_last_modified
+xnat:publicationResource/meta/insert_date                                                           xnat_publicationResource_meta_data58		xnat_publicationResource_meta_data.insert_date
+xnat:publicationResource/meta/activation_user_xdat_user_id                                          xnat_publicationResource_meta_data59		xnat_publicationResource_meta_data.activation_user_xdat_user_id
+xnat:publicationResource/meta/insert_user_xdat_user_id                                              xnat_publicationResource_meta_data60		xnat_publicationResource_meta_data.insert_user_xdat_user_id
+xnat:publicationResource/meta/origin                                                                xnat_publicationResource_meta_data61		xnat_publicationResource_meta_data.origin
+xnat:publicationResource/meta/modified                                                              xnat_publicationResource_meta_data62		xnat_publicationResource_meta_data.modified
+xnat:publicationResource/meta/shareable                                                             xnat_publicationResource_meta_data63		xnat_publicationResource_meta_data.shareable
+xnat:publicationResource/meta/meta_data_id                                                          xnat_publicationResource_meta_data64		xnat_publicationResource_meta_data.meta_data_id

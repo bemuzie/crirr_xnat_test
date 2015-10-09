@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-ashkelon-plugin</id>
+  <name>Maven Ashkelon Plugin</name>
+  <currentVersion>1.2</currentVersion>
+  <description/>
+  <shortDescription>Publish javadoc to Ashkelon</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/ashkelon/</url>
+  <package>org.apache.maven.ashkelon</package>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/ashkelon/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/ashkelon/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/ashkelon/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/ashkelon/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_ASHKELON_1_1</tag>
+    </version>
+    <version>
+      <id>1.2</id>
+      <name>1.2</name>
+      <tag>MAVEN_ASHKELON_1_2</tag>
+    </version>
+  </versions>
+  <developers/>
+  <dependencies>
+    <dependency>
+      <groupId>ashkelon</groupId>
+      <artifactId>ashkelon</artifactId>
+      <version>20030312.120000</version>
+    </dependency>
+    <dependency>
+      <groupId>castor</groupId>
+      <artifactId>castor</artifactId>
+      <version>0.9.4.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.0-dev</version>
+    </dependency>
+    <dependency>
+      <jar>j2h-1.2.jar</jar>
+      <groupId>java2html</groupId>
+      <artifactId>java2html</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>mm.mysql</groupId>
+      <artifactId>mm.mysql</artifactId>
+      <version>2.0.13-bin</version>
+    </dependency>
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+  </dependencies>
+</project>

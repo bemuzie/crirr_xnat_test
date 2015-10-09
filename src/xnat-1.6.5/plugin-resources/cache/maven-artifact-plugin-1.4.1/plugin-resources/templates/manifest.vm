@@ -1,0 +1,56 @@
+Built-By: ${jellyContext.getVarable("user.name")}
+Created-By: Apache Maven
+#if (${pom.Package})
+Package: ${pom.Package}
+#end
+Build-Jdk: ${jellyContext.getVarable("java.version")}
+#if (${pom.ArtifactId})
+Extension-Name: ${pom.ArtifactId}
+#end
+#if (${pom.SpecificationVersion})
+Specification-Version: ${pom.SpecificationVersion}
+#end
+#if (${pom.Organization.Name})
+Specification-Vendor: ${pom.Organization.Name}
+#end
+#if (${pom.ShortDescription})
+Specification-Title: ${pom.ShortDescription}
+#end
+#if (${pom.CurrentVersion})
+Implementation-Version: ${pom.CurrentVersion}
+#end
+#if (${pom.Organization.Name})
+Implementation-Vendor: ${pom.Organization.Name}
+Implementation-Vendor-Id: ${pom.Organization.Name}
+#end
+
+#if(${mainclass})
+Main-Class=${mainclass}
+#end
+
+
+#if( ${addExtensions})
+  #set($extensionList = "")
+  #foreach($artifact in $pom.Artifacts)     
+     #set ($dep= $artifact.Dependency )         
+     #if( $dep.Type == "jar" )
+       #set($extensionList = "$extensionList $artifact.Dependency.ArtifactId")
+     #end  
+  #end
+  
+Extension-List: ${extensionList}
+
+  #foreach($artifact in $pom.Artifacts)
+    #set ($dep= $artifact.Dependency )      
+    #if( $dep.Type == "jar" )
+    
+${dep.ArtifactId}-Extension-Name: ${dep.ArtifactId}
+${dep.ArtifactId}-Implementation-Version: ${dep.Version}        
+        #if($dep.Url)
+${dep.ArtifactId}-Implementation-URL: ${dep.Url}        
+        #else
+${dep.ArtifactId}-Implementation-URL: http://www.ibiblio.org/maven/        
+        #end
+    #end     
+  #end  
+#end

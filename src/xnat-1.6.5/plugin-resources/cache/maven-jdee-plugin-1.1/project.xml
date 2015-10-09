@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-jdee-plugin</id>
+  <name>Maven JDEE Plug-in</name>
+  <currentVersion>1.1</currentVersion>
+  <description>A plugin to create a project file to be used within the
+  <!--
+    <a href="http://jdee.sunsite.dk/">Java Developement Enviroment for Emacw</a>
+    -->
+</description>
+  <shortDescription>JDEE Plugin for Maven</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/jdee/</url>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/jdee/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/jdee/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/jdee/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/jdee/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>MAVEN_JDEE_1_0</tag>
+    </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_JDEE_1_1</tag>
+    </version>
+  </versions>
+  <developers>
+    <developer>
+      <name>Juergen Heidak</name>
+      <id>jh</id>
+      <email>Juergen@Heidak.de</email>
+      <organization>CURSOR Software AG</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+</project>

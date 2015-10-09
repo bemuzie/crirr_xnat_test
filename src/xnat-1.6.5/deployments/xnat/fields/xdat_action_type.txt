@@ -1,0 +1,24 @@
+
+
+*********************************************
+
+ac_s_xdat_action_type_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xdat:action_type/action_name                                                                        xdat_action_type0		xdat_action_type.action_name
+xdat:action_type/display_name                                                                       xdat_action_type1		xdat_action_type.display_name
+xdat:action_type/sequence                                                                           xdat_action_type2		xdat_action_type.sequence
+xdat:action_type/action_type_info                                                                   xdat_action_type3		xdat_action_type.action_type_info
+xdat:action_type/actions_action_xdat_security_xdat_security_id                                      xdat_action_type4		xdat_action_type.actions_action_xdat_security_xdat_security_id
+xdat:action_type/meta/xft_version                                                                   xdat_action_type_meta_data5		xdat_action_type_meta_data.xft_version
+xdat:action_type/meta/last_modified                                                                 xdat_action_type_meta_data6		xdat_action_type_meta_data.last_modified
+xdat:action_type/meta/status                                                                        xdat_action_type_meta_data7		xdat_action_type_meta_data.status
+xdat:action_type/meta/activation_date                                                               xdat_action_type_meta_data8		xdat_action_type_meta_data.activation_date
+xdat:action_type/meta/row_last_modified                                                             xdat_action_type_meta_data9		xdat_action_type_meta_data.row_last_modified
+xdat:action_type/meta/insert_date                                                                   xdat_action_type_meta_data10		xdat_action_type_meta_data.insert_date
+xdat:action_type/meta/activation_user_xdat_user_id                                                  xdat_action_type_meta_data11		xdat_action_type_meta_data.activation_user_xdat_user_id
+xdat:action_type/meta/insert_user_xdat_user_id                                                      xdat_action_type_meta_data12		xdat_action_type_meta_data.insert_user_xdat_user_id
+xdat:action_type/meta/origin                                                                        xdat_action_type_meta_data13		xdat_action_type_meta_data.origin
+xdat:action_type/meta/modified                                                                      xdat_action_type_meta_data14		xdat_action_type_meta_data.modified
+xdat:action_type/meta/shareable                                                                     xdat_action_type_meta_data15		xdat_action_type_meta_data.shareable
+xdat:action_type/meta/meta_data_id                                                                  xdat_action_type_meta_data16		xdat_action_type_meta_data.meta_data_id

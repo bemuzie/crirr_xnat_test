@@ -1,0 +1,26 @@
+
+
+*********************************************
+
+ac_s_xnat_validationData_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:validationData/method                                                                          xnat_validationData0		xnat_validationData.method
+xnat:validationData/date                                                                            xnat_validationData1		xnat_validationData.date
+xnat:validationData/notes                                                                           xnat_validationData2		xnat_validationData.notes
+xnat:validationData/validated_by                                                                    xnat_validationData3		xnat_validationData.validated_by
+xnat:validationData/status                                                                          xnat_validationData4		xnat_validationData.status
+xnat:validationData/validationdata_info                                                             xnat_validationData5		xnat_validationData.validationdata_info
+xnat:validationData/xnat_validationData_id                                                          xnat_validationData6		xnat_validationData.xnat_validationdata_id
+xnat:validationData/meta/xft_version                                                                xnat_validationData_meta_data7		xnat_validationData_meta_data.xft_version
+xnat:validationData/meta/last_modified                                                              xnat_validationData_meta_data8		xnat_validationData_meta_data.last_modified
+xnat:validationData/meta/status                                                                     xnat_validationData_meta_data9		xnat_validationData_meta_data.status
+xnat:validationData/meta/activation_date                                                            xnat_validationData_meta_data10		xnat_validationData_meta_data.activation_date
+xnat:validationData/meta/row_last_modified                                                          xnat_validationData_meta_data11		xnat_validationData_meta_data.row_last_modified
+xnat:validationData/meta/insert_date                                                                xnat_validationData_meta_data12		xnat_validationData_meta_data.insert_date
+xnat:validationData/meta/activation_user_xdat_user_id                                               xnat_validationData_meta_data13		xnat_validationData_meta_data.activation_user_xdat_user_id
+xnat:validationData/meta/insert_user_xdat_user_id                                                   xnat_validationData_meta_data14		xnat_validationData_meta_data.insert_user_xdat_user_id
+xnat:validationData/meta/origin                                                                     xnat_validationData_meta_data15		xnat_validationData_meta_data.origin
+xnat:validationData/meta/modified                                                                   xnat_validationData_meta_data16		xnat_validationData_meta_data.modified
+xnat:validationData/meta/shareable                                                                  xnat_validationData_meta_data17		xnat_validationData_meta_data.shareable
+xnat:validationData/meta/meta_data_id                                                               xnat_validationData_meta_data18		xnat_validationData_meta_data.meta_data_id

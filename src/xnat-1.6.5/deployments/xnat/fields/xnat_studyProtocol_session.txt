@@ -1,0 +1,25 @@
+
+
+*********************************************
+
+ac_s_xnat_studyProtocol_session_r
+(ACTIVE - MULTIPLE - ROOT)
+
+xnat:studyProtocol_session/ID                                                                       xnat_studyProtocol_session0		xnat_studyProtocol_session.id
+xnat:studyProtocol_session/name                                                                     xnat_studyProtocol_session1		xnat_studyProtocol_session.name
+xnat:studyProtocol_session/description                                                              xnat_studyProtocol_session2		xnat_studyProtocol_session.description
+xnat:studyProtocol_session/studyprotocol_session_info                                               xnat_studyProtocol_session3		xnat_studyProtocol_session.studyprotocol_session_info
+xnat:studyProtocol_session/xnat_studyProtocol_session_id                                            xnat_studyProtocol_session4		xnat_studyProtocol_session.xnat_studyprotocol_session_id
+xnat:studyProtocol_session/imagesessiontypes_session_xnat__xnat_abstractprotocol_id                 xnat_studyProtocol_session5		xnat_studyProtocol_session.imagesessiontypes_session_xnat__xnat_abstractprotocol_id
+xnat:studyProtocol_session/meta/xft_version                                                         xnat_studyProtocol_session_meta_data6		xnat_studyProtocol_session_meta_data.xft_version
+xnat:studyProtocol_session/meta/last_modified                                                       xnat_studyProtocol_session_meta_data7		xnat_studyProtocol_session_meta_data.last_modified
+xnat:studyProtocol_session/meta/status                                                              xnat_studyProtocol_session_meta_data8		xnat_studyProtocol_session_meta_data.status
+xnat:studyProtocol_session/meta/activation_date                                                     xnat_studyProtocol_session_meta_data9		xnat_studyProtocol_session_meta_data.activation_date
+xnat:studyProtocol_session/meta/row_last_modified                                                   xnat_studyProtocol_session_meta_data10		xnat_studyProtocol_session_meta_data.row_last_modified
+xnat:studyProtocol_session/meta/insert_date                                                         xnat_studyProtocol_session_meta_data11		xnat_studyProtocol_session_meta_data.insert_date
+xnat:studyProtocol_session/meta/activation_user_xdat_user_id                                        xnat_studyProtocol_session_meta_data12		xnat_studyProtocol_session_meta_data.activation_user_xdat_user_id
+xnat:studyProtocol_session/meta/insert_user_xdat_user_id                                            xnat_studyProtocol_session_meta_data13		xnat_studyProtocol_session_meta_data.insert_user_xdat_user_id
+xnat:studyProtocol_session/meta/origin                                                              xnat_studyProtocol_session_meta_data14		xnat_studyProtocol_session_meta_data.origin
+xnat:studyProtocol_session/meta/modified                                                            xnat_studyProtocol_session_meta_data15		xnat_studyProtocol_session_meta_data.modified
+xnat:studyProtocol_session/meta/shareable                                                           xnat_studyProtocol_session_meta_data16		xnat_studyProtocol_session_meta_data.shareable
+xnat:studyProtocol_session/meta/meta_data_id                                                        xnat_studyProtocol_session_meta_data17		xnat_studyProtocol_session_meta_data.meta_data_id

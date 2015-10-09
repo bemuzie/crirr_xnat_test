@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+
+<project 
+  xmlns:j="jelly:core"
+  xmlns:ant="jelly:ant"
+  xmlns:artifact="artifact"
+  xmlns:license="license"
+  xmlns:maven="jelly:maven"
+  xmlns:util="jelly:util"
+  xmlns:x="jelly:xml"
+  >
+
+  <!--==================================================================-->
+  <!-- Default goal : Builds a ear file                                 -->
+  <!--==================================================================-->
+  <goal name="ear" prereqs="ear:ear" description="Build an ear file"/>
+
+  <!--==================================================================-->
+  <!-- Initializations                                                  -->
+  <!--==================================================================-->
+  <goal name="ear:init" 
+    description="Initialise filesystem and other resources for an ear">
+
+  </goal>
+  
+  <!--==================================================================-->
+  <!-- Builds an ear file                                               -->
+  <!--==================================================================-->
+  <goal name="ear:ear" prereqs="ear:init" description="Build an ear file">
+
+    <!-- maven.ear.src and maven.war.resources cannot have the same value -->
+    <j:if test="${context.getVariable('maven.ear.src') == context.getVariable('maven.ear.resources')}">
+       <ant:fail>Properties maven.ear.src and maven.ear.resources cannot have the same value</ant:fail>
+    </j:if>
+
+    <ant:mkdir dir="${maven.build.dir}" />
+    
+    <j:set var="finalAppxml" value="${maven.ear.descriptordir}/application.xml"/>
+    <j:set var="isGenerateAppXML" 
+           value="${context.getVariable('maven.ear.appxml.generate')}"/>
+    <!-- make sure that target directory exists -->       
+    <ant:mkdir dir="${maven.ear.descriptordir}"/>
+    <j:choose>
+       <j:when test="${isGenerateAppXML == 'true'}">
+          <attainGoal name="ear:generate-ear-descriptor"/>
+       </j:when>
+       <j:otherwise>
+          <util:available file="${maven.ear.src}/META-INF/application.xml">
+             <ant:copy file="${maven.ear.appxml}" tofile="${finalAppxml}"/>
+          </util:available>
+       </j:otherwise>
+    </j:choose>
+
+    
+    <ant:echo>Building EAR ${maven.final.name} with appxml "${finalAppxml}"</ant:echo>
+    
+    <ant:available property="maven.ear.manifest.available"
+      file="${maven.ear.manifest}"/>
+
+    <ant:ear destfile="${maven.build.dir}/${maven.final.name}.ear"
+         appxml="${finalAppxml}">
+
+      <!-- include files from maven.ear.src if available -->
+      <util:available file="${maven.ear.src}">
+        <fileset dir="${maven.ear.src}" casesensitive="false" 
+          excludes="**/META-INF/application.xml"/>
+      </util:available>
+      
+      <!-- include marked dependencies -->
+      <j:set var="tmpDependenciesDir" value="${maven.build.dir}/tmpEarDeps"/>
+      <j:forEach var="lib" items="${pom.artifacts}">
+        <j:set var="dep" value="${lib.dependency}"/>      
+        <j:if test="${dep.getProperty('ear.bundle')=='true' || dep.getProperty('ear.module')=='true'}">
+          
+          <!-- 
+           We know that this dep "wants" to be bundled.
+          -->
+                    
+          <util:file name="${lib.file.parent}/${lib.file.name}" var="checkFile" />
+          <j:if test="${!(checkFile.getAbsolutePath().equals(checkFile.getCanonicalPath()))}">
+             <ant:fail>Case-sensitive issue: The dependency ${dep.id} has a case problem.  The dependency was either retrieved in the past with the wrong case or has been specified with the wrong case in your project.xml file.  Fix your project.xml or update your local repository with the properly-cased file and try again.</ant:fail>
+          </j:if>
+
+          <ant:echo>Bundling: ${dep.type} - ${dep.id} - ${dep.version}</ant:echo>
+          <!-- define the directory where the dependency will be included -->
+          <!-- (if the property is not set, dir is the root) -->
+          <j:set var="bundleDir" value="${dep.getProperty('ear.bundle.dir')}"/> 
+          <!-- define the name of the dependency -->
+          <j:set var="bundleName" value="${dep.getProperty('ear.bundle.name')}"/> 
+          <j:if test="${empty(bundleName)}">
+             <j:set var="bundleName" value="${lib.name}"/>
+          </j:if>
+
+          <j:set var="bundlePath" value="${bundleDir}/${bundleName}"/>
+
+          <echo>Dependency ${lib.file.name} will be bundled as ${bundlePath}</echo>
+
+          <!-- after the definitions, copy the dependency -->
+          <ant:copy file="${lib.file.parent}/${lib.file.name}" tofile="${tmpDependenciesDir}/${bundlePath}"/>
+
+        </j:if>  
+      </j:forEach>
+
+      <!-- bundle all dependencies that were copied to a temporary dir -->
+      <util:available file="${tmpDependenciesDir}">
+         <ant:fileset dir="${tmpDependenciesDir}"/>
+      </util:available>
+
+      <!-- include license -->
+      <j:set var="licenseFileName"><license:fileName/></j:set>
+      <util:file name="${licenseFileName}" var="licenseFile"/>
+      <ant:metainf dir="${licenseFile.canonicalFile.parent}">
+        <ant:include name="${licenseFile.canonicalFile.name}"/>
+      </ant:metainf>
+
+      <j:if test="${maven.ear.manifest.available}">
+        <ant:setProperty name="manifest" value="${maven.ear.manifest}" />
+      </j:if>
+
+      <!-- standard manifest entries -->
+      <ant:manifest>
+        <ant:attribute name="Built-By" value="${user.name}" />
+        <ant:section name="${pom.package}">
+          <ant:attribute name="Specification-Title" value="${pom.artifactId}" />
+          <ant:attribute name="Specification-Version"
+                     value="${pom.currentVersion}" />
+          <ant:attribute name="Specification-Vendor"
+                     value="${pom.organization.name}" />
+          <ant:attribute name="Implementation-Title"
+                     value="${pom.package}" />
+          <ant:attribute name="Implementation-Version"
+                     value="${pom.currentVersion}" />
+          <ant:attribute name="Implementation-Vendor"
+                     value="${pom.organization.name}" />
+        </ant:section>
+      </ant:manifest>
+      
+      <j:if test="${!pom.build.resources.isEmpty()}">
+        <mkdir dir="${maven.ear.resources}"/>
+        <maven:copy-resources resources="${pom.build.resources}" todir="${maven.ear.resources}"/>
+        <fileset dir="${maven.ear.resources}" />
+      </j:if>
+      
+    </ant:ear>
+
+    <!-- delete temporary directory -->
+    <util:available file="${tmpDependenciesDir}">
+      <ant:delete dir="${tmpDependenciesDir}"/>
+    </util:available>
+
+  </goal>
+
+  
+  
+  <!--==================================================================-->
+  <!-- Creates ear descriptor - application.xml file                    -->
+  <!--==================================================================-->
+  <goal name="ear:generate-ear-descriptor" description="Generates the ear descriptor">
+     
+     <ant:echo>Generating appxml file:"${finalAppxml} version ${maven.ear.appxml.version} encoding: ${maven.ear.appxml.encoding}"</ant:echo>
+     
+     <j:file  name="${finalAppxml}"
+              outputMode="xml"
+              prettyPrint="true"
+              encoding="${maven.ear.appxml.encoding}"
+     >
+
+        <j:switch on="${maven.ear.appxml.version}">
+              <j:case value="1.3">
+                 <x:doctype name="application" publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" systemId="http://java.sun.com/dtd/application_1_3.dtd"/>
+              </j:case>
+              <j:default>
+                 <x:doctype name="application" publicId="-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN" systemId="http://java.sun.com/j2ee/dtds/application_1_2.dtd"/>
+              </j:default>
+        </j:switch>
+
+        <x:element name="application">
+        <x:element name="display-name">${maven.ear.displayname}</x:element>
+        <j:forEach var="lib" items="${pom.artifacts}">
+	      <j:set var="dep" value="${lib.dependency}"/>
+          <j:if test="${dep.getProperty('ear.bundle')=='true' || dep.getProperty('ear.module')=='true'}">
+            <j:choose>
+              <j:when test="${dep.type=='war'}">
+                <x:element name="module">
+                  <x:element name="web">
+                    <x:element name="web-uri">${dep.getArtifact()}</x:element>
+                    <x:element name="context-root">${dep.getProperty('ear.appxml.war.context-root')}</x:element>
+                 </x:element>                
+                </x:element>
+              </j:when>
+              <j:when test="${dep.type=='ejb'}">
+                <x:element name="module">
+                  <x:element name="ejb">${dep.getArtifact()}</x:element>                 
+                </x:element>
+              </j:when>       
+              <j:when test="${dep.type=='jar'}">
+                <j:if test="${dep.getProperty('ear.module')=='true'}">
+                  <x:element name="module">  
+                    <x:element name="java">${dep.getArtifact()}</x:element>                 
+                  </x:element>
+                </j:if>
+              </j:when>
+              <j:when test="${dep.type=='rar'}">
+                <x:element name="module">  
+                  <x:element name="connector">${dep.getArtifact()}</x:element>                 
+                </x:element>
+              </j:when>
+              <j:when test="${dep.type=='sar'}">
+                <x:element name="module">
+                  <x:element name="connector">${dep.getArtifact()}</x:element>
+                </x:element>
+              </j:when>
+            </j:choose> 
+          </j:if>        
+        </j:forEach>
+       </x:element> 
+     </j:file>  
+          
+   </goal>
+   
+
+  
+  <!--==================================================================-->
+  <!-- Install the ear in the local repository                          -->
+  <!--==================================================================-->    
+  <goal name="ear:install"
+        prereqs="ear:ear"
+        description="Install the ear in the local repository">
+     
+     <artifact:install
+        artifact="${maven.build.dir}/${maven.final.name}.ear"
+        type="ear"
+        project="${pom}"/> 
+  
+  </goal>
+  
+  <!--==================================================================-->
+  <!-- Install the snapshot version of the ear in the local repository  -->
+  <!--==================================================================-->      
+  <goal name="ear:install-snapshot"
+        prereqs="ear:ear" 
+        description="Install the snapshot version of the ear in the local repository">
+        
+      <artifact:install-snapshot
+        artifact="${maven.build.dir}/${maven.final.name}.ear"
+        type="ear"
+        project="${pom}"/> 
+        
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Deploys the ear to the remote repository                         -->
+  <!--==================================================================-->      
+  <goal name="ear:deploy" 
+        prereqs="ear:ear" 
+        description="Deploys the ear to the remote repository">
+
+     <artifact:deploy
+        artifact="${maven.build.dir}/${maven.final.name}.ear"
+        type="ear"
+        project="${pom}"/>   
+        
+  </goal>      
+        
+  <!--==================================================================-->
+  <!-- Deploys the snapshot version of the ear to the remote repository         -->
+  <!--==================================================================-->      
+  <goal name="ear:deploy-snapshot" 
+        prereqs="ear:ear"
+        description="Deploys the snapshot version of  the ear to remote repository">  
+
+     <artifact:deploy-snapshot
+        artifact="${maven.build.dir}/${maven.final.name}.ear"
+        type="ear"
+        project="${pom}"/>    
+        
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Special no-op goal which can be used by other plugin which need  -->
+  <!-- to get access to any of this plugin's property. This is          -->
+  <!-- temporary, until we get explicit plugin dependencies.            -->
+  <!--==================================================================-->    
+  <goal name="ear:load">
+    <echo>DEPRECATED: do not use ear:load, there is no need</echo>
+  </goal>
+   
+ 
+
+</project>

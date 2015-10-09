@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+/*
+ * Copyright 2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../plugin-parent/project.xml</extend>
+  <pomVersion>3</pomVersion>
+  <id>maven-jetty-plugin</id>
+  <name>Maven Jetty plugin</name>
+  <currentVersion>1.1</currentVersion>
+  <shortDescription>Run Jetty</shortDescription>
+  <url>http://maven.apache.org/reference/plugins/jetty/</url>
+  <issueTrackingUrl>http://jira.codehaus.org/BrowseProject.jspa?id=10421</issueTrackingUrl>
+  <siteDirectory>/www/maven.apache.org/reference/plugins/jetty/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/jetty/</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-plugins/jetty/</developerConnection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/jetty/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>MAVEN_JETTY_1_0</tag>
+    </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>MAVEN_JETTY_1_1</tag>
+    </version>
+  </versions>
+  <developers>
+    <developer>
+      <name>Vincent Massol</name>
+      <id>vmassol</id>
+      <email>vmassol@pivolis.com</email>
+      <organization>Pivolis</organization>
+      <roles>
+        <role>Creator</role>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>jetty</groupId>
+      <artifactId>org.mortbay.jetty</artifactId>
+      <version>4.2.17</version>
+      <url>http://jetty.mortbay.org</url>
+    </dependency>
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-compiler</artifactId>
+      <version>4.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-runtime</artifactId>
+      <version>4.0.4</version>
+    </dependency>
+    <!-- VMA: I don't know why but this dependency is required for some
+         persons -->
+
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
+      <version>20030211.142705</version>
+    </dependency>
+  </dependencies>
+</project>
