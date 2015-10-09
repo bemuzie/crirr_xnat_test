@@ -1,2 +1,0 @@
-#!/bin/bash
-java  -mx250m -ms250m  -cp "/data/xnat/pipeline"/lib/provenanceutils.jar:"/data/xnat/pipeline"/lib/saxon9.jar:"/data/xnat/pipeline"/lib/xercesImpl-2.4.0.jar  net.sf.saxon.Transform    -x org.apache.xerces.parsers.SAXParser -w1    $@

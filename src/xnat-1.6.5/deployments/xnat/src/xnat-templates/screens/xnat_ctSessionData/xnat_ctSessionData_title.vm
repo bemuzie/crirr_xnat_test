@@ -1,3 +1,0 @@
-<!--BEGIN /xnat-templates/screens/xnat_ctSessionData/xnat_ctSessionData_title.vm -->
-<DIV id="report_title" class="edit_title">$om.getSchemaElement().getSingularDescription(): #if($!om.getIdentifier($project,true))$!om.getIdentifier($project,true)#elseif($om.getLabel())$om.getLabel()#else$om.getId()#end</DIV>
-<!--END /xnat-templates/screens/xnat_ctSessionData/xnat_ctSessionData_title.vm -->

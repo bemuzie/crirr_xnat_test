@@ -1,5 +1,0 @@
-#set ($template = $data.getTemplateInfo())
-$!template.setLayoutTemplate("ScreenOnly.vm")
-#if ($data.message)
-<DIV class="error">$data.message</DIV><br>
-#end

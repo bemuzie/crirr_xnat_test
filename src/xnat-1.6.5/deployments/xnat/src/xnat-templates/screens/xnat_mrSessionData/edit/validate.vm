@@ -1,3 +1,0 @@
-			<!-- BEGIN /screens/xnat_mrSessionData/validate.vm -->
-			#parse($turbineUtils.getTemplateName("validate.vm","xnat:imageSessionData",$project,"edit"))
-			<!-- END /screens/xnat_mrSessionData/validate.vm -->

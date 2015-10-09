@@ -1,2 +1,0 @@
-This project has not defined any specific license 
-within the Maven build system.

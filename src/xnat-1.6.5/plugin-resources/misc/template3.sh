@@ -1,1 +1,0 @@
-java -jar %XNAT_HOME%/lib/%JAR_NAME% $@

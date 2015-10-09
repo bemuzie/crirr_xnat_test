@@ -1,6 +1,0 @@
-#callbacks cache
-#Wed Oct 07 13:46:28 UTC 2015
-java\:compile.pre=maven-antlr-plugin-1.2.1
-xdoc\:jelly-transform.post=maven-linkcheck-plugin-1.3.4
-xdoc\:init.pre=maven-html2xdoc-plugin-1.3.1
-xdoc.pre=maven-latex-plugin-1.4.1

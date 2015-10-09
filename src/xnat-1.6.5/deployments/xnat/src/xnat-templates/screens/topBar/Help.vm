@@ -1,6 +1,0 @@
-<!-- Sequence: 60 -->
-<li><a href="#help">Help</a>
-    <ul>
-        #addGlobalCustomScreens("topBar/Help")
-    </ul>
-</li>

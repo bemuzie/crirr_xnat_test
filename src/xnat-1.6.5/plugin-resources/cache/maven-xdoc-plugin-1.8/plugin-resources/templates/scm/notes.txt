@@ -1,2 +1,0 @@
-o we templates and instructions for each of the SCM products, we probably
-should also keep in mind instructions in different languages.

@@ -1,1 +1,0 @@
-java -jar /data/xnat/src/xnat-1.6.5\lib\xnat-data-client-1.6.5-jar-with-dependencies.jar %*
